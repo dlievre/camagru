@@ -67,7 +67,7 @@ body {
 #fonds { background-color: #000000; margin: 10px; border: 1px solid #666666}
 #fond { background-color: #000000;}
 
-/*.user_img { background-color: #000000; margin: 10px; border: 1px solid #666666}*/
+.user_img { background-color: #000000; margin: 10px; border: 1px solid #666666}*/
 
 .header_titre {	float: left; margin : 5px;}
 .header_user {	float: right; margin : 5px;}

@@ -65,7 +65,7 @@ foreach ( $list_img as $key => $value)
 		if ( ++$compteur > 9 )  { print '<br />'; $compteur = 0; }
 		$id = substr($value, 0, strlen($value)-4);
 		
-		print '<img onclick="traitement.changefond('."'".$id."')".'" '.$taille_img.'id="'.$id.'" class="fond" src="'.$dir_user.$value.'"><br /> ';
+		print '<img onclick="traitement.changefond('."'".$id."')".'" '.$taille_img.'id="'.$id.'" class="user_img" src="'.$dir_user.$value.'"><br /> ';
 	}
 
 }
