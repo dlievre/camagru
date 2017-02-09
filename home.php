@@ -3,6 +3,7 @@ require_once('includes.php');
 if ($_SESSION['valide'] != 'ok') {header('Location: login.php');}
 require_once('head.php');
 require_once('header.php');
+print '<script src="camera.js" type="text/javascript"></script>';
 
 print('<div id="main">');
 ?>
@@ -11,6 +12,15 @@ print('<div id="main">');
 #canvas { border: 1px solid #000000;margin : 0;}
 .btn { padding: 5px; margin: 10px;}
 </style>
+
+
+
+<div><input type="button" onclick="traitement.uploadEx()" value="Upload" /></div>
+<form method="post" accept-charset="utf-8" name="form1">
+<input name="hidden_data" id='hidden_data' type="hidden"/>
+<input name="hidden_fond" id='hidden_fond' type="hidden"/>
+</form>
+
 <?php
 print('<video style="display:inline" width="514px" height="386" id="video"></video>');
 print('<canvas style="display:none" width="514px" height="386"  id="canvas"></canvas>');
