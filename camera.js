@@ -4,7 +4,7 @@ class Cfusion
   constructor(fond)
   {
 
-    alert('fond construct : '+this.fond+' ' +fond);
+    //alert('fond construct : '+this.fond+' ' +fond);
     this.fond_select = fond; // this est important pour une variable de la classe et non de fonction
     //alert(' fond initial '+this.fond_select);
 
@@ -75,7 +75,7 @@ class Cfusion
   changefond(nom)
   {
   this.fond_select = nom;
-  alert(' changement du fond : '+this.fond_select);
+ alert(' changement du fond : '+this.fond_select);
   }
 
 }

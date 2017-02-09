@@ -11,8 +11,19 @@ body {
 	display: inline-block;
 	width: 80%;
 	vertical-align: top;
-	height: 100px;
+	height: auto;
 	margin: 1em;
+	border: 1px solid #666666 ;
+}
+
+#global {
+	display: block;
+	width: 80%;
+	height: auto;
+	vertical-align: top;
+	/*text-align: left;*/
+	margin: 1em;
+	padding: 10px;
 	border: 1px solid #666666 ;
 }
 
@@ -22,6 +33,16 @@ body {
 	height: auto;
 	vertical-align: top;
 	text-align: left;
+	margin: 1em;
+	padding: 10px;
+	border: 1px solid #666666 ;
+}
+#user_img {
+	display: inline-block;
+	width: 200px;
+	height: auto;
+	vertical-align: top;
+	text-align: center;
 	margin: 1em;
 	padding: 10px;
 	border: 1px solid #666666 ;
@@ -43,8 +64,10 @@ body {
 
 
 
-.fonds { background-color: #000000; margin: 10px; border: 1px solid #666666}
-.fond { background-color: #000000;}
+#fonds { background-color: #000000; margin: 10px; border: 1px solid #666666}
+#fond { background-color: #000000;}
+
+/*.user_img { background-color: #000000; margin: 10px; border: 1px solid #666666}*/
 
 .header_titre {	float: left; margin : 5px;}
 .header_user {	float: right; margin : 5px;}
