@@ -11,19 +11,24 @@ body {
 	display: inline-block;
 	width: 80%;
 	vertical-align: top;
-	height: auto;
+	height: 120px;
 	margin: 1em;
 	border: 1px solid #666666 ;
 }
 
+#header_titre {	position: relative; text-align:  left; vertical-align: top; margin : 5px;}
+#header_user {  position: relative; text-align: right; vertical-align: top; margin : 10px;}
+#header_menu { position: relative; height: 100%; text-align: center; vertical-align: bottom; margin : 0px;}
+
+
 #global {
-	display: block;
+	display: inline-block;
 	width: 80%;
 	height: auto;
 	vertical-align: top;
 	/*text-align: left;*/
 	margin: 1em;
-	padding: 10px;
+	padding: 0px;
 	border: 1px solid #666666 ;
 }
 
@@ -32,7 +37,7 @@ body {
 	width: 550px;
 	height: auto;
 	vertical-align: top;
-	text-align: left;
+	text-align: center;
 	margin: 1em;
 	padding: 10px;
 	border: 1px solid #666666 ;
@@ -67,21 +72,20 @@ body {
 #fonds { background-color: #000000; margin: 10px; border: 1px solid #666666}
 #fond { background-color: #000000;}
 
-.user_img { background-color: #000000; margin: 10px; border: 1px solid #666666}*/
+.user_img { background-color: #000000; margin: 10px; border: 1px solid #666666}
 
-.header_titre {	float: left; margin : 5px;}
-.header_user {	float: right; margin : 5px;}
-p.header_user {color: #BBBBBB; text-align: right;}
-p.header_user a:link, p  a:link {color: #BBBBBB;}
-p.header_user a:visited, p  a:visited  {color: #BBBBBB;}
-p.header_user a:hover, p  a:hover  {color: #FFFFFF;}
 
-p.content  {color: #BBBBBB;}
+p.header_user {color: #BBBBBB; }
+p.header_user a:link, p a:link {  color: #BBBBBB;}
+p.header_user a:visited, p a:visited  { color: #BBBBBB;}
+p.header_user a:hover, p a:hover  {  color: #FFFFFF;}
+ 
 p.lien  {color: #FFFFFF;}
 p.msg_err  {color: #ff6600;}
+span.menu  {color: #CCCCCC; margin: 0px 5px 0px 5px;}
 
 h1	{
-	text-align: left;
+	float: left;
 	margin-top: 20px;
 	margin-left: 20px;
 	margin-bottom: 40px;

@@ -26,6 +26,8 @@ else
     	<script  type="text/javascript">
     	var elem = document.querySelector(\'#header_user\');
     	elem.style.display = "none";
+    	var elem = document.querySelector(\'#header_menu\');
+    	elem.style.display = "none";
     	</script>';
     	include ('footer.php');
     }
