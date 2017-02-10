@@ -7,5 +7,5 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Titillium+Web" rel="stylesheet">
 <link rel="stylesheet" href="base.css" type="text/css">
 </head>
-<body>
+<body onload="traitement.get_id()">
 <div>

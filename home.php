@@ -3,7 +3,7 @@ require_once('includes.php');
 if ($_SESSION['valide'] != 'ok') {header('Location: login.php');}
 require_once('head.php');
 require_once('header.php');
-print '<script src="camera.js" type="text/javascript"></script>';
+
 
 print('<div id="global">');
 print('<div id="main">');
@@ -13,28 +13,31 @@ print('<div id="main">');
 #canvas { border: 1px solid #000000;margin : 0;}
 .btn { padding: 5px; margin: 10px;}
 </style>
-
-
 <?php
 $Id = $_SESSION['Id'];
 
-print "<div><input type='button' onclick='traitement.uploadEx()' value='Upload' /></div>";
+
 print "<form method='post' accept-charset='utf-8' name='form1'>";
 print "<input name='hidden_data' id='hidden_data' type='hidden'/>";
-print "<input name='hidden_fond' id='hidden_fond' type='hidden' value=''/>";
+print "<input name='hidden_fond' id='hidden_fond' type='hidden'/>";
 //print "<input name='hidden_id' id='hidden_id' type='hidden' value='$Id'/>";
 print "</form>";
 
 
 print('<video style="display:inline" width="514px" height="386" id="video"></video>');
 print('<canvas style="display:none" width="514px" height="386"  id="canvas"></canvas>');
-print('<div class="btn"><button id="draw2" onclick="traitement.draw(\'fond01\');">Prendre une photo</button></div>');
+print('<div id="draw" style="display:none"><button id="btn_draw" onclick="traitement.draw(\'fond01\');">Prendre une photo</button></div>');
+print('<div id="activer_camera" style="display:none"><button id="btn_cam" onclick="traitement.camera();">Revenir à la caméra</button></div>');
+print '<div id="transfert" style="display:none"><input type="button" onclick="traitement.uploadEx()" value="Transferer un Fichier..." /></div>';
 
-// afficher les fonds
 $dir_fonds = "fonds";
 $listfond = scandir ('fonds');
 $taillefond = ' width="51px" ';
 print('<div id="fonds">');
+$CPrint = new CPrint;
+print ('<div id="msg_fonds">');
+$CPrint->content(' Choisissez votre fond avant de prendre la photo', 'content');
+print ('</div>');
 $compteur = 0;
 foreach ( $listfond as $key => $value)
 {
@@ -71,6 +74,6 @@ foreach ( $list_img as $key => $value)
 }
 print('</div>'); // div  img_user
 print('</div>'); // div  global
-	
+print '<script src="camera.js" type="text/javascript"></script>';
 include ('footer.php');
 ?>
