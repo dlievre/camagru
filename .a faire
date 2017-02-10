@@ -4,3 +4,7 @@ fonction delete les images
 envoyer mail , voir projet pdf
 envoyer fichier par simple transfert
 nettoyer le code
+
+bugs constatés
+la vidéo sur mon portable est plus petite que les 386 pixels du canvas, ce qui a un impacte sur le resultat qui s'agrandit en hauteur
+il faut voir comment en javascript gérer cela
