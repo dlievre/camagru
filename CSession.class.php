@@ -1,7 +1,7 @@
 <?php
 Class CSession
 {
-
+    //tp
     public static $verbose = False;
     private $servername = "localhost";
     private $username = "root";
@@ -32,7 +32,7 @@ Class CSession
             while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
                     if ($lignes->email == $email && $lignes->Password == $Password && $lignes->Confirm == 1)
                     {
-                        $this->set_session($lignes->email, $lignes->Nom, $lignes->Prenom, $lignes->Confirm );
+                        $this->set_session($lignes->email, $lignes->Nom, $lignes->Prenom, $lignes->Confirm, $lignes->Id );
                         $retour = 'user_login';
                     }
                     if ($lignes->email == $email && $lignes->Password == $Password && $lignes->Confirm == 0)
@@ -68,6 +68,7 @@ Class CSession
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
             while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
+                $tbl['Id'] = $lignes->Id;
                 $tbl['email'] = $lignes->email;
                 $tbl['Nom'] = $lignes->Nom;
                 $tbl['Prenom'] = $lignes->Prenom;
@@ -236,8 +237,9 @@ Class CSession
         return;
     }
 
-    public function set_session($email, $nom, $prenom, $confirm)
+    public function set_session($email, $nom, $prenom, $confirm, $Id)
    {
+        $_SESSION['Id'] = $Id;
         $_SESSION['email'] = $email;
         $_SESSION['Nom'] = $nom;
         $_SESSION['Prenom'] = $prenom;
