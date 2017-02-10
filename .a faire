@@ -1,12 +1,12 @@
-						validation confirmation dèun nouvel user
-						trier les images par ordre croissant ou decroissant, voir pdf projet
-						fonction delete les images
+		validation confirmation d'un nouvel user
+		trier les images par ordre croissant ou decroissant, voir pdf projet
+		fonction delete les images
             envoyer mail , voir projet pdf
 (Tpasqual)  envoyer fichier par simple transfert 
-						nettoyer le code
-(dlievre)		ne pas faire apparaitre le btn prendre la photo si fond non sélectionné 
-(dlievre)		après prise de photo rafraichir fichier pris et ajout bouton caméra pour nouvelle photo (dlievre)
+		nettoyer le code
+(dlievre)	ne pas faire apparaitre le btn prendre la photo si fond non sélectionné 
+(dlievre)	après prise de photo rafraichir fichier pris et ajout bouton caméra pour nouvelle photo (dlievre)
 
 bugs constatés
-la vidéo sur mon portable est plus petite que les 386 pixels du canvas, ce qui a un impacte sur le resultat qui s'agrandit en hauteur
+la vidéo sur mon portable est plus petite que les 386 pixels du canvas, ce qui a un impact sur le resultat qui s'agrandit en hauteur
 il faut voir comment en javascript gérer cela
