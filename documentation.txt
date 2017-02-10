@@ -1,17 +1,20 @@
 Class CForm
 	FormTitre($titre)
 	Form($uri, $class, $method )
-	InputLabel($labelFor, $labelTitre, $id)
-	InputText($Titre, $id, $post)
-	InputMail($Titre, $id, $post)
-	InputSelect($Titre, $id, $tbl, $selected)
-	InputPassword($Titre, $id)
+	InputLabel($labelTitre, $id, $labelFor)
+	InputText($Titre, $id, $post, $required)
+	InputMail($Titre, $id, $post, $required)
+	InputSelect($Titre, $id, $tbl, $required, $selected)
+	InputPassword($Titre, $id, $required)
 	Submit($Titre, $id)
+	function InputTextChk($tbl)		contrÃ´le si les champs ne sont pas vide
 	
 Class CInscription
-	send_validation($email, $Prenom, $Nom, $Keyconfirm)	envoi un email de validation
-	set_key_validation($email)		crée la clé de validation d'inscription
-	get_key_validation()			recupère la clé de validation d'inscription
+	send_validation($email, $Prenom, $Nom, $Keyuser)	envoi un email de validation
+	send_reinitialisation($email)	renvoi un mail de rÃ©initialisation	
+	set_key_validation($email)		crÃ©e la clÃ© de validation d'inscription
+	get_key_validation($email)		recupÃ¨re la clÃ© de validation d'inscription
+	set_key_reinit($email)			rÃ©initialise la clÃ© pour le mot de passe
 	send_email($email, $sujet, $message, $from)
 	
 Class CPrint
@@ -22,17 +25,22 @@ Class CPrint
 	content_array($Tab, $class)		affiche un tableau a 2 dimensions
 	
 Class CSession
-	user_login()				vérifie si le user est valide	
+	user_login()				vÃ©rifie si le user est valide
+	user_info($email)			lit dans la base les info d'un user
 	user_add()				ajoute le nouvel user dans la table
 	send_validation()			envoi un email de validation
-	user_exist()				vérifie si l'user est dans la table
+	user_exist($email)			vÃ©rifie si l'user est dans la table
+	userkey_exist($key)			vÃ©rifie si la key existe
 	set_session($email, $Nom, $Prenom, $valid)	set les variables de session
-	user_list()				liste les users  (réservé superuser)
-	get_Profile()				recupère les info de sessions
+	user_pass_hash($var)			gÃ©nÃ¨re le hash du mot de passe
+	user_pass_modify($email, $pass)			modification mot de passe
+	user_list()				liste les users  (rÃ©servÃ© superuser)
+	get_Profile()				recupÃ¨re les info de sessions
 	kill_session()				stop la session et les variables de session
-	static function doc()				return le contenu du fichier documentation
-	password_reinit ($email)		réinitialise le password avec la question secréte
-	function secure($var) ....
+	static function doc()			return le contenu du fichier documentation
+	maj_key	($email)			mise a jour de la key du user (confirm ou reinit)
+	function secure($var)			requÃªte SQL, permet de sÃ©curiser en ajoutant '' a la variable
+	function ismajuscule ($var)		teste si il y a une majuscule, utile pour le mot de passe
 	
 //send_validation
 //cle_validation
@@ -40,3 +48,5 @@ Class CSession
 //validation_user
 //reset_password
 //remove_user
+
+	password_reinit ($email)		rÃ©initialise le password avec la question secrÃ©te
