@@ -7,19 +7,13 @@ class Cfusion
     //alert(document.querySelector('#activer_camera'));
 
     this.fond_select = fond; // this est important pour une variable de la classe et non de fonction 
-    this.previous_imgt_id = ''; // gestion du bord de  l'imagette fond
+    this.previous_imgt_id = ''; // gestion du bord de l'imagette fond 
     var video = document.querySelector('#video');
-    this.btn_activer_camera = document.querySelector('#activer_camera');
+    //this.btn_activer_camera = document.querySelector('#activer_camera');
+    // seul this.btn_activer_camera peut être utiliser dans une methode de la class
+    // donc pas nécessaire
+    // il suffit d'utiliser activer_camera.style.display == "none" sans document.querySelector ou getElementById
 
-    /*var transfert = document.getElementById('transfert');
-    var canvas = document.getElementById("canvas"); // div du canvas
-    var inputfond = document.getElementById("hidden_fond"); // div du canvas
-    var msg_fonds = document.querySelector('#msg_fonds');
-    var draw = document.querySelector('#draw');
-    var div_video = document.querySelector('#div_video');
-    var div_fond = document.querySelector('#div_fond');
-    var div_fond_text = document.querySelector('#div_fond_text');
-    var div_canvas = document.querySelector('#div_canvas');*/
     // Prefer camera resolution nearest to 1280x720.
     var constraints = { audio: false, video: { width: 514, height: 386 } }; 
 
@@ -82,7 +76,7 @@ class Cfusion
 
   changefond(id)
   {
-    //alert(document.querySelector('this.btn_activer_camera'));
+    //alert(activer_camera.style.display);
     this.fond_select = id;
     if (activer_camera.style.display == "none" ) draw.style.display = "inline";
     transfert.style.display = "inline";
@@ -97,11 +91,13 @@ class Cfusion
     // mise a jour text div fond et hidden
     div_fond_text.innerHTML = id;
     div_fond_text.style.display = "none";
-    
-
-
-    
+        
   }
+
+  test()
+{alert(document.querySelector('#activer_camera')+' this'+this.btn_activer_camera+' btn ');
+this.btn_activer_camera.style.display = "inline";
+}
 
   camera()
   {

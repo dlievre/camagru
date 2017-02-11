@@ -29,12 +29,12 @@ print('<div  id="div_video"><video id="video"  width="514px" height="386px"></vi
 print('<div  id="div_fond" width="514px" height="386px"><p id="div_fond_text">Choisir votre fond<p></div>');
 print('<div  id="div_canvas"><canvas style="display:none" width="514px" height="386px"  id="canvas"></canvas></div>');
 
-
+print '</div>'; // fin div div_video_fond
 print('<div id="draw" style="display:none"><button id="btn_draw" onclick="traitement.draw(\'fond01\');">Prendre une photo</button></div>');
 print('<div id="activer_camera" style="display:none"><button id="btn_cam" onclick="traitement.camera();">Revenir à la caméra</button></div>');
 print '<div id="transfert" style="display:none"><input type="button" onclick="traitement.uploadEx()" value="Transférer un Fichier..." /></div>';
+print('<div id="test" style="display:none"><button id="btn_test" onclick="traitement.test(\'fond01\');">test</button></div>');
 
-print '</div>'; // fin div div_video_fond
 $dir_fonds = "fonds";
 $listfond = scandir ('fonds');
 $taillefond = ' width="51px" ';
