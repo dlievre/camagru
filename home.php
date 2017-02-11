@@ -28,20 +28,19 @@ print '<div id="div_video_fond">';
 print('<div  id="div_video"><video id="video"  width="514px" height="386px"></video></div>');
 print('<div  id="div_fond" width="514px" height="386px"><p id="div_fond_text">Choisir votre fond<p></div>');
 print('<div  id="div_canvas"><canvas style="display:none" width="514px" height="386px"  id="canvas"></canvas></div>');
-print '</div>';
+
 
 print('<div id="draw" style="display:none"><button id="btn_draw" onclick="traitement.draw(\'fond01\');">Prendre une photo</button></div>');
 print('<div id="activer_camera" style="display:none"><button id="btn_cam" onclick="traitement.camera();">Revenir à la caméra</button></div>');
 print '<div id="transfert" style="display:none"><input type="button" onclick="traitement.uploadEx()" value="Transférer un Fichier..." /></div>';
 
+print '</div>'; // fin div div_video_fond
 $dir_fonds = "fonds";
 $listfond = scandir ('fonds');
 $taillefond = ' width="51px" ';
-print('<div id="fonds">');
+print('<div id="fonds" width="514px">');
 $CPrint = new CPrint;
-print ('<div id="msg_fonds">');
-$CPrint->content(' Choisissez votre fond avant de prendre la photo', 'content');
-print ('</div>');
+
 $compteur = 0;
 foreach ( $listfond as $key => $value)
 {
@@ -50,11 +49,15 @@ foreach ( $listfond as $key => $value)
 		if ( ++$compteur > 9 )  { print '<br />'; $compteur = 0; }
 		$id = substr($value, 0, strlen($value)-4);
 		
-		print '<img onclick="traitement.changefond('."'".$id."')".'" '.$taillefond.'id="'.$id.'" class="fond" src="fonds/'.$value.'"> ';
+		print '<img onclick="traitement.changefond('."'".$id."')".'" '.$taillefond.'id="'.$id.'" class="img_fond" src="fonds/'.$value.'"> ';
 	}
 
 }
+print ('<div id="msg_fonds">');
+$CPrint->content(' Choisissez votre fond avant de prendre la photo', 'content');
+print ('</div>');
 print('</div>'); // div fonds
+
 print('</div>'); // fin div main
 
 
@@ -63,7 +66,7 @@ $dir_user = "upload/user_".$Id.'/';
 if (!is_dir($dir_user)) mkdir($dir_user, 0700);
 $list_img = scandir ($dir_user);
 $taille_img = ' width="100px" ';
-print('<div id="user_img">');
+print('<div id="user_imgs">');
 $compteur = 0;
 foreach ( $list_img as $key => $value)
 {

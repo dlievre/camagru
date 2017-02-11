@@ -4,12 +4,14 @@ class Cfusion
 
   constructor(fond)
   {
+    //alert(document.querySelector('#activer_camera'));
 
     this.fond_select = fond; // this est important pour une variable de la classe et non de fonction 
     this.previous_imgt_id = ''; // gestion du bord de  l'imagette fond
     var video = document.querySelector('#video');
-    var activer_camera = document.querySelector('#activer_camera');
-    var transfert = document.getElementById('transfert');
+    this.btn_activer_camera = document.querySelector('#activer_camera');
+
+    /*var transfert = document.getElementById('transfert');
     var canvas = document.getElementById("canvas"); // div du canvas
     var inputfond = document.getElementById("hidden_fond"); // div du canvas
     var msg_fonds = document.querySelector('#msg_fonds');
@@ -17,8 +19,7 @@ class Cfusion
     var div_video = document.querySelector('#div_video');
     var div_fond = document.querySelector('#div_fond');
     var div_fond_text = document.querySelector('#div_fond_text');
-    var div_canvas = document.querySelector('#div_canvas');
-
+    var div_canvas = document.querySelector('#div_canvas');*/
     // Prefer camera resolution nearest to 1280x720.
     var constraints = { audio: false, video: { width: 514, height: 386 } }; 
 
@@ -81,18 +82,19 @@ class Cfusion
 
   changefond(id)
   {
+    //alert(document.querySelector('this.btn_activer_camera'));
     this.fond_select = id;
     if (activer_camera.style.display == "none" ) draw.style.display = "inline";
     transfert.style.display = "inline";
     msg_fonds.style.display = "none";
     var imagette_fond = document.getElementById(id); // div du fond souhaité
-    imagette_fond.style.border='2px solid #E8272C';
+    imagette_fond.style.border='1px solid #E8272C';
     // on desactive le bord de l'ancien fond
     if (this.previous_imgt_id) {var previous = this.previous_imgt_id; var imgt_fond_previous = document.getElementById(previous); imgt_fond_previous.style.border='0px solid #E8272C';}
-    var url = "url('fonds/"+id+".png')"; // on recupère le nom 
+    var url = "url('fonds/"+id+".png')"; // on recupère le nom du fond
     div_fond.style.backgroundImage = url ;//= 'fonds/fond01.png';
     this.previous_imgt_id = id;
-    // mise a jour text div fond
+    // mise a jour text div fond et hidden
     div_fond_text.innerHTML = id;
     div_fond_text.style.display = "none";
     
