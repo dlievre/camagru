@@ -14,6 +14,7 @@ if ($_SESSION["valide"]=='ok') {
 	print '</p></div>';
 
 	print '<div id="header_menu" class="header_menu"><p class="header_menu">';
+	print '<a href="galerie.php">Galerie</a>'.'<span class="menu"> | </span>';
 	print '<a href="logoff.php">Log out</a>'.'<span class="menu"> | </span>';
 	print '<a href="profile.php">Profile</a>'.'<span class="menu"> | </span>';
 	print '<a href="index.php">Home</a>';

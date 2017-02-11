@@ -3,6 +3,7 @@ require_once('includes.php');
 if ($_SESSION['valide'] != 'ok') {header('Location: login.php');}
 require_once('head.php');
 require_once('header.php');
+//$CPrint = new CPrint();
 
 
 print('<div id="global">');
@@ -23,12 +24,15 @@ print "<input name='hidden_fond' id='hidden_fond' type='hidden'/>";
 //print "<input name='hidden_id' id='hidden_id' type='hidden' value='$Id'/>";
 print "</form>";
 
+print '<div id="div_video_fond">';
+print('<div  id="div_video"><video id="video"  width="514px" height="386px"></video></div>');
+print('<div  id="div_fond" width="514px" height="386px"><p id="div_fond_text">Choisir votre fond<p></div>');
+print('<div  id="div_canvas"><canvas style="display:none" width="514px" height="386px"  id="canvas"></canvas></div>');
+print '</div>';
 
-print('<video style="display:inline" width="514px" height="386" id="video"></video>');
-print('<canvas style="display:none" width="514px" height="386"  id="canvas"></canvas>');
 print('<div id="draw" style="display:none"><button id="btn_draw" onclick="traitement.draw(\'fond01\');">Prendre une photo</button></div>');
 print('<div id="activer_camera" style="display:none"><button id="btn_cam" onclick="traitement.camera();">Revenir à la caméra</button></div>');
-print '<div id="transfert" style="display:none"><input type="button" onclick="traitement.uploadEx()" value="Transferer un Fichier..." /></div>';
+print '<div id="transfert" style="display:none"><input type="button" onclick="traitement.uploadEx()" value="Transférer un Fichier..." /></div>';
 
 $dir_fonds = "fonds";
 $listfond = scandir ('fonds');
