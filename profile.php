@@ -1,7 +1,6 @@
 <?php
 require_once('includes_session.php');
 
-
 if ($_SESSION['valide'] == 'ok')
 {
   $session = new CSession();
@@ -16,7 +15,7 @@ if ($_SESSION['valide'] == 'ok')
   //$print->profil('Profile Utilisateur', $TabProfil);
 
   $CPrint->titre('Profile Utilisateur');
-  $CPrint->content_array($TabProfil, 'form');
+  $CPrint->content_array($TabProfil, 'content_left', 'content_left');
 
   print('</div>'); 
   include ('footer.php');

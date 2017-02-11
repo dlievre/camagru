@@ -90,9 +90,15 @@ class Cfusion
     this.previous_imgt_id = id;
     // mise a jour text div fond et hidden
     div_fond_text.innerHTML = id;
-    div_fond_text.style.display = "none";
-        
+    div_fond_text.style.display = "none";   
   }
+
+   img_delete(id)
+  {
+    var image = document.getElementById(id); // div du fond souhaité
+    image.style.border='1px solid #E8272C';
+    alert('supprimer cette image');
+  } 
 
   test()
 {alert(document.querySelector('#activer_camera')+' this'+this.btn_activer_camera+' btn ');

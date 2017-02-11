@@ -1,15 +1,15 @@
 <?php
-print '<div>';
+if(!isset($_SESSION)) {session_start();}
 print '<div id="header"><div class="header_titre"><h1>Camagru</h1></div>';
 
-if ($_SESSION["valide"]=='ok') {
-	$status = ' : Login';
+if ($_SESSION["valide"] == 'ok') {
+	$status = 'Login';
 	$nom = 'Nom';
 	$SuperUser = '';
 	if ($_SESSION['Superuser'] == 'yes')
 		$SuperUser = '<a href="superuser.php">SuperUser</a><br />';
 	print '<div id="header_user" class="header_user"><p class="header_user">';
-	print $_SESSION["email"].$status.'<br />';
+	print $status.'<br />'.$_SESSION["email"].'<br />';
 	print $SuperUser;
 	print '</p></div>';
 
@@ -28,5 +28,5 @@ else
 	print '</p></div>';
 }
 
-print '</div>';
+print '</div>'; // fin div header
 ?>

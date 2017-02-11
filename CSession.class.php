@@ -1,4 +1,5 @@
 <?php
+if(!isset($_SESSION)) {session_start();}
 Class CSession
 {
     //tp
@@ -9,7 +10,6 @@ Class CSession
     private $dbname = "camagru";
     private $tbl = "tbl_camagru";
     //private $conn =''; pas necessaire
-
 
     public function __construct()
     {
@@ -210,25 +210,25 @@ Class CSession
         return (hash('whirlpool',$pass));
     }
 
-    public function user_list() // reservé superuser
+    public function user_list($class1, $class2) // reservé superuser
     {
         try {
             //$conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
             //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $requete = $this->conn->prepare("SELECT Id, Nom, Prenom, email, Confirm, Keyuser FROM ".$this->tbl); 
             $requete->execute();
-            print '<p><table>';
+            print '<table>';
             while($lignes=$requete->fetch(PDO::FETCH_OBJ))
                 {
-                    print '<tr><td>'.$lignes->Id.'</td>';
-                    print '<td>'.$lignes->email.'</td>';
-                    print '<td>'.$lignes->Nom.'</td>';
-                    print '<td>'.$lignes->Prenom.'</td>';
-                    print '<td>'.$lignes->Confirm.'</td>';
-                    print '<td>'.$lignes->Keyuser.'</td>';
+                    print '<tr><td><p class="'.$class1.'">'.$lignes->Id.'</p></td>';
+                    print '<td><p class="'.$class1.'">'.$lignes->email.'</p></td>';
+                    print '<td><p class="'.$class1.'">'.$lignes->Nom.'</p></td>';
+                    print '<td><p class="'.$class1.'">'.$lignes->Prenom.'</p></td>';
+                    print '<td><p class="'.$class1.'">'.$lignes->Confirm.'</p></td>';
+                    print '<td><p class="'.$class1.'">'.$lignes->Keyuser.'</p></td>';
                     print '</tr>';
                 }
-            print '</table></p>';
+            print '</table>';
 
             }
         catch(PDOException $e)

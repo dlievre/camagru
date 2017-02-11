@@ -10,7 +10,7 @@ $CSession = new CSession;
 print('<div id="main">');
 
 $CPrint->titre('Liste des users');
-$CSession->user_list();
+$CSession->user_list('content_left', 'content_left');
 
 // afficher les chmod
 $listfile = scandir (getcwd());
@@ -19,7 +19,7 @@ foreach ( $listfile as $key => $file)
 	$result[$file] = substr(sprintf('%o', fileperms($file)), -4);
 
 $CPrint->titre('CHMOD Fichiers');
-$CPrint->content_array($result, 'form');
+$CPrint->content_array($result, 'content_left', 'content_left');
 
 print('</div>');	
 include ('footer.php');

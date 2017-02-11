@@ -1,8 +1,10 @@
 <?php
-session_start();
 require_once('includes_session.php');
 $aff_formulaire = 'yes';
 $CForm = new CForm;
+$CPrint = new CPrint();
+$content = '';
+$error_field = '';
 
 if (isset($_POST['Envoyer']) == TRUE) // controle des champs
     {
@@ -49,7 +51,6 @@ require_once('head.php');
 require_once('header.php');
 print('<div id="main">');
 
-$CPrint = new CPrint();
 $CPrint->titre('Login');
 if ($content) $CPrint->content($content, $class_msg);
 

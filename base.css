@@ -50,12 +50,12 @@ body {
 	text-align: center;
 	margin: 1em;
 	padding: 0px 10px;
-	border: 1px solid #666666 ;
+	border: 0px solid #666666 ;
 }
 #user_imgs {
 	display: inline-block;
 	width: 200px;
-	height: 500px;
+	height: 470px;
 	vertical-align: top;
 	text-align: center;
 	margin: 1em;
@@ -81,7 +81,7 @@ body {
 #footer {
 	display: inline-block;
 	width: 80%;
-	height: 20px;
+	height: auto;
 	vertical-align: top;
 	text-align: center;
 	margin: 1em;
@@ -102,6 +102,10 @@ p.header_user a:hover, p a:hover  {  color: #FFFFFF;}
 p.lien  {color: #FFFFFF;}
 p.msg_err  {color: #ff6600;}
 span.menu  {color: #CCCCCC; margin: 0px 5px 0px 5px;}
+
+p.content_left  {text-align: left;}
+p.content_right  {text-align: right;}
+p.content_center  {text-align: center;}
 
 h1	{
 	float: left;
