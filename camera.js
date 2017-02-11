@@ -97,7 +97,15 @@ class Cfusion
   {
     var image = document.getElementById(id); // div du fond souhaité
     image.style.border='1px solid #E8272C';
-    alert('supprimer cette image');
+    //alert('supprimer cette image');
+    if (confirm('supprimer cette image ?'+ id)) {
+    // Save it!
+        } 
+        else 
+        {
+    // Do nothing!
+        }
+
   } 
 
   test()

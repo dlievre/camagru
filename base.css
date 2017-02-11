@@ -29,7 +29,7 @@ body {
 
 #fonds { position: relative; top:0px; left:0px; width: 516px; height: auto; text-align: center; background-color: #000000; margin: 0px; }
 #fond { background-color: #000000;}
-.img_fond{margin : 3px 2px;}
+.img_fond{margin : 5px 2px 0px 0px;}
 
 #global {
 	display: inline-block;
@@ -61,8 +61,10 @@ body {
 	margin: 1em;
 	padding: 10px;
 	border: 1px solid #666666 ;
-	overflow:auto;
+	overflow:hidden;
 }
+.user_img { margin: 5px; border: 1px solid #666666}
+
 #form {
 	display: inline-block;
 	width: 500px;
@@ -91,7 +93,7 @@ body {
 
 
 
-.user_img { background-color: #000000; margin: 10px; border: 1px solid #666666}
+
 
 
 p.header_user {color: #BBBBBB; }

@@ -67,20 +67,18 @@ if (!is_dir($dir_user)) mkdir($dir_user, 0700);
 $list_img = scandir ($dir_user);
 $taille_img = ' width="100px" ';
 print('<div id="user_imgs">');
-$compteur = 0;
 foreach ( $list_img as $key => $value)
 {
 	if (substr($value, -4) == '.png')
 	{
-		if ( ++$compteur > 9 )  { print '<br />'; $compteur = 0; }
 		$id = substr($value, 0, strlen($value)-4);
-		
-		print '<img onclick="traitement.img_delete('."'".$id."')".'" '.$taille_img.'id="'.$id.'" class="user_img" src="'.$dir_user.$value.'"><br /> ';
+		print '<img class="user_img" onclick="img_delete('."'".$id."')".'" '.$taille_img.'id="'.$id.'" src="'.$dir_user.$value.'">';
 	}
 
 }
 print('</div>'); // div  img_user
 print('</div>'); // div  global
 print '<script src="camera.js" type="text/javascript"></script>';
+print '<script src="ajax.js" type="text/javascript"></script>';
 include ('footer.php');
 ?>
