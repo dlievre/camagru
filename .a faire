@@ -4,9 +4,9 @@
             envoyer mail , voir projet pdf
 (Tpasqual)  envoyer fichier par simple transfert 
 		nettoyer le code
-(dlievre)	ne pas faire apparaitre le btn prendre la photo si fond non sélectionné 
-(dlievre)	après prise de photo rafraichir fichier pris et ajout bouton caméra pour nouvelle photo (dlievre)
+(dlievre)ok	ne pas faire apparaitre le btn prendre la photo si fond non sélectionné 
+(dlievre)ok	après prise de photo rafraichir fichier pris et ajout bouton caméra pour nouvelle photo (dlievre)
 
-bugs constatés
+bugs constatés (dlievre)ok
 la vidéo sur mon portable est plus petite que les 386 pixels du canvas, ce qui a un impact sur le resultat qui s'agrandit en hauteur
 il faut voir comment en javascript gérer cela
