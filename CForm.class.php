@@ -94,7 +94,14 @@ public  function InputTextChk($tbl)// Form($Titre, $Tab)
         foreach ($tbl as $id => $label)
         {
             if (!$_POST[$id]) $retour .= 'champ '.$label.' à renseigner<br />';
+
         }
+        if ($tbl['email'])
+        {
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
+                $retour .= 'champ '.'email'.' non conforme<br />';
+        } 
+
         return ($retour);
     }
 public  function Ctrl_Password($tbl)// Form($Titre, $Tab)
@@ -106,6 +113,13 @@ public  function Ctrl_Password($tbl)// Form($Titre, $Tab)
         }
         return ($retour);
     }
+
+public function InputEmailChk($email)// non utilisé
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
+            return ('erreur');
+    }
 }
+
 
 ?>
