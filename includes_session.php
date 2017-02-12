@@ -1,6 +1,14 @@
 <?php
 //session_start();
 if(!isset($_SESSION)) {session_start();}
+
+/*	if ($_SERVER['DOCUMENT_ROOT'] == "/Applications/MAMP/htdocs" or $_SERVER['DOCUMENT_ROOT'] == 'C:/wamp64/www')
+		define('ROOT', $_SERVER['DOCUMENT_ROOT'] . "/camagru/");
+	else
+		define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+	define('ROOT_UPLD', ROOT.'/upload/');
+	define('ROOT_FOND', ROOT.'/fonds/');*/
+
 require_once('CSession.class.php');
 require_once('CInscription.class.php');
 include_once ('CForm.class.php');

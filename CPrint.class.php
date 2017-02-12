@@ -34,9 +34,11 @@ Class CPrint{
       print ('<div id="form">');
     	print ('<h2 class="Titre">'.$Titre.'</h2>');
     	print($Tab[0]);
+      $nb = count($Tab);
+      $Tab[] = " "; // evite pb index
       print('<table>');
-      for ($key = 1; $key <=count($Tab);$key = $key + 2)
-        echo '<tr><td class="form">'.$Tab[$key].'</td><td class="form">'.$Tab[$key + 1].'</td></tr>';
+      for ($key = 1; $key <= $nb; $key = $key + 2)
+        echo '<tr><td class="form">'.$Tab[$key].'</td><td class="form">'.$Tab[$key +1].'</td></tr>';
       print('</table>');
       print('</form>');
       print('</div>');

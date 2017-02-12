@@ -57,10 +57,10 @@ if ($content) $CPrint->content($content, $class_msg);
 if ( $aff_formulaire == 'yes' )
     {
     $TabForm = array();
-
+    if (isset($_POST['email']) ) $post_email = $_POST['email']; else $post_email = '';
     $TabForm[] = $CForm->Form('login.php', 'Form', 'POST');
     $TabForm[] = $CForm->InputLabel("Votre Mail", "LabelMail", "Mail");
-    $TabForm[] = $CForm->InputMail("Votre Mail", "email", $_POST['email'], '*');
+    $TabForm[] = $CForm->InputMail("Votre Mail", "email", $post_email, '*');
     $TabForm[] = $CForm->InputLabel("Password", "LabelPassword", "LabelPassword");
     $TabForm[] = $CForm->InputPassword("Password", "Password", '*'); // InputPassword($Titre, $id)
     $TabForm[] = $CForm->Submit("Envoyer", "Envoyer");

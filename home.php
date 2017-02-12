@@ -46,7 +46,7 @@ foreach ( $listfond as $key => $value)
 		if ( ++$compteur > 9 )  { print '<br />'; $compteur = 0; }
 		$id = substr($value, 0, strlen($value)-4);
 		
-		print '<img onclick="traitement.changefond('."'".$id."')".'" '.$taillefond.'id="'.$id.'" class="img_fond" src="fonds/'.$value.'"> ';
+		 if ($key < 19 )print '<img onclick="traitement.changefond('."'".$id."')".'" '.$taillefond.'id="'.$id.'" class="img_fond" src="fonds/'.$value.'"> ';
 	}
 
 }

@@ -151,7 +151,7 @@ h2	{
 
 	h2.Titre{ font-size: 14px; }  /* Maximum font size */
 	p, td.form { font-size: 12px; } 
-	p.content { font-size: 12px; }
+	p.content, p.content_left, p.content_right, p.content_center { font-size: 12px; }
 	p.notice { font-size: 10px; }
 	p.notice span { font-weight: bold; }
 	
@@ -165,7 +165,7 @@ h2	{
 
 	h2.Titre{ font-size: 14px; }  /* Maximum font size */
 	p, td.form { font-size: 12px; } 
-	p.content { font-size: 12px; }
+	p.content, p.content_left, p.content_right, p.content_center  { font-size: 12px; }
 	p.notice { font-size: 10px; }
 	p.notice span { font-weight: bold; }
 	
@@ -176,7 +176,7 @@ h2	{
  	{
 	h2.Titre { font-size: 18px } /* Minimum font size */
 	p, td.form { font-size: 14px; }
-	p.content { font-size: 12px; }
+	p.content, p.content_left, p.content_right, p.content_center  { font-size: 12px; }
 	p.notice { font-size: 10px; }
 	p.notice span { font-weight: bold; }
 
@@ -186,7 +186,7 @@ h2	{
  	{
 	h2.Titre { font-size: 24px } /* Minimum font size */
 	p, td.form { font-size: 16px; }
-	p.content { font-size: 14px; color: red;}
+	p.content, p.content_left, p.content_right, p.content_center  { font-size: 14px; color: red;}
 	p.notice { font-size: 12px; }
 	p.notice span { font-weight: bold; }
 	
