@@ -9,10 +9,10 @@ body {
 
 #header {
 	display: inline-block;
-	width: 80%;
+	/*width: 90%;*/
 	vertical-align: top;
 	height: 130px;
-	margin: 2px 1em;
+	/*margin: 2px 1em;*/
 	border: 1px solid #CCCCCC;
 	background-color: #EEE;
 	box-shadow: 0px 3px 4px #aaa;
@@ -24,12 +24,12 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 #header_user {  position: relative; text-align: right; vertical-align: top; margin : 10px 10px 0px 0px;}
 #header_menu { position: relative;  bottom: 0px; right: 5px; text-align: center;  margin : 20px; }
 
-#div_video_fond { position: relative; top:0px; left:0px; width: 516px; height: 388px; text-align: center; z-index:4; margin : 2px;}
+#div_video_fond { position: relative; top:0px; left:0px; width: 516px; height: 388px; text-align: center; z-index:4; }/*margin : 2px;*/
 #div_fond { position: absolute; top:0px; left:0px; width: 514px; height: 386px; text-align: center; z-index:2; margin : 0px;}
 #div_video { position: absolute; top:0px; left:0px; width: 514px; height: 386px; text-align: center; z-index:1; margin : 0px;}
 #div_canvas { position: absolute; top:0px; left:0px; width: 514px; height: 386px; text-align: center; z-index:3; margin : 0px;}
 
-#fonds, #div_video_fond {margin: 5px 0px; border: 2px solid #666666;}
+#fonds, #div_video_fond { border: 2px solid #666666;}
 
 #fonds { position: relative; top:0px; left:0px; width: 516px; height: auto; text-align: center; background-color: #111; margin: 0px; }
 #fond { background-color: #000000;}
@@ -37,11 +37,11 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 
 #global {
 	display: inline-block;
-	width: 80%;
+	/*width: 90%;*/
 	height: auto;
 	vertical-align: top;
 	/*text-align: left;*/
-	margin: 2px 1em;
+	/*margin: 2px 1em;*/
 	padding: 0px;
 	border: 1px solid #CCCCCC;
 	box-shadow: 0px 3px 4px #aaa;
@@ -53,8 +53,8 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 	height: auto;
 	vertical-align: top;
 	text-align: center;
-	margin: 2px 1em;
-	padding: 0px 10px;
+	/*margin: 2px 1em;
+	padding: 0px 10px;*/
 	border: 0px solid #CCCCCC ;
 }
 #user_imgs {
@@ -95,16 +95,16 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 	width: 500px;
 	vertical-align: top;
 	/*height: 200px;*/
-	margin: 2px 1em;
+	/*margin: 2px 1em;*/
 }
 
 #footer {
 	display: inline-block;
-	width: 80%;
+	/*width: 90%;*/
 	height: auto;
 	vertical-align: top;
 	text-align: center;
-	margin: 2px 1em;
+	/*margin: 2px 1em;*/
 	padding: 0px 0px;
 	border: 1px solid #CCCCCC;
 	background-color: #EEE;
@@ -113,9 +113,9 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 
 
 p.header_user {color: #BBBBBB; }
-p.header_user a:link, p a:link {  color: #000000;}
-p.header_user a:visited, p a:visited  { color: #000000;}
-p.header_user a:hover, p a:hover  {  color: #CCCCCC;}
+p.header_user a:link, p a:link {  color: #777; text-decoration: none;}
+p.header_user a:visited, p a:visited  { color: #777; text-decoration: none;}
+p.header_user a:hover, p a:hover  {  color: #000000; text-decoration: blink;}
  
 p.lien  {color: #000000;}
 p.msg_err  {color: #ff6600;}
@@ -138,22 +138,56 @@ h2	{
 	color: #CCC;
 	margin: 0;
 	}
+/*p, p.content { font-size: 1vw; }*/
 
-
+/*
 /* Sur les écrans, quand la largeur de la fenêtre fait au maximum 1280px */
-@media screen and (max-width: 1280px)
+@media screen and (min-width: 541px) and (max-width: 2280px)
 	{
-	h2.Titre{ font-size: 14pw }  /* Maximum font size */
+	#header, #footer, #global {width: 90%; margin: 2px 1em;}
+	#main { width: 520px; margin: 2px 0em; padding: 0px 10px;}
+	#div_video_fond {margin: 2px;}
+
+
+	h2.Titre{ font-size: 14px; }  /* Maximum font size */
 	p, td.form { font-size: 12px; } 
+	p.content { font-size: 12px; }
 	p.notice { font-size: 10px; }
 	p.notice span { font-weight: bold; }
+	
+	}
+
+	@media screen and (min-width: 100px) and (max-width: 540px)
+	{
+	#header, #footer, #global {width: 100%; margin: 0px 0em;}
+	#main { width: 520px; margin: 0px 0em; padding: 0px 0px;}
+	#div_video_fond {margin: 0px;}
+
+	h2.Titre{ font-size: 14px; }  /* Maximum font size */
+	p, td.form { font-size: 12px; } 
+	p.content { font-size: 12px; }
+	p.notice { font-size: 10px; }
+	p.notice span { font-weight: bold; }
+	
 	}
 
 /* Sur tous types d'écran, quand la largeur de la fenêtre est comprise entre 1024px et 1280px */
-@media all and (min-width: 500px) and (max-width: 1280px)
+@media all and (min-width: 481px) and (max-width: 1280px)
  	{
 	h2.Titre { font-size: 18px } /* Minimum font size */
 	p, td.form { font-size: 14px; }
+	p.content { font-size: 12px; }
 	p.notice { font-size: 10px; }
 	p.notice span { font-weight: bold; }
+
+	}
+
+@media all and (max-device-width: 480px)
+ 	{
+	h2.Titre { font-size: 24px } /* Minimum font size */
+	p, td.form { font-size: 16px; }
+	p.content { font-size: 14px; color: red;}
+	p.notice { font-size: 12px; }
+	p.notice span { font-weight: bold; }
+	
 	}
