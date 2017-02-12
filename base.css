@@ -30,7 +30,7 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 
 #fonds, #div_video_fond {margin: 5px 0px; border: 2px solid #666666;}
 
-#fonds { position: relative; top:0px; left:0px; width: 516px; height: auto; text-align: center; background-color: #000000; margin: 0px; }
+#fonds { position: relative; top:0px; left:0px; width: 516px; height: auto; text-align: center; background-color: #111; margin: 0px; }
 #fond { background-color: #000000;}
 .img_fond{margin : 5px 2px 0px 0px;}
 
@@ -58,15 +58,28 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 #user_imgs {
 	display: inline-block;
 	width: 200px;
-	height: 470px;
+	height: 450px;
 	vertical-align: top;
 	text-align: center;
-	margin: 1em;
-	padding: 10px;
-	border: 1px solid #666666 ;
-	overflow:hidden;
+	margin: 2px 1em;
+	padding: 0px;
+	border: 0px solid #CCCCCC;
+	overflow:auto;
 }
-.user_img { margin: 5px; border: 1px solid #666666}
+.user_img { margin: 5px; border: 1px solid #666666; box-shadow: 3px 3px 4px #aaa;}
+
+#user_texte {
+	display: inline-block;
+	width: 150px;
+	height: 450px;
+	vertical-align: top;
+	/*text-align: justify;*/
+	margin: 2px 1em;
+	padding: 0px;
+	border: 0px solid #CCCCCC;
+	/*overflow:hidden;*/
+}
+
 
 #form {
 	display: inline-block;
@@ -94,10 +107,6 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 	border: 1px solid #CCCCCC;
 	background-color: #EEE;
 } 
-
-
-
-
 
 
 p.header_user {color: #BBBBBB; }
@@ -128,12 +137,20 @@ h2	{
 	}
 
 
-@media (max-width: 700px) {
-	h2.Titre{ font-size: 14px }  /* Maximum font size */
-	p, td.form { font-size: 12px;	} 
+/* Sur les écrans, quand la largeur de la fenêtre fait au maximum 1280px */
+@media screen and (max-width: 1280px)
+	{
+	h2.Titre{ font-size: 14pw }  /* Maximum font size */
+	p, td.form { font-size: 12px; } 
+	p.notice { font-size: 10px; }
+	p.notice span { font-weight: bold; }
 	}
 
-@media (min-width: 1200px) {
+/* Sur tous types d'écran, quand la largeur de la fenêtre est comprise entre 1024px et 1280px */
+@media all and (min-width: 500px) and (max-width: 1280px)
+ 	{
 	h2.Titre { font-size: 18px } /* Minimum font size */
 	p, td.form { font-size: 14px; }
+	p.notice { font-size: 10px; }
+	p.notice span { font-weight: bold; }
 	}

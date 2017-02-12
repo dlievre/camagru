@@ -4,9 +4,6 @@ if ($_SESSION['valide'] != 'ok') {header('Location: login.php');}
 require_once('head.php');
 require_once('header.php');
 //$CPrint = new CPrint();
-
-
-
 print('<div id="main">');
 ?>
 <style> 
@@ -77,6 +74,12 @@ foreach ( $list_img as $key => $value)
 
 }
 print('</div>'); // div  img_user
+print('<div id="user_texte">');
+$CPrint->content('<b>Prise de photos</b><br />Choisissez un fond en premier, un bouton apparaitra pour prendre votre photo et la stocker dans votre espace privé', 'notice');
+$CPrint->content('<b>Gestion des photos</b><br />Suppression, cliquez sur une photo et la supprimer si souhaité', 'notice');
+$CPrint->content('<b>Sans Caméra</b><br />Si vous n\'avez pas de caméra le transfert de fichier jpg est envisageable, à l\'aide du bouton \'Transférer un Fichier..\' une fois le fond choisi', 'notice');
+print('</div>'); // div  user_texte
+
 
 print '<script src="camera.js" type="text/javascript"></script>';
 print '<script src="ajax.js" type="text/javascript"></script>';
