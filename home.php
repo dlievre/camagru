@@ -6,7 +6,7 @@ require_once('header.php');
 //$CPrint = new CPrint();
 
 
-print('<div id="global">');
+
 print('<div id="main">');
 ?>
 <style> 
@@ -77,7 +77,7 @@ foreach ( $list_img as $key => $value)
 
 }
 print('</div>'); // div  img_user
-print('</div>'); // div  global
+
 print '<script src="camera.js" type="text/javascript"></script>';
 print '<script src="ajax.js" type="text/javascript"></script>';
 include ('footer.php');

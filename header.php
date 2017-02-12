@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION)) {session_start();}
-print '<div id="header"><div class="header_titre"><h1>Camagru</h1></div>';
+print '<div id="header"><div class="header_titre"><h1> </h1></div>';
 
 if ($_SESSION["valide"] == 'ok') {
 	$status = 'Login';
@@ -29,4 +29,8 @@ else
 }
 
 print '</div>'; // fin div header
+
+
+
+print('<div id="global">');
 ?>

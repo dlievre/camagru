@@ -5,7 +5,7 @@
   function img_delete(id)
   {
     var image = document.getElementById(id); // div du fond souhaité
-    image.style.border='1px solid #E8272C';
+    image.style.border='2px solid #E8272C';
     alert('supprimer cette image '+ id);
 
     //var httpRequest = false;
@@ -33,6 +33,7 @@
 
     function img_delete_srvchk(XHR)
     {
+        if (XHR.readyState == XMLHttpRequest.DONE) alert('ok');
         if (XHR.readyState === 4)
         {
             if (XHR.status === 200) {  // On a recu une reponse correcte du serveur
