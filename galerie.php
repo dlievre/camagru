@@ -33,7 +33,7 @@ foreach ( $list_img as $key => $value)
 		$id = substr($value, 0, strlen($value)-4);
 		print '<div class="div_img" >';
 		print "<img class=\"galerie_img\" onclick=\"img_delete($id)\" $taille_img id=\"$id\" src=\"$dir_user$value\">";
-		print '<div class="like_img" >like 12</div>'; 
+		print '<div class="div_img_like" >like 12</div>'; 
 		print '<div/>'; // div_img
 
 	}
