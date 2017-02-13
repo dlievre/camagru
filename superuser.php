@@ -12,6 +12,10 @@ print('<div id="main">');
 $CPrint->titre('Liste des users');
 $CSession->user_list('content_left', 'content_left');
 
+$CPrint->titre('Liste Questions secrètes');
+$CPrint->content_array($Tabquestion, 'content_left', 'content_left');
+
+$CPrint->titre('Info systèmes');
 $CPrint->content('<b>Chemin : </b>'. __FILE__ .'<br />', 'content_left');
 $CPrint->content('<b>$_SERVER[\'DOCUMENT_ROOT\' : </b>'.$_SERVER['DOCUMENT_ROOT'].'<br />', 'content_left');
 

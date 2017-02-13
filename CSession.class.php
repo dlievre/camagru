@@ -2,7 +2,6 @@
 if(!isset($_SESSION)) {session_start();}
 Class CSession
 {
-    //tp
     public static $verbose = False;
     private $servername = "localhost";
     private $username = "root";
@@ -10,9 +9,12 @@ Class CSession
     private $dbname = "camagru";
     private $tbl = "tbl_camagru";
     //private $conn =''; pas necessaire
+////////
 
+///////
     public function __construct()
     {
+       if (file_exists ( '1and1.php' ) ) require_once('1and1.php');
         //print '__construct';
         // a l'initialisation de la class on genere la variable de conenxion a la base
         $this->conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
@@ -218,6 +220,17 @@ Class CSession
             $requete = $this->conn->prepare("SELECT Id, Nom, Prenom, email, Confirm, Keyuser, Cpt_reinit, Questionsecrete, Reponsesecrete, Info FROM ".$this->tbl); 
             $requete->execute();
             print '<table>';
+            print "<tr><td><p class=\"$class1\">Id</p></td>";
+            print "<td><p class=\"$class1\">email</p></td>";
+            print "<td><p class=\"$class1\">Nom</p></td>";
+            print "<td><p class=\"$class1\">Prenom</p></td>";
+            print "<td><p class=\"$class1\">Confirm</p></td>";
+            print "<td><p class=\"$class1\">Keyuser</p></td>";
+            print "<td><p class=\"$class1\">Cpt_reinit</p></td>";
+            print "<td><p class=\"$class1\">Question secrete</p></td>";
+            print "<td><p class=\"$class1\">Reponse secrete</p></td>";
+            print "<td><p class=\"$class1\">Info</p></td>";
+            print '</tr>';
             while($lignes=$requete->fetch(PDO::FETCH_OBJ))
                 {
                     print '<tr><td><p class="'.$class1.'">'.$lignes->Id.'</p></td>';
@@ -233,7 +246,6 @@ Class CSession
                     print '</tr>';
                 }
             print '</table>';
-
             }
         catch(PDOException $e)
             { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur';}
