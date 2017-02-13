@@ -215,7 +215,7 @@ Class CSession
         try {
             //$conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
             //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $requete = $this->conn->prepare("SELECT Id, Nom, Prenom, email, Confirm, Keyuser FROM ".$this->tbl); 
+            $requete = $this->conn->prepare("SELECT Id, Nom, Prenom, email, Confirm, Keyuser, Cpt_reinit, Questionsecrete, Reponsesecrete, Info FROM ".$this->tbl); 
             $requete->execute();
             print '<table>';
             while($lignes=$requete->fetch(PDO::FETCH_OBJ))
@@ -226,6 +226,10 @@ Class CSession
                     print '<td><p class="'.$class1.'">'.$lignes->Prenom.'</p></td>';
                     print '<td><p class="'.$class1.'">'.$lignes->Confirm.'</p></td>';
                     print '<td><p class="'.$class1.'">'.$lignes->Keyuser.'</p></td>';
+                    print '<td><p class="'.$class1.'">'.$lignes->Cpt_reinit.'</p></td>';
+                    print '<td><p class="'.$class1.'">'.$lignes->Questionsecrete.'</p></td>';
+                    print '<td><p class="'.$class1.'">'.$lignes->Reponsesecrete.'</p></td>';
+                    print '<td><p class="'.$class1.'">'.$lignes->Info.'</p></td>';
                     print '</tr>';
                 }
             print '</table>';

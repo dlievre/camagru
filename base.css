@@ -63,12 +63,31 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 	height: 450px;
 	vertical-align: top;
 	text-align: center;
-	margin: 2px 1em;
+	/*margin: 2px 1em;*/
 	padding: 0px;
 	border: 0px solid #CCCCCC;
 	overflow:auto;
 }
 .user_img { margin: 5px; border: 1px solid #666666; box-shadow: 3px 3px 4px #aaa;}
+
+#div_galerie {
+	display: inline-block;
+	/*width: 200px;
+	height: 450px;*/
+	vertical-align: top;
+	text-align: center;
+	/*margin: 2px 1em;*/
+	padding: 0px;
+	border: 0px solid #CCCCCC;
+	overflow:auto;
+}
+
+#div_galerie { position: relative; text-align: center; z-index:4; }
+.div_img { position: relative;  text-align: center; z-index:2; margin : 0px;}
+.div_img_like { position: absolute; bottom:0px; left:0px;  z-index:1; margin : 0px;}
+.div_img_comment { position: absolute; bottom:0px; right:0px;   z-index:3; margin : 0px;}
+
+.galerie_img { margin: 5px; border: 1px solid #666666; box-shadow: 3px 3px 4px #aaa;}
 
 #user_texte {
 	display: inline-block;
@@ -144,24 +163,27 @@ h2	{
 /* Sur les écrans, quand la largeur de la fenêtre fait au maximum 1280px */
 @media screen and (min-width: 541px) and (max-width: 2280px)
 	{
-	#header, #footer, #global {width: 90%; margin: 2px 1em;}
+	#header, #footer, #global, #div_galerie {width: 90%; margin: 2px 1em;}
 	#main { width: 520px; margin: 2px 0em; padding: 0px 10px;}
 	#div_video_fond {margin: 2px;}
-
+	#user_imgs {margin: 2px 0em;}
+	#div_galerie {margin: 2px 0em;}
 
 	h2.Titre{ font-size: 14px; }  /* Maximum font size */
 	p, td.form { font-size: 12px; } 
 	p.content, p.content_left, p.content_right, p.content_center { font-size: 12px; }
 	p.notice { font-size: 10px; }
-	p.notice span { font-weight: bold; }
+	p.notice span { font-weight: bold;}
 	
 	}
 
 @media screen and (min-width: 100px) and (max-width: 540px)
 	{
-	#header, #footer, #global {width: 100%; margin: 0px 0em;}
+	#header, #footer, #global, #div_galerie {width: 100%; margin: 0px 0em;}
 	#main { width: 520px; margin: 0px 0em; padding: 0px 0px;}
 	#div_video_fond {margin: 0px;}
+	#user_imgs {margin: 0px 0em;}
+	#div_galerie {margin: 0px 0em;}
 
 	h2.Titre{ font-size: 14px; }  /* Maximum font size */
 	p, td.form { font-size: 12px; } 
@@ -178,7 +200,7 @@ h2	{
 	p, td.form { font-size: 14px; }
 	p.content, p.content_left, p.content_right, p.content_center  { font-size: 12px; }
 	p.notice { font-size: 10px; }
-	p.notice span { font-weight: bold; }
+	p.notice span { font-weight: bold;}
 
 	}
 
