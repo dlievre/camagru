@@ -1,15 +1,14 @@
+dlievre		remettre vélo dans la base et resauvegarder		
+		
 		validation confirmation d'un nouvel user
-		trier les images par ordre croissant ou decroissant, voir pdf projet
 		fonction delete les images
             envoyer mail , voir projet pdf
 (Tpasqual)  envoyer fichier par simple transfert 
 		nettoyer le code
-(dlievre)ok	ne pas faire apparaitre le btn prendre la photo si fond non sélectionné 
-(dlievre)ok	après prise de photo rafraichir fichier pris et ajout bouton caméra pour nouvelle photo (dlievre)
+
 
 bugs constatés (dlievre)ok
-la vidéo sur mon portable est plus petite que les 386 pixels du canvas, ce qui a un impact sur le resultat qui s'agrandit en hauteur
-il faut voir comment en javascript gérer cela
+
 htaccess
 RedirectMatch 404 /config/.*$
 RedirectMatch 404 /includes/$
