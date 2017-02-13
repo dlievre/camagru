@@ -157,7 +157,7 @@ h2	{
 	
 	}
 
-	@media screen and (min-width: 100px) and (max-width: 540px)
+@media screen and (min-width: 100px) and (max-width: 540px)
 	{
 	#header, #footer, #global {width: 100%; margin: 0px 0em;}
 	#main { width: 520px; margin: 0px 0em; padding: 0px 0px;}

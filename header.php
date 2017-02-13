@@ -19,7 +19,7 @@ if ($_SESSION['valide'] == 'ok') {
 	print "<a href=\"galerie.php\">Galerie</a><span class=\"menu\"> | </span>";
 	print "<a href=\"logoff.php\">Log out</a><span class=\"menu\"> | </span>";
 	print "<a href=\"profile.php\">Profile</a><span class=\"menu\"> | </span>";
-	print '<a href="index.php">Home</a>';
+	print "<a href=\"index.php\">Home</a>";
 	print '</p></div>';
 
 }

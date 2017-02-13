@@ -88,18 +88,26 @@ Class CForm{
         // !$id || !$labelFor
     }
 
-public  function InputTextChk($tbl)// Form($Titre, $Tab)
+public  function InputTextChk($tbl)// 
     {
         $retour = '';
+        $balise_refused [] = "<";
+        $balise_refused [] = '>';
+        $balise_refused [] = '<?';
+        $balise_refused [] = '?>';
+        $balise_refused [] = 'script';
+        $balise_refused [] = 'php';
+
         foreach ($tbl as $id => $label)
         {
-            if (!$_POST[$id]) $retour .= 'champ '.$label.' à renseigner<br />';
-
+            if (!$_POST[$id]) $retour .= 'champ '.$label.' : à renseigner<br />';
+            foreach ($balise_refused as $key => $value)
+                if (stripos ('x'.$_POST[$id] , $value)) $retour .= 'champ '.$label." : Caractère ( $value ) non conforme<br />";
         }
         if ($tbl['email'])
         {
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
-                $retour .= 'champ '.'email'.' non conforme<br />';
+                $retour .= 'champ '.'email'.' : non conforme<br />';
         } 
 
         return ($retour);

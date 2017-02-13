@@ -72,6 +72,7 @@ class Cfusion
     draw.style.display = "none";
     activer_camera.style.display = "inline";
     msg_fonds.style.display = "none";
+    // ajout de l'image dans la liste
   }
 
   changefond(id)

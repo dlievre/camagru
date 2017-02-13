@@ -61,7 +61,7 @@ print('</div>'); // fin div main
 // afficher les images crees sur le serveur
 $dir_user = "upload/user_".$Id.'/';
 if (!is_dir($dir_user)) mkdir($dir_user, 0700);
-$list_img = scandir ($dir_user);
+$list_img = scandir ($dir_user, SCANDIR_SORT_DESCENDING);
 $taille_img = ' width="100px" ';
 print('<div id="user_imgs">');
 foreach ( $list_img as $key => $value)
