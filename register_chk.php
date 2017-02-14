@@ -7,6 +7,7 @@ $CSession = new CSession();
 
 $aff_formulaire = 'yes';
 
+$CPrint->Titre('finaliser le code');
 $CPrint->content(' key '.$_GET['key'], 'content');
 if (!$_GET['key'] and !$_SESSION['key']) exit;
 //if exist($_GET['key']) print 'check en cours';// a faire pour s'assurer que la cle existe pour reinitialiser
