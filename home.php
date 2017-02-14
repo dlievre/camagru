@@ -81,7 +81,7 @@ $CPrint->content('<b>Sans Caméra</b><br />Si vous n\'avez pas de caméra le tra
 print('</div>'); // div  user_texte
 
 
-print '<script src="camera.js" type="text/javascript"></script>';
-print '<script src="ajax.js" type="text/javascript"></script>';
+print '<script src="js_camera.js" type="text/javascript"></script>';
+print '<script src="js_ajax.js" type="text/javascript"></script>';
 include ('footer.php');
 ?>

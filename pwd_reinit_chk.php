@@ -6,12 +6,13 @@ $CForm = new CForm;
 $CSession = new CSession();
 
 $aff_formulaire = 'yes';
+$suite = 'login.php';
 
-$CPrint->content(' key '.$_GET['key'], 'content');
+//$CPrint->content(' key '.$_GET['key'], 'content');
 if (!$_GET['key'] and !$_SESSION['key']) exit;
-//if exist($_GET['key']) print 'check en cours';// a faire pour s'assurer que la cle existe pour reinitialiser
-// on doit passer par une session pour gerer ensuite le formulaire car on perd le get key
-if ($_GET['key']) $_SESSION['key'] = $_GET['key']; // uniquement si la key est valide , a finir 
+
+// on doit passer par une session pour gérer ensuite le formulaire car on perd le get key
+if ($_GET['key']) $_SESSION['key'] = $_GET['key']; // si key est passée une fois on mémorise avec session[key] 
 
 require_once('head.php');
 require_once('header.php');
@@ -44,7 +45,7 @@ else
 
 if (isset($_POST['Envoyer']) == TRUE and !$error_field )
 	{
-		print 'controle<br />'; 
+		//print 'controle<br />'; 
 		// on check la key et le mail, la reponse 
 		//print $_POST['email'].'>>>';
 		$tbl_info_user = $CSession->user_info($_POST['email'], 'email');
@@ -60,13 +61,13 @@ if (isset($_POST['Envoyer']) == TRUE and !$error_field )
 			{
 				$content = '';
 				if  ($_POST['email'] != $tbl_info_user['email'] or $_SESSION['key'] != $tbl_info_user['Keyuser']) $content .= 'key non valide pour cet utilisateur<br />';
-				print '...'.$tbl_info_user['Questionsecrete'] .' '. $_POST['Question'] .' '. $tbl_info_user['Reponsesecrete'] .' '. $_POST['Reponse'];
+				//print '...'.$tbl_info_user['Questionsecrete'] .' '. $_POST['Question'] .' '. $tbl_info_user['Reponsesecrete'] .' '. $_POST['Reponse'];
 				if ( $tbl_info_user['Questionsecrete'] != $_POST['Question'] or $tbl_info_user['Reponsesecrete'] != $_POST['Reponse']) $content .= 'Question secrète non valide<br />';
 				if (!$content)
 				{
-					print '<br/>update base<br/>'; 
-					print '...'.$tbl_info_user['email'];
-					print '...'.$_POST['Password'];
+					//print '<br/>update base<br/>'; 
+					//print '...'.$tbl_info_user['email'];
+					//print '...'.$_POST['Password'];
 					if ($CSession->user_pass_modify($tbl_info_user['email'], $_POST['Password']) == 'ok')
 					{
 						$content ="Mot de passe changé avec succès";
@@ -112,6 +113,8 @@ if ( $aff_formulaire == 'yes')
 		$TabForm[] = $CForm->InputPassword("Password", "Password", '*'); // ($Titre, $id, $required)
 		$TabForm[] = $CForm->InputLabel("Confirmez le Password * ", "LabelPasswordbis", "LabelPasswordbis");
 		$TabForm[] = $CForm->InputPassword("Passwordbis", "Passwordbis", '*');
+		$TabForm[] = $CForm->InputLabel("Key", "LabelKey", "Notused");
+		$TabForm[] = $CForm->InputText("Key", "Key", $_SESSION['key'], '');
 		$TabForm[] = $CForm->Submit("Envoyer", "Envoyer");
 
 		if ($error_field) $CPrint->content($error_field, 'msg_err');
@@ -120,7 +123,7 @@ if ( $aff_formulaire == 'yes')
 		//$CPrint->content( 'Mot de passe oublié  : <a href="pwd_reinit.php" target="_self">Réinitialisation</a>', 'lien');
 }
 
-print ('<p>Continuer <a href="'.$suite.'"> Go </a></p>');
+if ( $aff_formulaire != 'yes') print ('<p>Continuer <a href="'.$suite.'"> Go </a></p>');
 
 print('</div>');	
 include ('footer.php');

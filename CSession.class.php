@@ -206,8 +206,7 @@ Class CSession
     }
 
     function user_pass_hash($pass)
-    {
-        
+    { 
         return (hash('whirlpool',$pass));
     }
 
