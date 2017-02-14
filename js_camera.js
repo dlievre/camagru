@@ -15,7 +15,7 @@ class Cfusion
     // il suffit d'utiliser activer_camera.style.display == "none" sans document.querySelector ou getElementById
 
     // Prefer camera resolution nearest to 1280x720.
-    var constraints = { audio: false, video: { width: 514, height: 386 } }; 
+    var constraints = { audio: false, video: { width: 480, height: 360 } }; 
 
     navigator.mediaDevices.getUserMedia(constraints)
     .then(function(mediaStream)

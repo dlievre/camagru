@@ -13,7 +13,9 @@ print('<div id="main">');
 </style>
 <?php
 $Id = $_SESSION['Id'];
-
+//////////////////////
+$W = "480px";
+$H = "360px";
 
 print "<form method='post' accept-charset='utf-8' name='form1'>";
 print "<input name='hidden_data' id='hidden_data' type='hidden'/>";
@@ -22,9 +24,9 @@ print "<input name='hidden_fond' id='hidden_fond' type='hidden'/>";
 print "</form>";
 
 print '<div id="div_video_fond">';
-print('<div  id="div_video"><video id="video"  width="514px" height="386px"></video></div>');
-print('<div  id="div_fond" width="514px" height="386px"><p id="div_fond_text">Choisir votre fond<p></div>');
-print('<div  id="div_canvas"><canvas style="display:none" width="514px" height="386px"  id="canvas"></canvas></div>');
+print("<div  id=\"div_video\"><video id=\"video\" width=\"$W\" height=\"$H\"></video></div>");
+print("<div  id=\"div_fond\" width=\"$W\" height=\"$H\"><p id=\"div_fond_text\">Choisir votre fond<p></div>");
+print("<div  id=\"div_canvas\"><canvas style=\"display:none\" width=\"480px\" height=\"360px\"  id=\"canvas\"></canvas></div>");
 
 print '</div>'; // fin div div_video_fond
 print('<div id="draw" style="display:none"><button id="btn_draw" onclick="traitement.draw(\'fond01\');">Prendre une photo</button></div>');
@@ -35,7 +37,7 @@ print('<div id="test" style="display:none"><button id="btn_test" onclick="traite
 $dir_fonds = "fonds";
 $listfond = scandir ('fonds');
 $taillefond = ' width="51px" ';
-print('<div id="fonds" width="514px">');
+print("<div id=\"fonds\" width=\"$W\">");
 $CPrint = new CPrint;
 
 $compteur = 0;
