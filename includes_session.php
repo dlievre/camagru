@@ -8,8 +8,10 @@ if(!isset($_SESSION)) {session_start();}
 		define('ROOT', $_SERVER['DOCUMENT_ROOT']);
 	define('ROOT_UPLD', ROOT.'/upload/');
 	define('ROOT_FOND', ROOT.'/fonds/');*/
-
-require_once('CSession.class.php');
+if (file_exists('CSession1and1.class.php'))
+	require_once('CSession1and1.class.php');
+else
+	require_once('CSession.class.php');
 require_once('CInscription.class.php');
 include_once ('CForm.class.php');
 include_once ('CPrint.class.php');

@@ -14,7 +14,6 @@ Class CSession
 ///////
     public function __construct()
     {
-       if (file_exists ( '1and1.php' ) ) require_once('1and1.php');
         //print '__construct';
         // a l'initialisation de la class on genere la variable de conenxion a la base
         $this->conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
