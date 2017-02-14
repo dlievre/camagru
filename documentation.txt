@@ -7,6 +7,9 @@ la classe CInscription s'occupe des compte utilisateur
 la classe CForm construit les formulaire
 la classe CPrint affiche les formulaires et le contenu
 
+la base de donnée mysql, les champs sont en utf8
+ajax est utilisé pour la suppression des images par un user et pour l'affichage de la galerie
+
 Class CForm
 	FormTitre($titre)
 	Form($uri, $class, $method )
