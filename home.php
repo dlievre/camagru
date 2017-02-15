@@ -29,7 +29,8 @@ print("<div  id=\"div_fond\" width=\"$W\" height=\"$H\"><p id=\"div_fond_text\">
 print("<div  id=\"div_canvas\"><canvas style=\"display:none\" width=\"480px\" height=\"360px\"  id=\"canvas\"></canvas></div>");
 
 print '</div>'; // fin div div_video_fond
-print('<div id="draw" style="display:none"><button id="btn_draw" onclick="traitement.draw(\'fond01\');">Prendre une photo</button></div>');
+//print('<div id="draw" style="display:none"><button id="btn_draw" onclick="traitement.draw(\'fond01\');">Prendre une photo</button></div>');
+print("<div id=\"draw\" style=\"display:none\"><button id=\"btn_draw\" onclick=\"traitement.draw($Id);\">Prendre une photo</button></div>");
 print('<div id="activer_camera" style="display:none"><button id="btn_cam" onclick="traitement.camera();">Revenir à la caméra</button></div>');
 print '<div id="transfert" style="display:none"><input type="button" onclick="traitement.uploadEx()" value="Transférer un Fichier..." /></div>';
 print('<div id="test" style="display:none"><button id="btn_test" onclick="traitement.test(\'fond01\');">test</button></div>');
@@ -71,11 +72,12 @@ foreach ( $list_img as $key => $value)
 	if (substr($value, -4) == '.png')
 	{
 		$id = substr($value, 0, strlen($value)-4);
-		print '<img class="user_img" onclick="img_delete('."'".$id."')".'" '.$taille_img.'id="'.$id.'" src="'.$dir_user.$value.'">';
+		//print '<img class="user_img" onclick="send('."'".$id."')".'" '.$taille_img.'id="'.$id.'" src="'.$dir_user.$value.'">';
+		print "<img class=\"user_img\" onclick=\"send($id, 'user_imgs')\" $taille_img id=\"$id\" src=\"$dir_user$value\">";
 	}
 
 }
-print('</div>'); // div  img_user
+print('</div>'); // div  user_imgs
 print('<div id="user_texte">');
 $CPrint->content('<b>Prise de photos</b><br />Choisissez un fond en premier, un bouton apparaitra pour prendre votre photo et la stocker dans votre espace privé', 'notice');
 $CPrint->content('<b>Gestion des photos</b><br />Suppression, cliquez sur une photo et la supprimer si souhaité', 'notice');
@@ -83,7 +85,8 @@ $CPrint->content('<b>Sans Caméra</b><br />Si vous n\'avez pas de caméra le tra
 print('</div>'); // div  user_texte
 
 
-print '<script src="js_camera.js" type="text/javascript"></script>';
 print '<script src="js_ajax.js" type="text/javascript"></script>';
+print '<script src="js_camera.js" type="text/javascript"></script>';
+
 include ('footer.php');
 ?>

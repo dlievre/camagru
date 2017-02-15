@@ -48,7 +48,7 @@ class Cfusion
     xhr.send(fd);
   }
 
-  draw()
+  draw(Id, id_div)
   {
    ////var canvas = document.querySelector('#canvas');
     var inputfond = document.querySelector('#hidden_fond');
@@ -73,6 +73,7 @@ class Cfusion
     activer_camera.style.display = "inline";
     msg_fonds.style.display = "none";
     // ajout de l'image dans la liste
+    traitement.refresh_usr(Id, 'user_imgs');
   }
 
   changefond(id)
@@ -120,15 +121,56 @@ this.btn_activer_camera.style.display = "inline";
     draw.style.display = "inline";
     video.style.display = "inline";
     canvas.style.display = "none";
-    div_video.hidden = false;
-    div_fond.hidden = false;
-    div_canvas.hidden = true;
-    //draw.style.display = "none";
+    div_video.style.visibility = "visible";
+    div_fond.style.visibility = "visible";
+    div_canvas.style.visibility = "hidden";
     transfert.style.display = "inline";
     activer_camera.style.display = "none";
   }
 
+Fajax(to_send, page_php, id_div)
+{
+    console.log('fajax'+to_send+page_php+id_div);
+    if (window.XMLHttpRequest) var XHR = new XMLHttpRequest(); // Mozilla, Safari, ...
+    if (window.ActiveXObject) var XHR = new ActiveXObject("Microsoft.XMLHTTP"); // IE
+    if (!window.XMLHttpRequest || window.ActiveXObject) {alert('Erreur initialisation Ajax'); return;}
+    XHR.overrideMimeType('text/xml');
+    XHR.open('GET', page_php, true);
+    XHR.onreadystatechange = function (aEvt)
+    {
+        if (XHR.readyState == 4)
+        {
+            if(XHR.status == 200)
+                {
+                    console.log('jj'+ id_div);
+                traitement.retou (XHR.responseText, id_div);
+                
+                }
+            else
+                {
+                alert("Erreur pendant le chargement de la page.\n");
+                return 'Erreur';
+                }
+        }
+    };
+    XHR.send(to_send);
 }
 
-const traitement = new Cfusion('fond02');
+refresh_usr(id, id_div)
+{
+    var retour = 's';
+        retour = traitement.Fajax(id, 'refresh_usr.php', id_div);
+        console.log(retour);
 
+}
+
+retou(reponse, id_div)
+{
+//alert (reponse);
+document.getElementById(id_div).innerHTML = reponse;
+document.getElementById(id_div).visibility = "visible";
+}
+
+}
+const traitement = new Cfusion('fond02');
+//const ICAjax = new CAjax('');

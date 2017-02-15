@@ -35,6 +35,10 @@ $CPrint = new CPrint();
 		}
 	print('</div>'); // div  galerie
 
+	print('<div id="div_galerie_cmt">');
+	$CPrint->content('commentaire de photos, elle est vraiment super cette photo', 'content');
+	print('</div>'); // div  galerie
+
 //print('</div>'); // fin div main
 
 

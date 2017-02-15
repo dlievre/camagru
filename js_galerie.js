@@ -20,19 +20,28 @@ class Cgalerie
 
   view_comment(id)
   {
-    alert('view_comment '+id);
-    //this.fond_select = id;
-    //div_fcomment.style.display = "inline";
-    div_comment.hidden = false;
-    var image = document.getElementById(id); // div du fond souhaité
-    image.style.border='1px solid #E8272C';
+   //alert('view_comment '+id);
+    var image = document.getElementById(id); 
+    var cmt = document.getElementById('div_galerie_cmt'); 
+    
+
+    //var image = document.getElementById(id); // div du fond souhaité
+
+    div_galerie_cmt.style.visibility = "visible";
+
+    image.style.border='2px solid #E8272C';
+   
+   // div_galerie_cmt.innerHTML = 'toto';
+
+
+    //div_galerie_cmt.innerHTML = 'titi';
     // on desactive le bord de l'ancien fond
     /*if (this.previous_imgt_id) {var previous = this.previous_imgt_id; var imgt_fond_previous = document.getElementById(previous); imgt_fond_previous.style.border='0px solid #E8272C';}
     var url = "url('fonds/"+id+".png')"; // on recupère le nom du fond
     div_fond.style.backgroundImage = url ;//= 'fonds/fond01.png';
     this.previous_imgt_id = id;*/
     // mise a jour text div fond et hidden
-    div_div_comment.innerHTML = id;
+    ////div_galerie_cmt.innerHTML = id;
     //div_fond_text.style.display = "none";   
   }
 

@@ -29,7 +29,7 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 #div_video { position: absolute; top:0px; left:0px; width: 480px; height: 360px; text-align: center; z-index:1; margin : 0px;}
 #div_canvas { position: absolute; top:0px; left:0px; width: 480px; height: 360px; text-align: center; z-index:3; margin : 0px;}
 
-#fonds, #div_video_fond, #div_fond, #div_video, #div_canvas { border: 1px solid #666666;}
+#fonds, #div_video_fond, #div_fond, #div_video, #div_canvas {border: 1px solid #666666;}
 
 #fonds { position: relative; top:0px; left:0px; width: 482px; height: auto; text-align: center; background-color: #111; margin: 0px; }
 #fond { background-color: #000000;}
@@ -90,6 +90,7 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 
 .galerie_img 		{margin: 0px; border: 3px solid #000000; box-shadow: 3px 3px 4px #aaa;}
 
+#div_galerie_cmt { display: inline-block; visibility: hidden; position: fixed; margin: 10px 0px; overflow: auto; } /* 10px ajust avec galerie */
 
 #user_texte {
 	display: inline-block;
@@ -174,14 +175,15 @@ h2	{
 	{
 	#header, #footer, #div_galerie {width: 90%; margin: 2px 1em;}
 	#global {width: 90%; min-height: 500px; margin: 2px 1em;}
-	#main { width: 520px; margin: 2px 0em; padding: 0px 10px;}
+	#main { width: 520px; min-height: 300px; margin: 2px 0em; padding: 0px 10px;}
 	#div_video_fond {margin: 2px 0px;}
 	#user_imgs {margin: 2px 0em;}
-	#div_galerie { width: 100%; min-height: 500px; height:100%; margin: 2px 0em;}
+	#div_galerie { width: 70%; min-height: 300px; height:100%; margin: 2px 0em;}
+	#div_galerie_cmt {width: 20%; } 
 
 	h2.Titre{ font-size: 14px; }  /* Maximum font size */
 	p, td.form { font-size: 12px; } 
-	p.content, p.content_left, p.content_right, p.content_center { font-size: 12px; }
+	p.content, p.content_left, p.content_right, p.content_center { font-size: 12px;}
 	p.notice, p.like { font-size: 10px; }
 
 	
@@ -190,11 +192,12 @@ h2	{
 @media screen and (min-width: 100px) and (max-width: 540px)
 	{
 	#header, #footer, #div_galerie {width: 100%; margin: 0px 0em;}
-	#global {min-height: 500px; width: 100%; margin: 0px 0em;}
+	#global {width: 100%; margin: 0px 0em;}
 	#main { width: 520px; margin: 0px 0em; padding: 0px 0px;}
 	#div_video_fond {margin: 0px;}
 	#user_imgs {margin: 0px 0em;}
-	#div_galerie {width: 100%; min-height: 500px; height:100%; margin: 0px 0em;}
+	#div_galerie {width: 70%; min-height: 500px; height:100%; margin: 0px 0em;}
+	#div_galerie_cmt {width: 30%; } 
 
 	h2.Titre{ font-size: 14px; }  /* Maximum font size */
 	p, td.form { font-size: 12px; } 
