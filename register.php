@@ -7,7 +7,6 @@ require_once('header.php');
 $CForm = new CForm;
 
 $aff_formulaire = 'yes';
-print '....'.$_POST['Question'].'<br>';
 
 if (isset($_POST['Envoyer']) == TRUE) // controle des champs
 	{

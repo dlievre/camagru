@@ -73,7 +73,7 @@ foreach ( $list_img as $key => $value)
 	{
 		$id = substr($value, 0, strlen($value)-4);
 		//print '<img class="user_img" onclick="send('."'".$id."')".'" '.$taille_img.'id="'.$id.'" src="'.$dir_user.$value.'">';
-		print "<img class=\"user_img\" onclick=\"traitement.delete_img_usr($id, $id)\" $taille_img id=\"$id\" src=\"$dir_user$value\">";
+		print "<div id=\"$id\"><img class=\"user_img\" onclick=\"traitement.delete_img_usr($id, $id)\" $taille_img id=\"img$id\" src=\"$dir_user$value\"></div>";
 	}
 
 }

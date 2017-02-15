@@ -152,27 +152,30 @@ class Cfusion
 
 refresh_usr(id, id_div)
 {
-    var retour = traitement.Fajax(id, 'refresh_usr.php', id_div, 'refresh_usr');
+    /////////////////////   passer au refresh_usr : Iduser + action=refresh 
+    var retour = traitement.Fajax(id, 'refresh_usr.php', id_div, 'refresh_usr'); // 
 }
 
 delete_img_usr(id, id_div)
 {
+        /////////////////////   passer au refresh_usr  : Iduser + Idimage + action=delete 
+        /////////// dans un tableau si possible 
+        //////////  changer le nom du fichier refresh_usr.php par gestion_img_usr.php
     var retour = traitement.Fajax(id, 'refresh_usr.php', id_div, 'delete_img_usr');
+
 }
 
 refresh_usr_chk(reponse, id_div)
 {
-document.getElementById(id_div).innerHTML = reponse;
-document.getElementById(id_div).visibility = "visible";
+    document.getElementById(id_div).innerHTML = reponse;
+    document.getElementById(id_div).visibility = "visible";
 }
 delete_img_usr_chk(reponse, id_div)
 {
+    document.getElementById(id_div).visibility = "hidden"; // bizare , ne marche pas
+    document.getElementById(id_div).style.display = "none"; // fonctionne 
 
-//document.getElementById(id_div).innerHTML = reponse;
-console.log('id'+id_div);
-//document.getElementById(id_div).visibility = "hidden";
-document.getElementById(id_div).style.display = "none";
-//document.images[id_div].style.visibility = hidden;
+//suppression dans base
 }
 
 }
