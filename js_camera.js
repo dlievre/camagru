@@ -110,14 +110,10 @@ class Cfusion
 
   } 
 
-  test()
-{alert(document.querySelector('#activer_camera')+' this'+this.btn_activer_camera+' btn ');
-this.btn_activer_camera.style.display = "inline";
-}
 
-  camera()
+    camera()
   {
-    //msg_fonds.style.display = "inline";
+
     draw.style.display = "inline";
     video.style.display = "inline";
     canvas.style.display = "none";
@@ -128,9 +124,8 @@ this.btn_activer_camera.style.display = "inline";
     activer_camera.style.display = "none";
   }
 
-Fajax(to_send, page_php, id_div)
-{
-    console.log('fajax'+to_send+page_php+id_div);
+    Fajax(to_send, page_php, id_div, caller)
+    {
     if (window.XMLHttpRequest) var XHR = new XMLHttpRequest(); // Mozilla, Safari, ...
     if (window.ActiveXObject) var XHR = new ActiveXObject("Microsoft.XMLHTTP"); // IE
     if (!window.XMLHttpRequest || window.ActiveXObject) {alert('Erreur initialisation Ajax'); return;}
@@ -142,9 +137,8 @@ Fajax(to_send, page_php, id_div)
         {
             if(XHR.status == 200)
                 {
-                    console.log('jj'+ id_div);
-                traitement.retou (XHR.responseText, id_div);
-                
+                if ( caller == 'refresh_usr') traitement.refresh_usr_chk (XHR.responseText, id_div);
+                if ( caller == 'delete_img_usr') traitement.delete_img_usr_chk (XHR.responseText, id_div);
                 }
             else
                 {
@@ -158,17 +152,27 @@ Fajax(to_send, page_php, id_div)
 
 refresh_usr(id, id_div)
 {
-    var retour = 's';
-        retour = traitement.Fajax(id, 'refresh_usr.php', id_div);
-        console.log(retour);
-
+    var retour = traitement.Fajax(id, 'refresh_usr.php', id_div, 'refresh_usr');
 }
 
-retou(reponse, id_div)
+delete_img_usr(id, id_div)
 {
-//alert (reponse);
+    var retour = traitement.Fajax(id, 'refresh_usr.php', id_div, 'delete_img_usr');
+}
+
+refresh_usr_chk(reponse, id_div)
+{
 document.getElementById(id_div).innerHTML = reponse;
 document.getElementById(id_div).visibility = "visible";
+}
+delete_img_usr_chk(reponse, id_div)
+{
+
+//document.getElementById(id_div).innerHTML = reponse;
+console.log('id'+id_div);
+//document.getElementById(id_div).visibility = "hidden";
+document.getElementById(id_div).style.display = "none";
+//document.images[id_div].style.visibility = hidden;
 }
 
 }
