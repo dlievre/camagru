@@ -80,8 +80,9 @@ foreach ( $list_img as $key => $value)
 print('</div>'); // div  user_imgs
 print('<div id="user_texte">');
 $CPrint->content('<b>Prise de photos</b><br />Choisissez un fond en premier, un bouton apparaitra pour prendre votre photo et la stocker dans votre espace privé', 'notice');
-$CPrint->content('<b>Gestion des photos</b><br />Suppression, cliquez sur une photo et la supprimer si souhaité', 'notice');
+$CPrint->content('<b>Supprimer des photos</b><br />Cliquez sur une photo et confirmer la suppression si souhaité', 'notice');
 $CPrint->content('<b>Sans Caméra</b><br />Si vous n\'avez pas de caméra le transfert de fichier jpg est envisageable, à l\'aide du bouton \'Transférer un Fichier..\' une fois le fond choisi', 'notice');
+
 print('</div>'); // div  user_texte
 
 

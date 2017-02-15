@@ -161,8 +161,15 @@ delete_img_usr(id, id_div)
         /////////////////////   passer au refresh_usr  : Iduser + Idimage + action=delete 
         /////////// dans un tableau si possible 
         //////////  changer le nom du fichier refresh_usr.php par gestion_img_usr.php
-    var retour = traitement.Fajax(id, 'refresh_usr.php', id_div, 'delete_img_usr');
-
+    var image = document.getElementById(id); // div du fond souhaité
+    image.style.border='1px solid #E8272C';
+            if (confirm('supprimer cette image ?'+ id)) {
+    			var retour = traitement.Fajax(id, 'refresh_usr.php', id_div, 'delete_img_usr');
+        		} 
+        		else 
+        		{
+    				image.style.border='0px solid #E8272C';
+        		}
 }
 
 refresh_usr_chk(reponse, id_div)

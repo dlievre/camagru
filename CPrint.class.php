@@ -62,12 +62,33 @@ Class CPrint{
     }
     public function content_array($Tab, $class1, $class2)
     {
+      // affiche un tableau à 2 Dimensions titre et contenu avec class css
       print ('<p><table>');
       foreach ($Tab as $key => $value)
         print ('<tr><td> <p class="'.$class1.'">'.$key.'</p></td><td><p class="'.$class2.'">'.$value.'</p></td></tr>');
       print ('</table></p>');
               //print ('<tr><td '.'class='.'>'.$key.'</td><td>'.$value.'</td></tr>');
       return;
+    }
+
+    public  function link($href, $text, $class, $target, $sep)
+    {
+      // affiche un lien avec un séparateur
+      print ("<a href=\"$href\" class=\"$class\" target=\"$target\">$text</a>");
+      if ($sep) print "<span class=\"menu\">  $sep </span>";
+      return;
+    }
+
+    public  function div($id, $class)
+    {
+      if ($id) $id = "id=\"$id\"";
+      if ($class) $class = "class=\"$class\"";
+      print "<div $id $class>";
+    }
+
+    public  function div_end()
+    {
+      print "</div>";
     }
 
     public  function titre($Info)
