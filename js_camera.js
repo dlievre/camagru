@@ -38,12 +38,11 @@ class Cfusion
         if (e.lengthComputable) {
             var percentComplete = (e.loaded / e.total) * 100;
             //console.log(percentComplete + '% uploaded');
-            alert('Succesfully uploaded '+percentComplete+'%');
+            //alert('Succesfully uploaded '+percentComplete+'%');
         }
     };
 
     xhr.onload = function() {
-
     };
     xhr.send(fd);
   }
@@ -65,20 +64,27 @@ class Cfusion
     ctx.drawImage(document.getElementById(this.fond_select), 0, 0, canvaswidth, canvasheight);
     // effacer video et afficher fusion
     video.style.display = "none";
-    div_video.hidden = true;
-    div_fond.hidden = true;
-    div_canvas.hidden = false;
+    div_video.style.visibility = "hidden";
+    div_fond.style.visibility = "hidden";
+    div_canvas.style.visibility = "visible";
     canvas.style.display = "inline";
     draw.style.display = "none";
     activer_camera.style.display = "inline";
     msg_fonds.style.display = "none";
     // ajout de l'image dans la liste
+    //alert('Transfert réussi');
     traitement.refresh_usr(Id, 'user_imgs');
+    
+  }
+
+  test(var1)
+  {
+    var1 = 2;
+    //traitement.refresh_usr('1', 'user_imgs');
   }
 
   changefond(id)
   {
-    //alert(activer_camera.style.display);
     this.fond_select = id;
     if (activer_camera.style.display == "none" ) draw.style.display = "inline";
     transfert.style.display = "inline";
@@ -124,19 +130,20 @@ class Cfusion
     activer_camera.style.display = "none";
   }
 
-    Fajax(to_send, page_php, id_div, caller)
+    Fajax( page_php, to_send, id_div, caller)// 'ajax_usr.php', action, id_div, 'refresh_usr' 
     {
     if (window.XMLHttpRequest) var XHR = new XMLHttpRequest(); // Mozilla, Safari, ...
     if (window.ActiveXObject) var XHR = new ActiveXObject("Microsoft.XMLHTTP"); // IE
     if (!window.XMLHttpRequest || window.ActiveXObject) {alert('Erreur initialisation Ajax'); return;}
     XHR.overrideMimeType('text/xml');
-    XHR.open('GET', page_php, true);
+    XHR.open('GET', page_php+to_send, true);
     XHR.onreadystatechange = function (aEvt)
     {
         if (XHR.readyState == 4)
         {
-            if(XHR.status == 200)
+            if(XHR.status === 200)
                 {
+                   alert('>'+caller+' 200, reponse : '+XHR.responseText);
                 if ( caller == 'refresh_usr') traitement.refresh_usr_chk (XHR.responseText, id_div);
                 if ( caller == 'delete_img_usr') traitement.delete_img_usr_chk (XHR.responseText, id_div);
                 }
@@ -147,24 +154,28 @@ class Cfusion
                 }
         }
     };
-    XHR.send(to_send);
+    XHR.send();
 }
 
 refresh_usr(id, id_div)
 {
     /////////////////////   passer au refresh_usr : Iduser + action=refresh 
-    var retour = traitement.Fajax(id, 'refresh_usr.php', id_div, 'refresh_usr'); // 
+
+    var action = '?action=refresh';
+    var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'refresh_usr'); // 
 }
 
-delete_img_usr(id, id_div)
+delete_img_usr(id_photo, id_div)
 {
+        /////////////////////   passer au refresh_usr : Iduser + action=refresh 
+    var action = '?action=delete&id_photo='+id_photo;
         /////////////////////   passer au refresh_usr  : Iduser + Idimage + action=delete 
         /////////// dans un tableau si possible 
         //////////  changer le nom du fichier refresh_usr.php par gestion_img_usr.php
-    var image = document.getElementById(id); // div du fond souhaité
+    var image = document.getElementById(id_photo); // div du fond souhaité
     image.style.border='1px solid #E8272C';
-            if (confirm('supprimer cette image ?'+ id)) {
-    			var retour = traitement.Fajax(id, 'refresh_usr.php', id_div, 'delete_img_usr');
+            if (confirm('supprimer cette image ')) {
+    			var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'delete_img_usr');
         		} 
         		else 
         		{
@@ -174,6 +185,7 @@ delete_img_usr(id, id_div)
 
 refresh_usr_chk(reponse, id_div)
 {
+    //alert('refresh_usr_chk '+id_div+reponse);
     document.getElementById(id_div).innerHTML = reponse;
     document.getElementById(id_div).visibility = "visible";
 }
