@@ -21,7 +21,9 @@ if( $_GET['action'] == 'refresh')
 		if (substr($value, -4) == '.png')
 		{
 			$id = substr($value, 0, strlen($value)-4);
-			print "<img class=\"user_img\" onclick=\"traitement.refresh_usr($id, 'user_imgs')\" $taille_img id=\"$id\" src=\"$dir_user$value\">";
+			$id_div = $id;
+			$id_photo = $id;
+			print "<div id=\"$id_div\"><img class=\"user_img\" onclick=\"traitement.delete_img_usr($id_photo, $id_div)\" $taille_img id=\"img$id_photo\" src=\"$dir_user$value\"></div>"; //delete_img_usr(id_photo, id_div)
 		}
 
 	}
@@ -33,11 +35,5 @@ if( $_GET['action'] == 'delete')
 $retour = 'Delete : '.$_GET['id_photo'] ;
 echo $retour;
 }
-/*
-/delete.php?request=ajax
-if(!isset($_GET['request']) || $_GET['request'] != 'ajax') {
-    die();
-}
-// rest of the code ...
-*/
+
 ?>

@@ -25,6 +25,12 @@ $result = array();
 foreach ( $listfile as $key => $file)
 	$result[$file] = substr(sprintf('%o', fileperms($file)), -4);
 
+$CPrint->titre('Fichier Log');
+print 'Test Fichier Log.txt';
+//$test = $CSession->write_log('superuser connected');
+$CPrint->content('Test Fichier Log.txt '.$CSession->write_log('superuser connected'), 'content');
+//$CPrint->content($CSession->read_log('content');
+
 $CPrint->titre('CHMOD Fichiers');
 $CPrint->content_array($result, 'content_left', 'content_left');
 

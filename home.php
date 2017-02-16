@@ -3,6 +3,7 @@ require_once('includes.php');
 if ($_SESSION['valide'] != 'ok') {header('Location: login.php');}
 require_once('head.php');
 require_once('header.php');
+$CPrint = new CPrint;
 //$CPrint = new CPrint();
 print('<div id="main">');
 ?>
@@ -39,7 +40,7 @@ $dir_fonds = "fonds";
 $listfond = scandir ('fonds');
 $taillefond = ' width="51px" ';
 print("<div id=\"fonds\" width=\"$W\">");
-$CPrint = new CPrint;
+
 
 $compteur = 0;
 foreach ( $listfond as $key => $value)
@@ -72,8 +73,10 @@ foreach ( $list_img as $key => $value)
 	if (substr($value, -4) == '.png')
 	{
 		$id = substr($value, 0, strlen($value)-4);
-		//print '<img class="user_img" onclick="send('."'".$id."')".'" '.$taille_img.'id="'.$id.'" src="'.$dir_user.$value.'">';
-		print "<div id=\"$id\"><img class=\"user_img\" onclick=\"traitement.delete_img_usr($id, $id)\" $taille_img id=\"img$id\" src=\"$dir_user$value\"></div>";
+		$id_div = $id;
+		$id_photo = $id;
+		print "<div id=\"$id_div\"><img class=\"user_img\" onclick=\"traitement.delete_img_usr($id_photo, $id_div)\" $taille_img id=\"img$id_photo\" src=\"$dir_user$value\"></div>"; //delete_img_usr(id_photo, id_div)
+		//print "<div id=\"$id\"><img class=\"user_img\" onclick=\"traitement.delete_img_usr($id, $id)\" $taille_img id=\"img$id\" src=\"$dir_user$value\"></div>";
 	}
 
 }

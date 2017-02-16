@@ -1,5 +1,8 @@
 <?php
 if(!isset($_SESSION)) {session_start();}
+require_once('includes_session.php');
+$CSession = new CSession();
+
 $stamp = mktime();
 $folder_fond = 'fonds/';
 
@@ -36,5 +39,14 @@ $src_h = $height_dessous;
 $result = imagecopy ( $dessous, $dessus, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h );
 
 imagepng($dessous, $file); // on ecrit l'image traitee $dest vers le fichier $file
+
+// insertion dans la base de l'image
+
+$Id = $_SESSION['Id'];
+$id_photo = $stamp;
+
+$retour = $CSession->imgage_add($id_photo, $Id);// ajoute une image dans la base
+$CSession->write_log('add image base '.$retour.' ' .$id_photo. ' '. $Id);
+//$action = $CInscription->send_email('te42pe@gmail.com', 'test', $retour.' '.$Id.' '.$id_photo , 'dominique@lievre.net');
 
 ?>

@@ -72,7 +72,7 @@ class Cfusion
     activer_camera.style.display = "inline";
     msg_fonds.style.display = "none";
     // ajout de l'image dans la liste
-    //alert('Transfert réussi');
+    alert('Transfert réussi');
     traitement.refresh_usr(Id, 'user_imgs');
     
   }
@@ -159,19 +159,14 @@ class Cfusion
 
 refresh_usr(id, id_div)
 {
-    /////////////////////   passer au refresh_usr : Iduser + action=refresh 
-
     var action = '?action=refresh';
     var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'refresh_usr'); // 
 }
 
 delete_img_usr(id_photo, id_div)
 {
-        /////////////////////   passer au refresh_usr : Iduser + action=refresh 
     var action = '?action=delete&id_photo='+id_photo;
-        /////////////////////   passer au refresh_usr  : Iduser + Idimage + action=delete 
-        /////////// dans un tableau si possible 
-        //////////  changer le nom du fichier refresh_usr.php par gestion_img_usr.php
+
     var image = document.getElementById(id_photo); // div du fond souhaité
     image.style.border='1px solid #E8272C';
             if (confirm('supprimer cette image ')) {

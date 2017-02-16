@@ -8,6 +8,7 @@ Class CSession
     private $password = "";
     private $dbname = "camagru";
     private $tbl = "tbl_camagru";
+    private $tbl_photos = "photos";
     //private $conn =''; pas necessaire
 ////////
 
@@ -23,7 +24,7 @@ Class CSession
 
     public function user_login()
     {
-        $email = strip_tags($_POST['email']);
+        $email = strtolower(strip_tags($_POST['email']));
         $Password = $this->user_pass_hash($_POST['Password']);
         $retour = 'user not exit';
         try {
@@ -112,7 +113,7 @@ Class CSession
 
     public function user_exist($email)
     {
-        if (!$email) $email = strip_tags($_POST['email']);
+        if (!$email) $email = strtolower(strip_tags($_POST['email']));
        ///   securisation : https://openclassrooms.com/courses/securite-php-securiser-les-flux-de-donnees
         try {
             //$requete = $this->conn->prepare("SELECT email FROM $this->tbl WHERE email = :email"); 
@@ -122,7 +123,7 @@ Class CSession
             $requete->execute();
             $exist = 'no';
             while($lignes=$requete->fetch(PDO::FETCH_OBJ))
-                if ($lignes->email == $email ) { $exist = 'yes'; }
+                if ($lignes->email == strtolower($email) ) { $exist = 'yes'; }
             }
         catch(PDOException $e)
             { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur'; return($exist);}
@@ -159,7 +160,7 @@ Class CSession
 
         public function user_add()
     {
-        $email = strip_tags($_POST['email']);
+        $email = strtolower(strip_tags($_POST['email']));
         $Nom = strip_tags($_POST['Nom']);
         $Prenom = strip_tags($_POST['Prenom']);
         $Password = $this->user_pass_hash($_POST['Password']);
@@ -293,7 +294,48 @@ Class CSession
         }
         return($retour);
     }
+
+//*********   gestion des images dans la base *********
+
+    function imgage_add($id_photo, $Id)// ajoute une image dans la base
+    {
+        //$this->write_log('var '.$id_photo. ' '. $Id);
+        try
+        {
+            $rq = $this->secure("INSERT INTO $this->tbl_photos (Id_owner, Name_img) VALUES ('$Id', '$id_photo')"); // ne pas mettre 
+            $requete = $this->conn->prepare($rq);
+            $requete->execute();
+        }
+        catch(PDOException $e)
+        { 
+            return "image_add Error Database : " . $e->getMessage();
+        }
+
+        return('imgage_add'); 
+    }
     
+        public function images_galerie()
+    {
+
+        try {
+            $rq = $this->secure("SELECT Id, Id_owner, Name_img FROM $this->tbl_photos");  //ORDER BY 'Date' DESC  , 'Date'
+            $requete = $this->conn->prepare($rq); //
+            $requete->execute();
+            $nb = 0;
+            while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
+                $tbl[$nb]['Id'] = $lignes->Id;
+                $tbl[$nb]['Id_owner'] = $lignes->Id_owner;
+                $tbl[$nb]['Name_img'] = $lignes->Name_img;
+                $nb++;
+                }
+            }
+        catch(PDOException $e)
+            { echo "Error Database : " . $e->getMessage(); }
+        //$conn = null;
+        return($tbl);
+    }
+
+
     public function __destruct()
     {
         //print ('<p>destruct</p>');
@@ -324,8 +366,16 @@ Class CSession
         return('ok');
    }
 
+    public function write_log($errtxt)
+    {
+        $fp = fopen('log.txt','a+'); // ouvrir le fichier ou le créer
+        fseek($fp,SEEK_END); // poser le point de lecture à la fin du fichier
+        $nouverr=$errtxt."\r\n"; // ajouter un retour à la ligne au fichier
+        fputs($fp,$nouverr); // ecrire ce texte
+        fclose($fp); //fermer le fichier
+        return 'ok';
+    }
 
-   
 }
 
 

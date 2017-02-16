@@ -1,0 +1,13 @@
+superuser connectedSELECT Id_owner, Name_img FROM photos
+SELECT Id_owner, Name_img FROM photos
+SELECT Id, Id_owner, Name_img FROM photos
+SELECT Id, Id_owner, Name_img FROM photos
+SELECT Id, Id_owner, Name_img FROM photos
+SELECT Id, Id_owner, Name_img FROM photos
+SELECT Id, Id_owner, Name_img FROM photos
+SELECT Id, Id_owner, Name_img FROM photos
+SELECT Id, Id_owner, Name_img FROM photos
+SELECT Id, Id_owner, Name_img FROM photos
+SELECT Id, Id_owner, Name_img FROM photos
+add image base imgage_add 1487264490 1
+SELECT Id, Id_owner, Name_img FROM photos
