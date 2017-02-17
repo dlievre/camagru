@@ -416,7 +416,7 @@ Class CSession
 
     public function write_log($err_txt)
     {
-        $fp = fopen('glog.txt','a+'); // ouvrir le fichier ou le créer
+        $fp = fopen('superuser/log.txt','a+'); // ouvrir le fichier ou le créer
         fseek($fp,SEEK_END); // poser le point de lecture à la fin du fichier
         $err = date("F j, Y, g:i a").' | '.$err_txt."\r\n"; // ajouter un retour à la ligne au fichier
         fputs($fp,$err); // ecrire ce texte

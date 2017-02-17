@@ -21,15 +21,15 @@ $CPrint->content('<b>$_SERVER[\'DOCUMENT_ROOT\' : </b>'.$_SERVER['DOCUMENT_ROOT'
 
 
 
-$CPrint->titre('Fichier Glog');
-print 'Test Fichier glog.txt';
+$CPrint->titre('Fichier Log');
+print 'Test Fichier log.txt';
 //$test = $CSession->write_log('superuser connected');
-$CPrint->content('Test Fichier glog.txt '.$CSession->write_log('superuser connected'), 'content');
+$CPrint->content('Test Fichier log.txt '.$CSession->write_log('superuser connected'), 'content');
 //$CPrint->content($CSession->read_log('content');
-$CSession->read_log('glog.txt');
+$CSession->read_log('superuser/log.txt');
 
 $CPrint->titre('Documentation');
-$CSession->read_log('documentation.txt');
+$CSession->read_log('superuser/documentation.txt');
 
 // afficher les chmod
 $listfile = scandir (getcwd());
