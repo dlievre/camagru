@@ -69,11 +69,13 @@ if( $_GET['action'] == 'view_comment' && $_GET['image'])
 	// afficher les comment images 
 	$id_img = $_GET['image'];
 	//print('<div id="div_galerie_cmt">');
-	$CView->Titre('Commentaires photo');
+	//$images_like = $CSession->image_nb_liked($id_img);
+	//$CView->content('&bull; Nb Like '.$images_like, 'content');
+	$CView->Titre('Commentaires des users');
 	$images_comment = $CSession->image_comment($id_img);
 	if (!$images_comment) $images_comment[] = 'Aucun commentaire';
 	foreach ($images_comment as $key => $value)
-		$CView->content('- '.$value, 'content');
+		$CView->content('&bull; '.$value, 'content');
 	$Err = '';
 }
 

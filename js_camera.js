@@ -185,7 +185,8 @@ delete_img_usr(id_photo, id_div)
 
 view_comment(id_img, id_div)
 {
-    alert('galerie_view_comment'+id_img+' '+id_div);
+    //alert('galerie_view_comment'+id_img+' '+id_div);
+    document.getElementById('div_form_cmt').visibility = "visible";
     var action = '?action=view_comment'+'&image='+id_img; // ajouter Id_img
     var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'view_comment'); // 
 
@@ -211,15 +212,8 @@ view_comment_chk(reponse, id_div)
     //document.getElementById(id_div).visibility = "visible";
     document.getElementById(id_div).innerHTML = reponse;
     
-    //document.getElementById(id_div).style.display = "inline-block"; // fonctionne 
-    //recuperation info dans base fait par ajax_usr.php
-
-    //    var image = document.getElementById(id); 
-    //    image.style.border='2px solid #E8272C';
-    //var cmt = document.getElementById('div_galerie_cmt'); 
-        //var image = document.getElementById(id); // div du fond souhaité
-
-    //div_galerie_cmt.style.visibility = "visible";
+    //document.getElementById('div_form_cmt').visibility = "hidden"; // bizare , ne marche pas
+    //document.getElementById('div_form_cmt').style.display = "none"; // fonctionne 
 
     
   }

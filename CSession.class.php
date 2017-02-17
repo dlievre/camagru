@@ -320,7 +320,7 @@ Class CSession
     {
 
         try {
-            $rq = $this->secure("SELECT Id, Id_owner, Name_img FROM $this->tbl_photos");  //ORDER BY 'Date' DESC  , 'Date'
+            $rq = $this->secure("SELECT Id, Id_owner, Name_img FROM $this->tbl_photos ORDER BY Date DESC");  //ORDER BY 'Date' DESC  , 'Date'
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
             $nb = 0;
@@ -337,10 +337,8 @@ Class CSession
         return($tbl);
     }
 
-        public function image_comment($id_img)
+    public function image_comment($id_img)
     {
-
-
         try {
             $rq = $this->secure("SELECT Id, Comment FROM $this->tbl_photos_like WHERE Id_img = '$id_img'");  //ORDER BY 'Date' DESC  , 'Date'
             $this->write_log($rq);
@@ -351,9 +349,39 @@ Class CSession
                 }
             }
         catch(PDOException $e)
-            { echo "Error Database : " . $e->getMessage(); }
-        //$conn = null;
+            { echo "image_comment Error Database : " . $e->getMessage(); }
         return($tbl);
+    }
+
+    public function image_like_count($id_img)
+    {
+        try {
+            $rq = $this->secure("SELECT COUNT(*) AS nb FROM $this->tbl_photos_like WHERE Id_img = '$id_img' AND Grave_bien = 1");  
+            //$this->write_log($rq);
+            $cpt = 0;
+            $requete = $this->conn->prepare($rq); //
+            $requete->execute();
+                $cpt = $requete->fetch(PDO::FETCH_OBJ);
+                $cpt = $cpt->nb;
+            }
+        catch(PDOException $e)
+            { echo "image_like Error Database : " . $e->getMessage(); }
+        return($cpt[0]);
+    }
+
+        public function image_nb_liked($id_img)
+    {
+        try {
+            $rq = $this->secure("SELECT Nb_liked FROM $this->tbl_photos WHERE Name_img = '$id_img'");  
+            $cpt = 0;
+            $requete = $this->conn->prepare($rq); //
+            $requete->execute();
+                $cpt = $requete->fetch(PDO::FETCH_OBJ);
+                $cpt = $cpt->Nb_liked;
+            }
+        catch(PDOException $e)
+            { echo "image_nb_liked Error Database : " . $e->getMessage(); }
+        return($cpt);
     }
 
     public function __destruct()

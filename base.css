@@ -90,7 +90,9 @@ h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); b
 
 .galerie_img 		{margin: 0px; border: 3px solid #000000; box-shadow: 3px 3px 4px #aaa;}
 
-#div_galerie_cmt { display: inline-block;  position: fixed; margin: 10px 0px; overflow: auto; } /* 10px ajust avec galerie */
+#div_galerie_cmt  { display: inline-block;  position: fixed; margin: 10px 0px; overflow: auto; } /* 10px ajust avec galerie */
+#div_form_cmt { display: inline;  margin: 0px 0px;  } /* 10px ajust avec galerie */
+#div_cmt { display: inline;   margin: 0px 0px;  } /* 10px ajust avec galerie */
 /*visibility: hidden;*/
 
 #user_texte {
@@ -180,7 +182,7 @@ h2	{
 	#div_video_fond {margin: 2px 0px;}
 	#user_imgs {margin: 2px 0em;}
 	#div_galerie { width: 70%; min-height: 300px; height:100%; margin: 2px 0em;}
-	#div_galerie_cmt {width: 20%; } 
+	#div_galerie_cmt, #div_form_cmt, #div_cmt {width: 20%; } 
 
 	h2.Titre{ font-size: 14px; }  /* Maximum font size */
 	p, td.form { font-size: 12px; } 
@@ -198,7 +200,7 @@ h2	{
 	#div_video_fond {margin: 0px;}
 	#user_imgs {margin: 0px 0em;}
 	#div_galerie {width: 70%; min-height: 500px; height:100%; margin: 0px 0em;}
-	#div_galerie_cmt {width: 30%; } 
+	#div_galerie_cmt, #div_form_cmt, #div_cmt  {width: 30%; } 
 
 	h2.Titre{ font-size: 14px; }  /* Maximum font size */
 	p, td.form { font-size: 12px; } 
