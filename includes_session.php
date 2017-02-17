@@ -8,7 +8,8 @@ if(!isset($_SESSION)) {session_start();}
 		define('ROOT', $_SERVER['DOCUMENT_ROOT']);
 	define('ROOT_UPLD', ROOT.'/upload/');
 	define('ROOT_FOND', ROOT.'/fonds/');*/
-if (file_exists('CSession1and1.class.php'))
+	$Domaine_Serveur = $_SERVER['HTTP_HOST'];
+if ($Domaine_Serveur == 'camagru.photeam.com')
 	require_once('CSession1and1.class.php');
 else
 	require_once('CSession.class.php');

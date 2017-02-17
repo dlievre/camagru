@@ -19,17 +19,27 @@ $CPrint->titre('Info systèmes');
 $CPrint->content('<b>Chemin : </b>'. __FILE__ .'<br />', 'content_left');
 $CPrint->content('<b>$_SERVER[\'DOCUMENT_ROOT\' : </b>'.$_SERVER['DOCUMENT_ROOT'].'<br />', 'content_left');
 
+
+
+$CPrint->titre('Fichier Glog');
+print 'Test Fichier glog.txt';
+//$test = $CSession->write_log('superuser connected');
+$CPrint->content('Test Fichier glog.txt '.$CSession->write_log('superuser connected'), 'content');
+//$CPrint->content($CSession->read_log('content');
+$CSession->read_log('glog.txt');
+
+$CPrint->titre('Documentation');
+$CSession->read_log('documentation.txt');
+
 // afficher les chmod
 $listfile = scandir (getcwd());
 $result = array();
 foreach ( $listfile as $key => $file)
+{
+
 	$result[$file] = substr(sprintf('%o', fileperms($file)), -4);
 
-$CPrint->titre('Fichier Log');
-print 'Test Fichier Log.txt';
-//$test = $CSession->write_log('superuser connected');
-$CPrint->content('Test Fichier Log.txt '.$CSession->write_log('superuser connected'), 'content');
-//$CPrint->content($CSession->read_log('content');
+}
 
 $CPrint->titre('CHMOD Fichiers');
 $CPrint->content_array($result, 'content_left', 'content_left');

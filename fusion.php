@@ -45,8 +45,8 @@ imagepng($dessous, $file); // on ecrit l'image traitee $dest vers le fichier $fi
 $Id = $_SESSION['Id'];
 $id_photo = $stamp;
 
-$retour = $CSession->imgage_add($id_photo, $Id);// ajoute une image dans la base
-$CSession->write_log('add image base '.$retour.' ' .$id_photo. ' '. $Id);
+$retour = $CSession->image_add($id_photo, $Id);// ajoute une image dans la base
+$CSession->write_log('add image base : '.$retour.' ' .$id_photo. ' '. $Id);
 //$action = $CInscription->send_email('te42pe@gmail.com', 'test', $retour.' '.$Id.' '.$id_photo , 'dominique@lievre.net');
 
 ?>

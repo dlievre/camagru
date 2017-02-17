@@ -2,13 +2,11 @@
 if(!isset($_SESSION)) {session_start();}
 Class CSession
 {
-    public static $verbose = False;
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "camagru";
+    private $servername = "db665127288.db.1and1.com";
+    private $username = "dbo665127288";
+    private $password = "42piscinedltp";
+    private $dbname = "db665127288";
     private $tbl = "tbl_camagru";
-    private $tbl_photos = "photos";
     //private $conn =''; pas necessaire
 ////////
 

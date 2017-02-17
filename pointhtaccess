@@ -13,6 +13,7 @@ Redirect 404 /Cform.php
 Redirect 404 /CInscription.class.php
 Redirect 404 /CSession.class.php
 Redirect 404 /CInscription.class.php
+Redirect 404 /CPrint.class.php
 
 Redirect 404 /includes_session.php
 Redirect 404 /includes.php
