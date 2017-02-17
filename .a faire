@@ -23,3 +23,21 @@ RedirectMatch 404 /includes/script/db_connect.php
 ErrorDocument 404 /index.php?error=404
 
 Options -Indexes
+
+if (  $CtrlPirate == 'ok-PbBase'  and $secureip==1 ) // cas soucis d'accès à la base ipblacklist, on valide quand même mais on envoie une alarme
+	{ 
+	$subject = 'Alarme: Pb Accès IP BlackList ' .$Ip.' : '.$_SERVER['HTTP_HOST'];
+	$message = 'Formulaire Transmis'.chr(10).chr(13);
+	$message .= "Formulaire transmis mais : Err d'accès à la base IP-BlackList".chr(10).chr(13);
+	$headers  = 'MIME-Version: 1.0' . "\r\n";
+	$headers .='Content-Type: text/plain; charset="iso-8859-1"'."\r\n";  
+	$headers .='Content-Transfer-Encoding: 8bit' . "\r\n";
+	//$headers .= 'From: '  .' <'.'form@photeam.com'.'>' . "\r\n";
+	$headers .= 'From: '  .' <'.$FromMailAlarm.'>' . "\r\n";
+	mail($ToMailAlarm, $subject, $message, $headers);
+	writelog_form ( $Ip, $email, $message, $date ,"Err d'accès à la base IP-BlackList", $debug ); 
+	$message =''; // raz sinon ce sera ajouté au mail du form 
+	}
+	
+	 mail($to, $subject  , $message, $headers); //	echo "<p>mail non envoyé</p>";// 
+ if ( strlen($copymail) > 0 ) mail($copymail, $subject  , $message, $headers); // 
