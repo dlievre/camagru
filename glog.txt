@@ -35,3 +35,22 @@ add image base : image_add 1487324144 1
 glog.txt
 superuser connected
 February 17, 2017, 10:01 am superuser connected
+February 17, 2017, 10:49 am | add image base : image_add 1487328571 1
+February 17, 2017, 10:52 am | DELETE FROM photos WHERE Id_owner = 1 AND Name_img = '1487328571'
+
+February 17, 2017, 1:27 pm | add image base : image_add 1487338065 1
+February 17, 2017, 1:30 pm | DELETE FROM photos WHERE Id_owner = 1 AND Name_img = '1487338065'
+
+February 17, 2017, 4:06 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487324144'
+February 17, 2017, 4:06 pm | superuser connected
+February 17, 2017, 4:09 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487324144'
+February 17, 2017, 4:10 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487324144'
+February 17, 2017, 4:13 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487324144'
+February 17, 2017, 4:14 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487264490'
+February 17, 2017, 4:16 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487324144'
+February 17, 2017, 4:16 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487264490'
+February 17, 2017, 4:16 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487324144'
+February 17, 2017, 4:16 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487324144'
+February 17, 2017, 4:17 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487324144'
+February 17, 2017, 4:17 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487264490'
+February 17, 2017, 4:18 pm | SELECT Id, Comment FROM photos_like WHERE Id_img = '1487264490'

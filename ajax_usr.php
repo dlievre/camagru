@@ -1,12 +1,12 @@
 <?php
 if(!isset($_SESSION)) {session_start();}
 require_once('includes_session.php');
-$CPrint = new CPrint();
+$CView = new CPrint();
 $CSession = new CSession();
 header('content-type : text/plain');
 header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1';
 
-$retour = '';
+$Err = 'Erreur';
 $Id = $_SESSION['Id'];
 $dir_user = "upload/user_".$Id.'/';
 
@@ -29,9 +29,10 @@ if( $_GET['action'] == 'refresh')
 		}
 
 	}
-echo $retour;
+	$Err = '';
 }
 
+//*************  action=delete image ************
 if( $_GET['action'] == 'delete')
 {
 	$Id_img = $_GET['id_photo'];
@@ -58,8 +59,23 @@ if( $_GET['action'] == 'delete')
         catch(PDOException $e)
             { $retour = "delete img, Error Database : " . $e->getMessage();}
         //$conn = null;
-echo $retour;
+	echo $retour;
+	$Err = '';
 }
 
+//*************  action=view_comment ************
+if( $_GET['action'] == 'view_comment' && $_GET['image'])
+{
+	// afficher les comment images 
+	$id_img = $_GET['image'];
+	//print('<div id="div_galerie_cmt">');
+	$CView->Titre('Commentaires photo');
+	$images_comment = $CSession->image_comment($id_img);
+	if (!$images_comment) $images_comment[] = 'Aucun commentaire';
+	foreach ($images_comment as $key => $value)
+		$CView->content('- '.$value, 'content');
+	$Err = '';
+}
 
+echo $Err;
 ?>

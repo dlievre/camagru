@@ -9,6 +9,7 @@ Class CSession
     private $dbname = "camagru";
     private $tbl = "tbl_camagru";
     private $tbl_photos = "photos";
+    private $tbl_photos_like = "photos_like";
     //private $conn =''; pas necessaire
 ////////
 
@@ -336,6 +337,24 @@ Class CSession
         return($tbl);
     }
 
+        public function image_comment($id_img)
+    {
+
+
+        try {
+            $rq = $this->secure("SELECT Id, Comment FROM $this->tbl_photos_like WHERE Id_img = '$id_img'");  //ORDER BY 'Date' DESC  , 'Date'
+            $this->write_log($rq);
+            $requete = $this->conn->prepare($rq); //
+            $requete->execute();
+            while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
+                $tbl[] = $lignes->Comment;
+                }
+            }
+        catch(PDOException $e)
+            { echo "Error Database : " . $e->getMessage(); }
+        //$conn = null;
+        return($tbl);
+    }
 
     public function __destruct()
     {

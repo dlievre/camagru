@@ -20,13 +20,17 @@ class Cfusion
     navigator.mediaDevices.getUserMedia(constraints)
     .then(function(mediaStream)
     {
-      video.srcObject = mediaStream;
-      video.onloadedmetadata = function(e) { video.play(); };
+        video.srcObject = mediaStream;
+        video.onloadedmetadata = function(e) { video.play(); };
     })
-    .catch(function(err) { console.log(err.name + ": " + err.message); })
+    .catch(function(err)
+    {
+       console.log(err.name + ": " + err.message);
+    })
   }
 
-  uploadEx() {
+  uploadEx()
+  {
     var dataURL = canvas.toDataURL("image/png"); // format sera image en png
     document.getElementById('hidden_data').value = dataURL; // input du form qui contiendra l'image pour envoi
     var fd = new FormData(document.forms["form1"]); // nom du form
@@ -131,7 +135,7 @@ class Cfusion
   }
 
     Fajax( page_php, to_send, id_div, caller)// 'ajax_usr.php', action, id_div, 'refresh_usr' 
-    {
+  {
     if (window.XMLHttpRequest) var XHR = new XMLHttpRequest(); // Mozilla, Safari, ...
     if (window.ActiveXObject) var XHR = new ActiveXObject("Microsoft.XMLHTTP"); // IE
     if (!window.XMLHttpRequest || window.ActiveXObject) {alert('Erreur initialisation Ajax'); return;}
@@ -143,9 +147,10 @@ class Cfusion
         {
             if(XHR.status === 200)
                 {
-                   alert('>'+caller+' 200, reponse : '+XHR.responseText);
+                   alert('>'+caller+' 200, reponse : '+XHR.responseText); // qwerty
                 if ( caller == 'refresh_usr') traitement.refresh_usr_chk (XHR.responseText, id_div);
                 if ( caller == 'delete_img_usr') traitement.delete_img_usr_chk (XHR.responseText, id_div);
+                if ( caller == 'view_comment') traitement.view_comment_chk (XHR.responseText, id_div);
                 }
             else
                 {
@@ -155,7 +160,7 @@ class Cfusion
         }
     };
     XHR.send();
-}
+  }
 
 refresh_usr(id, id_div)
 {
@@ -178,20 +183,49 @@ delete_img_usr(id_photo, id_div)
         		}
 }
 
+view_comment(id_img, id_div)
+{
+    alert('galerie_view_comment'+id_img+' '+id_div);
+    var action = '?action=view_comment'+'&image='+id_img; // ajouter Id_img
+    var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'view_comment'); // 
+
+}
+
 refresh_usr_chk(reponse, id_div)
 {
     //alert('refresh_usr_chk '+id_div+reponse);
     document.getElementById(id_div).innerHTML = reponse;
     document.getElementById(id_div).visibility = "visible";
 }
+
 delete_img_usr_chk(reponse, id_div)
 {
     document.getElementById(id_div).visibility = "hidden"; // bizare , ne marche pas
     document.getElementById(id_div).style.display = "none"; // fonctionne 
-
-//suppression dans base
+//suppression dans base fait par ajax_usr.php
 }
 
-}
+view_comment_chk(reponse, id_div)
+  {
+    //alert('view_comment_chk '+id_div+' '+reponse);
+    //document.getElementById(id_div).visibility = "visible";
+    document.getElementById(id_div).innerHTML = reponse;
+    
+    //document.getElementById(id_div).style.display = "inline-block"; // fonctionne 
+    //recuperation info dans base fait par ajax_usr.php
+
+    //    var image = document.getElementById(id); 
+    //    image.style.border='2px solid #E8272C';
+    //var cmt = document.getElementById('div_galerie_cmt'); 
+        //var image = document.getElementById(id); // div du fond souhaité
+
+    //div_galerie_cmt.style.visibility = "visible";
+
+    
+  }
+
+} // fin de classe
+
 const traitement = new Cfusion('fond02');
+
 //const ICAjax = new CAjax('');
