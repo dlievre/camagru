@@ -34,7 +34,7 @@ print '</div>'; // fin div div_video_fond
 print("<div id=\"draw\" style=\"display:none\"><button id=\"btn_draw\" onclick=\"traitement.draw($Id);\">Prendre une photo</button></div>");
 print('<div id="activer_camera" style="display:none"><button id="btn_cam" onclick="traitement.camera();">Revenir à la caméra</button></div>');
 print '<div id="transfert" style="display:none"><input type="button" onclick="traitement.uploadEx()" value="Transférer un Fichier..." /></div>';
-print('<div id="test"><button id="btn_test" onclick="traitement.test(\'fond01\');">test</button></div>');
+print('<div style="display:none" id="test"><button id="btn_test" onclick="traitement.test(\'fond01\');">test</button></div>');
 
 $dir_fonds = "fonds";
 $listfond = scandir ('fonds');

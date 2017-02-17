@@ -1,17 +1,19 @@
 <?php
 if(!isset($_SESSION)) {session_start();}
+require_once('includes_session.php');
+$CPrint = new CPrint();
+$CSession = new CSession();
 header('content-type : text/plain');
 header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1';
 
+$retour = '';
+$Id = $_SESSION['Id'];
+$dir_user = "upload/user_".$Id.'/';
+
 if( $_GET['action'] == 'refresh')
 {
-	$retour = '';
-	$Id = $_SESSION['Id'];
-
-//$retour .= 'test'.$_GET['action'].'<br>';
-//$retour .= 'test id '.$Id.'<br>';
 	// afficher les images crees sur le serveur
-	$dir_user = "upload/user_".$Id.'/';
+	
 	if (!is_dir($dir_user)) mkdir($dir_user, 0700);
 	$list_img = scandir ($dir_user, SCANDIR_SORT_DESCENDING);
 	$taille_img = ' width="100px" ';
@@ -32,8 +34,32 @@ echo $retour;
 
 if( $_GET['action'] == 'delete')
 {
-$retour = 'Delete : '.$_GET['id_photo'] ;
+	$Id_img = $_GET['id_photo'];
+
+	try {
+        $rq = $CSession->secure("DELETE FROM photos WHERE Id_owner = $Id AND Name_img = '$Id_img'");
+       	
+		$CSession->write_log($rq."\r\n"); // qwerty enlever quand ok
+       
+        $requete = $CSession->conn->prepare($rq); 
+        $requete->execute();
+        if ($requete)
+        {	
+        	unlink($dir_user.$Id_img.".png");
+        	$retour = 'ok';
+        }
+        else
+            {
+                $retour = 'delete img err';
+                exit;
+            }
+        }
+
+        catch(PDOException $e)
+            { $retour = "delete img, Error Database : " . $e->getMessage();}
+        //$conn = null;
 echo $retour;
 }
+
 
 ?>

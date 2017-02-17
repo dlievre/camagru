@@ -371,7 +371,7 @@ Class CSession
     {
         $fp = fopen('glog.txt','a+'); // ouvrir le fichier ou le créer
         fseek($fp,SEEK_END); // poser le point de lecture à la fin du fichier
-        $err=$err_txt."\r\n"; // ajouter un retour à la ligne au fichier
+        $err = date("F j, Y, g:i a").' | '.$err_txt."\r\n"; // ajouter un retour à la ligne au fichier
         fputs($fp,$err); // ecrire ce texte
         fclose($fp); //fermer le fichier
         return 'write_log ok';
