@@ -40,8 +40,7 @@ if( $_GET['action'] == 'delete')
 	try {
         $rq = $CSession->secure("DELETE FROM photos WHERE Id_owner = $Id AND Name_img = '$Id_img'");
        	
-		$CSession->write_log($rq."\r\n"); // qwerty enlever quand ok
-       
+		//$CSession->write_log($rq."\r\n"); // qwerty enlever quand ok
         $requete = $CSession->conn->prepare($rq); 
         $requete->execute();
         if ($requete)

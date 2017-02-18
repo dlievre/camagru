@@ -22,17 +22,6 @@ $CView->content('Host : '.$CSession->host(), 'content_left');
 $CView->content('<b>Chemin : </b>'. __FILE__ .'<br />', 'content_left');
 $CView->content('<b>$_SERVER[\'DOCUMENT_ROOT\' : </b>'.$_SERVER['DOCUMENT_ROOT'].'<br />', 'content_left');
 
-
-
-$CView->titre('Fichier Log');
-$CView->content('Test Fichier log.txt', 'content_left');
-//$test = $CSession->write_log('superuser connected');
-$CView->content('Test Fichier log.txt '.$CSession->write_log('superuser connected'), 'content_left');
-//$CView->content($CSession->read_log('content');
-$CSession->read_log('superuser/log.txt');
-
-
-
 $CView->titre('Documentation');
 
 $fichiers[] = 'CSession.class.php'; $f[]='CS';
@@ -81,18 +70,30 @@ foreach ($fichiers as $fileNumber => $fileName)
 $CView->content_array($tbl, 'content_left', 'content_left');
 $ecrire = $CSession->write_doc($tblDoc);
 $CView->content ($ecrire, 'content_left');
-
 $CSession->read_log('superuser/documentation.txt');
+
+$CView->titre('Fichier Log');
+$CView->content('Test Fichier log.txt', 'content_left');
+//$test = $CSession->write_log('superuser connected');
+$CView->content('Test Fichier log.txt '.$CSession->write_log('superuser connected'), 'content_left');
+//$CView->content($CSession->read_log('content');
+$CSession->read_log('superuser/log.txt');
 
 // afficher les chmod
 $listfile = scandir (getcwd());
 $result = array();
+$countLnCode = 0;
 foreach ( $listfile as $key => $file)
 {
 
-	$result[$file] = substr(sprintf('%o', fileperms($file)), -4);
-
+	if ($file != "." and $file != "..") $result[$file] = substr(sprintf('%o', fileperms($file)), -4);
+    if (substr($file, -4) == '.php')
+        {
+            $fileLines=file($file);
+            $countLnCode += count($fileLines);
+        }
 }
+$CView->content ('Nb de ligne de code des fichiers du dossier : '.$countLnCode, 'content_left');
 
 $CView->titre('CHMOD Fichiers');
 $CView->content_array($result, 'content_left', 'content_left');
