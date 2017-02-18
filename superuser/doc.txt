@@ -1,50 +1,51 @@
 CS-2   class csession // ***** class 
-CS-14   // **********  gestion de l'utilisateur ***********
-CS-15         __construct() // initialise les info de la base de donnees
-CS-24         user_login() // check si login mot de passe sont valides
-CS-55             user_info($email_key, $origin) // lit les informations de l'user
-CS-89         maj_key($email) // met a jour la key de reinit
-CS-113         user_exist($email) // check si user existe
-CS-133         userkey_exist($key) // check si la key existe pour traitement
-CS-152             user_add() // ajoute un user 
-CS-180        user_pass_modify($email, $pass) // modifie le password de l'user
-CS-201         user_list($class1, $class2) // reserved superuser
-CS-242         set_session($email, $nom, $prenom, $confirm, $id) // set les variables de session
-CS-254         get_profile() // rã©cupere les infos de l'utilisateur
-CS-266   // **********  divers ***********
-CS-267        user_pass_hash($pass) // codage whirlpool du password
-CS-272        secure($var) // supprime les tag html
-CS-280        ismajuscule($var)// verifie si presence majuscule pour les mauvais password
-CS-291       *  quotesep($val)// securise les variables dans sql, avec separateur
-CS-296       *  quote($val)// securise le passage des variables dans la requete sql, sans separateur
-CS-301         kill_session() // on tue la session et les variables
-CS-307         write_log($err_txt) // ecriture dans le fichier log
-CS-317             write_doc($tbl) // cree le fichier superuser/doc.txt
-CS-329         read_log($file) // lecture d'un fichier
-CS-344   //*********   gestion des images dans la base *********
-CS-346        image_add($id_photo, $id)// ajoute une image dans la base
-CS-363             images_galerie() // lit toutes les images pour la galerie
-CS-384         image_comment($id_img) // lit les commentaires d'une image
-CS-400         image_like_count($id_img) // compte le nb de like des comment
-CS-416             image_nb_liked($id_img) // nb de like d'une image
-CS-431       //***** structure *****
-CS-433         __destruct() // on efface la connexion a la base
-CS-440        __tostring() //print ($form);
-CS-445        __invoke() //print ($form());
-CS-450       static  doc()
+CS-20   // **********  gestion de l'utilisateur ***********
+CS-21         __construct() // initialise les info de la base de donnees
+CS-34         host() // prã©cise le nom du serveur pour l'envoi des liens par mail
+CS-44         user_login() // check si login mot de passe sont valides
+CS-75             user_info($email_key, $origin) // lit les informations de l'user
+CS-109         maj_key($email) // met a jour la key de reinit
+CS-133         user_exist($email) // check si user existe
+CS-153         userkey_exist($key) // check si la key existe pour traitement
+CS-172             user_add() // ajoute un user 
+CS-200        user_pass_modify($email, $pass) // modifie le password de l'user
+CS-221         user_list($class1, $class2) // reserved superuser
+CS-262         set_session($email, $nom, $prenom, $confirm, $id) // set les variables de session
+CS-274         get_profile() // rã©cupere les infos de l'utilisateur
+CS-286   // **********  divers ***********
+CS-287        user_pass_hash($pass) // codage whirlpool du password
+CS-292        secure($var) // supprime les tag html
+CS-300        ismajuscule($var)// verifie si presence majuscule pour les mauvais password
+CS-311       *  quotesep($val)// securise les variables dans sql, avec separateur
+CS-316       *  quote($val)// securise le passage des variables dans la requete sql, sans separateur
+CS-321         kill_session() // on tue la session et les variables
+CS-327         write_log($err_txt) // ecriture dans le fichier log
+CS-337             write_doc($tbl) // cree le fichier superuser/doc.txt
+CS-349         read_log($file) // lecture d'un fichier
+CS-364   //*********   gestion des images dans la base *********
+CS-366        image_add($id_photo, $id)// ajoute une image dans la base
+CS-383             images_galerie() // lit toutes les images pour la galerie
+CS-404         image_comment($id_img) // lit les commentaires d'une image
+CS-420         image_like_count($id_img) // compte le nb de like des comment
+CS-436             image_nb_liked($id_img) // nb de like d'une image
+CS-451       //***** structure *****
+CS-453         __destruct() // on efface la connexion a la base
+CS-460        __tostring() //print ($form);
+CS-465        __invoke() //print ($form());
+CS-470   static  doc()
 CI-1   class cinscription // ***** class
-CI-11         __construct()
-CI-18         send_validation($email, $prenom, $nom, $keyuser) // envoi un email de validation 
-CI-34         send_reinitialisation($email) //    renvoi un mail de rã©initialisation
+CI-3         __construct()
+CI-10         send_validation($email, $prenom, $nom, $keyuser) // envoi un email de validation 
+CI-29         send_reinitialisation($email) //    renvoi un mail de rã©initialisation
 CI-57         set_key_validation() // crã©e la key de validation d'inscription
 CI-66         get_key_validation() // recupã¨re la key de validation d'inscription
-CI-72       /*  set_key_reinit($email)
+CI-71       /*  set_key_reinit($email)
 CI-81         send_email($email, $sujet, $message, $from) // envoi un email
-CI-106       // ***** structure *****
-CI-107         __destruct()
-CI-112        __tostring() //print ($form);
-CI-117        __invoke() //print ($form());
-CI-122       static  doc() // doc 
+CI-109       // ***** structure *****
+CI-110         __destruct()
+CI-115         __tostring() //print ($form);
+CI-120         __invoke() //print ($form());
+CI-125       static  doc() // doc 
 CP-5         __construct()
 CP-10         __destruct()
 CP-16        __tostring() //print ($form);
@@ -58,19 +59,19 @@ CP-72          link($href, $text, $class, $target, $sep) // affiche un lien avec
 CP-80          div($id, $class) // affiche un div avec id et class
 CP-87          div_end() // ferme la balise du div
 CP-92          titre($info) // affiche un titre h2
-CF-6         __construct()
+CF-7         __construct()
 CF-13         __destruct()
-CF-20        __tostring() //print ($form);
-CF-25        __invoke() //print ($form());
-CF-30       static  doc()
-CF-35         formtitre($titre)
-CF-41         form($uri, $class, $method )
-CF-47          inputlabel($labeltitre, $id, $labelfor)
-CF-52          inputtext($titre, $id, $post, $required)// , $required a ajouter
-CF-58          inputmail($titre, $id, $post, $required)
-CF-64          inputselect($titre, $id, $tbl, $selected, $required)
-CF-77   	   inputpassword($titre, $id, $required)
-CF-84   	   submit($titre, $id)
-CF-90      inputtextchk($tbl)// 
-CF-114      ctrl_password($tbl)// form($titre, $tab)
-CF-124     inputemailchk($email)// non utilisã©
+CF-18         __tostring() //print ($form);
+CF-23        __invoke() //print ($form());
+CF-28   static  doc()
+CF-33      formtitre($titre)
+CF-39      form($uri, $class, $method )
+CF-45      inputlabel($labeltitre, $id, $labelfor)
+CF-50          inputtext($titre, $id, $post, $required)// , $required a ajouter
+CF-56          inputmail($titre, $id, $post, $required)
+CF-62          inputselect($titre, $id, $tbl, $selected, $required)
+CF-75          inputpassword($titre, $id, $required)
+CF-82          submit($titre, $id)
+CF-88      inputtextchk($tbl)// 
+CF-112      ctrl_password($tbl)// form($titre, $tab)
+CF-122     inputemailchk($email)// non utilisã©
