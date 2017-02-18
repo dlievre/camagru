@@ -6,6 +6,7 @@ $CForm = new CForm;
 $CSession = new CSession();
 
 $aff_formulaire = 'yes';
+$error_field = '';
 $suite = 'login.php';
 
 $CPrint->Titre('finaliser le code');
@@ -91,6 +92,9 @@ if ($content) $CPrint->content($content, $class_msg);
 
 if ( $aff_formulaire == 'yes')
 	{
+		if (!isset($_POST['email'])) $_POST['email'] = '';
+		if (!isset($_POST['Reponse'])) $_POST['Reponse'] = '';
+
 		$TabForm = array();
 		$TabForm[] = $CForm->Form('pwd_reinit_chk.php', 'Form', 'POST');
 		$TabForm[] = $CForm->InputLabel("Mail", "Votre Mail * ", "Mail");

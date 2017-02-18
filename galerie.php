@@ -10,23 +10,14 @@ $CForm = new CForm;
 
 	$Id = $_SESSION['Id'];
 
-
-
 	$taille_img = ' width="150px" height="auto" ';
 	print('<div id="div_galerie">');
 
 	$images_galerie = $CSession->images_galerie();
 
-
-	/*$nb = 0;
-	foreach ($images_galerie as $key => $value) {
-		$CView->content_array($images_galerie[$nb], 'content',  'content');
-		$nb++;
-	}*/
-
 	$nb = 0;
-	foreach ($images_galerie as $key => $value) {
-
+	foreach ($images_galerie as $key => $value) 
+	{
 		$CView->div('','div_img_like_cmt');
 		$CView->div('','div_img');
 		$id_img = $images_galerie[$nb]['Id'];
@@ -60,13 +51,10 @@ $CForm = new CForm;
 	$CView->content('Cliquez sur une photo <br/>&bull; pour voir les commentaires des utilisateurs<br />&bull; pour Liker et envoyer votre commentaire ', 'content');
 	$CView->div_end(); // div_cmt
 
-
-
 	print('</div>'); // div  div_galerie_cmt
 	print('</div>'); // div  galerie
 
 //print('</div>'); // fin div main
-
 
 print '<script src="js_camera.js" type="text/javascript"></script>';
 //print '<script src="js_galerie.js" type="text/javascript"></script>';

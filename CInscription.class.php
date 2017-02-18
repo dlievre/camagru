@@ -1,14 +1,6 @@
 <?php
 Class CInscription // ***** class
 {
-
-    public static $verbose = False;
-    private $servername = "localhost";
-    private $username = "admin";
-    private $password = "admin";
-    private $dbname = "camagru";
-    private $tbl = "tbl_camagru";
-    
     public function __construct()
     {
         return;
@@ -23,7 +15,10 @@ Class CInscription // ***** class
         $message = 'Bonjour '.$Prenom.' '. $Nom.'<br />';
         $message .= "Félicitations vous venez de vous inscrire sur Camagru.<br />
         Pour valider cette inscription, il ne vous reste plus qu'à cliquer sur le lien suivant :";
-        $message .= "<a href='http://$this->servername:8080/camagru/register_chk.php?key=$Keyuser'> Validez votre incription</a>";
+        $CSession = new CSession();
+        $host = $CSession->host();
+        $message .= "<a href=\"".$host."/camagru/register_chk.php?key=$Keyuser'> Validez votre incription</a>";
+        //$message .= "<a href='http://$this->servername:8080/camagru/register_chk.php?key=$Keyuser'> Validez votre incription</a>";
         $from = 'dlievre@student.42.fr';
 
         //$CInscription = new CInscription();
@@ -43,10 +38,15 @@ Class CInscription // ***** class
         if ($key == 'maj key err') {print ('erreur'); exit;}
         // gerer le compteur de tentatives de reinit
         $sujet = 'Demande de réinitialisation Camagru';
-        $message = 'Bonjour '.$Prenom.' '. $Nom.'<br />';
-        $message .= "Vous avez demandé la réinitialisation de votre mot de passe Camagru.<br />
+        $message = 'Bonjour '.$Prenom.' '. $Nom."\r\n";
+        $message .= "Vous avez demandé la réinitialisation de votre mot de passe Camagru.\r\n
         Pour le changer, il ne vous reste plus qu'à cliquer sur le lien suivant : ";
-        $message .= "<a href='http://$this->servername:8080/camagru/pwd_reinit_chk.php?key=$key'> Réinitialiser votre mot de passe</a>";
+        //$sujet = htmlentities ($sujet);
+        $message = htmlentities ($message);
+        $host = $CSession->host();
+        $CSession->write_log('Réinitialisation de votre mot de passe pour '.$email );
+//$message .= "<a href='http://$this->servername:8080/camagru/pwd_reinit_chk.php?key=$key'> Réinitialiser votre mot de passe</a>";
+        $message .= "<a href=\"".$host."/pwd_reinit_chk.php?key=$key\"> Réinitialiser votre mot de passe</a>";
         $from = 'dlievre@student.42.fr';
 
         //$CInscription = new CInscription();
@@ -67,7 +67,6 @@ Class CInscription // ***** class
     public function get_key_validation() // recupère la key de validation d'inscription
     {
         //print ('<p>destruct</p>');
-
         return;
     }
     /*public function set_key_reinit($email)
@@ -79,17 +78,19 @@ Class CInscription // ***** class
         return($generatedKey);
     }*/
 
+
     public function send_email($email, $sujet, $message, $from) // envoi un email
     {
         $CPrint = new CPrint();
         $codageiso = 'charset=iso-8859-1';
         $codageutf = 'charset=utf-8';
-
         $to  = $email;
-        $to .= ', te42pe@gmail.com';
+        //$to .= ', te42pe@gmail.com';
+        $sujet = utf8_decode ($sujet);
+        $message = utf8_decode ($message);
         $headers = "MIME-Version: 1.0\r\n"; 
         //$headers .= "Content-type: text/html; ".$codageutf."\r\n"; 
-        $headers .='Content-Type: text/plain; charset="iso-8859-1"'."\r\n";  
+        $headers .='Content-Type: text/html; charset="iso-8859-1"'."\r\n";  
         $headers .='Content-Transfer-Encoding: 8bit' . "\r\n";
 
         $headers .= "From: ".$from."\r\nX-Mailer:PHP/". phpversion();  // 'X-Mailer: PHP/' . phpversion();
@@ -98,35 +99,37 @@ Class CInscription // ***** class
             return "send email";
         else 
         {
+            $CSession->write_log("Erreur de transmission email : $to $sujet");
             $CPrint->content(" Erreur de transmission email, contactez le support", 'msg_err');
             exit;
         }
 
-  return;
+        return;
     }
+
     // ***** structure *****
     public function __destruct()
     {
         return;
     }
 
-   public function __toString() //print ($Form);
-   {
+    public function __toString() //print ($Form);
+    {
         return('toString');
-   }
+    }
 
-   public function __invoke() //print ($Form());
-   {
+    public function __invoke() //print ($Form());
+    {
         return('invoke');
-   }
+    }
 
     static function doc() // doc 
     {
         $info = '';
         //INSERT INTO `tbl_camagru` (`id`, `Nom`, `Prenom`, `email`, `password`, `info`) VALUES (NULL, 'LIEVRE', 'Dominique', 'dominique@lievre.net', 'test', 'sans');
-       return (file_get_contents('superuser/documentation.txt'));
+        return (file_get_contents('superuser/documentation.txt'));
     }
-   
+
 }
 
 ?>

@@ -8,11 +8,9 @@ if(!isset($_SESSION)) {session_start();}
 		define('ROOT', $_SERVER['DOCUMENT_ROOT']);
 	define('ROOT_UPLD', ROOT.'/upload/');
 	define('ROOT_FOND', ROOT.'/fonds/');*/
-	$Domaine_Serveur = $_SERVER['HTTP_HOST'];
-if ($Domaine_Serveur == 'camagru.photeam.com')
-	require_once('CSession1and1.class.php');
-else
-	require_once('CSession.class.php');
+//	$Domaine_Serveur = str_replace ( 'www.' , '', $_SERVER['HTTP_HOST']);
+
+require_once('CSession.class.php');
 require_once('CInscription.class.php');
 include_once ('CForm.class.php');
 include_once ('CPrint.class.php');

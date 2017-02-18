@@ -23,13 +23,23 @@ Class CSession // ***** Class
     {
         //print '__construct';
         // a l'initialisation de la class on genere la variable de conenxion a la base
-        $Domaine_Serveur = $_SERVER['HTTP_HOST'];
+        $Domaine_Serveur = str_replace ( 'www.' , '', $_SERVER['HTTP_HOST']);
         if ($Domaine_Serveur == 'camagru.photeam.com')
             $this->conn = new PDO('mysql:host='.$this->servername1.';dbname='.$this->dbname1, $this->username1, $this->password1);
-            else
-                $this->conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
+        else
+            $this->conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return;
+    }
+
+    public function host() // précise le nom du serveur pour l'envoi des liens par mail
+    {
+        $Domaine_Serveur = str_replace ( 'www.' , '', $_SERVER['HTTP_HOST']);
+        if ($Domaine_Serveur == 'camagru.photeam.com') 
+            $host = 'http://www.camagru.photeam.com';
+        else
+            $host = $this->servername.':8080/camagru/';
+        return ($host);
     }
 
     public function user_login() // check si login mot de passe sont valides
@@ -42,33 +52,33 @@ Class CSession // ***** Class
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
             while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
-                    if ($lignes->email == $email && $lignes->Password == $Password && $lignes->Confirm == 1)
-                    {
-                        $this->set_session($lignes->email, $lignes->Nom, $lignes->Prenom, $lignes->Confirm, $lignes->Id );
-                        $retour = 'user_login';
-                    }
-                    if ($lignes->email == $email && $lignes->Password == $Password && $lignes->Confirm == 0)
-                        $retour = 'user not confirmed';
-
-                    if ($lignes->email == $email && $lignes->Password != $Password)
-                        $retour = 'user password bad';
-
-                    if ($lignes->email != $email )
-                        $retour = 'user not exit';
+                if ($lignes->email == $email && $lignes->Password == $Password && $lignes->Confirm == 1)
+                {
+                    $this->set_session($lignes->email, $lignes->Nom, $lignes->Prenom, $lignes->Confirm, $lignes->Id );
+                    $retour = 'user_login';
                 }
+                if ($lignes->email == $email && $lignes->Password == $Password && $lignes->Confirm == 0)
+                    $retour = 'user not confirmed';
+
+                if ($lignes->email == $email && $lignes->Password != $Password)
+                    $retour = 'user password bad';
+
+                if ($lignes->email != $email )
+                    $retour = 'user not exit';
             }
+        }
         catch(PDOException $e)
-            { echo "Error Database : " . $e->getMessage(); }
+        { echo "Error Database : " . $e->getMessage(); }
         //$conn = null;
         return($retour);
     }
 
         public function user_info($email_key, $origin) // lit les informations de l'user
-    {
+        {
         // tester si origin = email ou key
         //print $email_key.' ' . $origin;
-        if ($origin == 'key' ) {$email = $this->userkey_exist($email_key);}
-        if ($origin == 'email' ) {$email = $email_key;}
+            if ($origin == 'key' ) {$email = $this->userkey_exist($email_key);}
+            if ($origin == 'email' ) {$email = $email_key;}
 
         if ($this->user_exist($email) == 'no') // le mail n'est pas bon
         { 
@@ -89,10 +99,10 @@ Class CSession // ***** Class
                 $tbl['Keyuser'] = $lignes->Keyuser;
                 $tbl['Questionsecrete'] = $lignes->Questionsecrete;
                 $tbl['Reponsesecrete'] = $lignes->Reponsesecrete;
-                }
             }
+        }
         catch(PDOException $e)
-            { echo "Error Database : " . $e->getMessage(); }
+        { echo "Error Database : " . $e->getMessage(); }
         //$conn = null;
         return($tbl);
     }
@@ -107,16 +117,16 @@ Class CSession // ***** Class
             if ($requete)
                 $retour = $generatedKey;
             else
-                {
-                    $retour = 'maj key err';
-                    $CPrint = new CPrint();
-                    $CPrint->content('Erreur maj key', 'msg_err');
-                    exit;
-                }
+            {
+                $retour = 'maj key err';
+                $CPrint = new CPrint();
+                $CPrint->content('Erreur maj key', 'msg_err');
+                exit;
             }
+        }
 
         catch(PDOException $e)
-            { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur'; return($exist);}
+        { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur'; return($exist);}
         //$conn = null;
         return($retour);
     }
@@ -134,9 +144,9 @@ Class CSession // ***** Class
             $exist = 'no';
             while($lignes=$requete->fetch(PDO::FETCH_OBJ))
                 if ($lignes->email == strtolower($email) ) { $exist = 'yes'; }
-            }
+        }
         catch(PDOException $e)
-            { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur'; return($exist);}
+        { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur'; return($exist);}
         //$conn = null;
         return($exist);
     }
@@ -152,28 +162,28 @@ Class CSession // ***** Class
             $retour = 'no';
             while($lignes=$requete->fetch(PDO::FETCH_OBJ))
                 if ($lignes->Keyuser == $key ) { $retour = $lignes->email;}
-            }
+        }
         catch(PDOException $e)
-            { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur'; return($exist);}
+        { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur'; return($exist);}
         return($retour);
     }
 
 
 
         public function user_add() // ajoute un user 
-    {
-        $email = strtolower(strip_tags($_POST['email']));
-        $Nom = strip_tags($_POST['Nom']);
-        $Prenom = strip_tags($_POST['Prenom']);
-        $Password = $this->user_pass_hash($_POST['Password']);
-        $Confirm = 0;
-        $CInscription = new CInscription();
-        $Keyuser = $CInscription->set_key_validation();
-        $Cpt_reinit = 5;
+        {
+            $email = strtolower(strip_tags($_POST['email']));
+            $Nom = strip_tags($_POST['Nom']);
+            $Prenom = strip_tags($_POST['Prenom']);
+            $Password = $this->user_pass_hash($_POST['Password']);
+            $Confirm = 0;
+            $CInscription = new CInscription();
+            $Keyuser = $CInscription->set_key_validation();
+            $Cpt_reinit = 5;
 
         // contre les injection sql : https://openclassrooms.com/courses/pdo-comprendre-et-corriger-les-erreurs-les-plus-frequentes
 
-        try {
+            try {
             $rq = $this->secure("INSERT INTO $this->tbl (Nom, Prenom, email, Password, Confirm, Keyuser, Cpt_reinit, Questionsecrete, Reponsesecrete, Info) VALUES ('$Nom', '$Prenom', '$email', '$Password', '$Confirm', '$Keyuser', '$Cpt_reinit', '$_POST[Question]', '$_POST[Reponse]', 'Info')"); // ne pas mettre les '' dans $_POST['Nom']
             $requete = $this->conn->prepare($rq);
             $requete->execute();
@@ -181,9 +191,9 @@ Class CSession // ***** Class
             // envoi validation par mail uniquement si base maj
             //print ($email.' '.$lignes->Prenom.' '.$lignes->Nom.' '.$lignes->Keyuser);
             $CInscription->send_validation($email, $Prenom, $Nom, $Keyuser);
-            }
+        }
         catch(PDOException $e)
-            { echo "Error Database : " . $e->getMessage(); print 'Erreur user_add'; exit;}
+        { echo "Error Database : " . $e->getMessage(); print 'Erreur user_add'; exit;}
         $this->write_log('user_add : '.$email.' '. $Nom);
         return('user_add');
     }
@@ -200,10 +210,10 @@ Class CSession // ***** Class
                 $retour = 'ok';
             else
                 $retour = 'Erreur modification password';
-            }
+        }
 
         catch(PDOException $e)
-            { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur'; return($exist);}
+        { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur'; return($exist);}
         //$conn = null;
         $this->write_log('user_pass_modify : '.$email.' '. $pass);
         return($retour);
@@ -229,29 +239,29 @@ Class CSession // ***** Class
             print "<td><p class=\"$class1\">Info</p></td>";
             print '</tr>';
             while($lignes=$requete->fetch(PDO::FETCH_OBJ))
-                {
-                    print '<tr><td><p class="'.$class1.'">'.$lignes->Id.'</p></td>';
-                    print '<td><p class="'.$class1.'">'.$lignes->email.'</p></td>';
-                    print '<td><p class="'.$class1.'">'.$lignes->Nom.'</p></td>';
-                    print '<td><p class="'.$class1.'">'.$lignes->Prenom.'</p></td>';
-                    print '<td><p class="'.$class1.'">'.$lignes->Confirm.'</p></td>';
-                    print '<td><p class="'.$class1.'">'.$lignes->Keyuser.'</p></td>';
-                    print '<td><p class="'.$class1.'">'.$lignes->Cpt_reinit.'</p></td>';
-                    print '<td><p class="'.$class1.'">'.$lignes->Questionsecrete.'</p></td>';
-                    print '<td><p class="'.$class1.'">'.$lignes->Reponsesecrete.'</p></td>';
-                    print '<td><p class="'.$class1.'">'.$lignes->Info.'</p></td>';
-                    print '</tr>';
-                }
-            print '</table>';
+            {
+                print '<tr><td><p class="'.$class1.'">'.$lignes->Id.'</p></td>';
+                print '<td><p class="'.$class1.'">'.$lignes->email.'</p></td>';
+                print '<td><p class="'.$class1.'">'.$lignes->Nom.'</p></td>';
+                print '<td><p class="'.$class1.'">'.$lignes->Prenom.'</p></td>';
+                print '<td><p class="'.$class1.'">'.$lignes->Confirm.'</p></td>';
+                print '<td><p class="'.$class1.'">'.$lignes->Keyuser.'</p></td>';
+                print '<td><p class="'.$class1.'">'.$lignes->Cpt_reinit.'</p></td>';
+                print '<td><p class="'.$class1.'">'.$lignes->Questionsecrete.'</p></td>';
+                print '<td><p class="'.$class1.'">'.$lignes->Reponsesecrete.'</p></td>';
+                print '<td><p class="'.$class1.'">'.$lignes->Info.'</p></td>';
+                print '</tr>';
             }
+            print '</table>';
+        }
         catch(PDOException $e)
-            { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur';}
+        { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur';}
         //$conn = null;
         return;
     }
 
     public function set_session($email, $nom, $prenom, $confirm, $Id) // set les variables de session
-   {
+    {
         $_SESSION['Id'] = $Id;
         $_SESSION['email'] = $email;
         $_SESSION['Nom'] = $nom;
@@ -260,7 +270,7 @@ Class CSession // ***** Class
         $_SESSION['valide'] = 'ok';
         if ($_SESSION["email"] == 'dominique@lievre.net' or $_SESSION["email"] == 'tpasqual@student.42.fr') $_SESSION['Superuser'] = 'yes';
         return('ok');
-   }
+    }
 
     public function get_profile() // récupere les infos de l'utilisateur
     {
@@ -310,10 +320,10 @@ Class CSession // ***** Class
     }
 
     public function kill_session() // on tue la session et les variables
-   {
+    {
         $_SESSION = array(); session_destroy(); 
         return('ok');
-   }
+    }
 
     public function write_log($err_txt) // ecriture dans le fichier Log
     {
@@ -326,7 +336,7 @@ Class CSession // ***** Class
     }
 
         public function write_doc($tbl) // cree le fichier superuser/doc.txt
-    {
+        {
         $fp = fopen('superuser/doc.txt','w+'); // ouvrir le fichier ou le créer
         //fseek($fp,SEEK_END); // poser le point de lecture à la fin du fichier
         foreach ($tbl as $line => $code) {
@@ -372,9 +382,9 @@ Class CSession // ***** Class
     }
     
         public function images_galerie() // lit toutes les images pour la galerie
-    {
+        {
 
-        try {
+            try {
             $rq = $this->secure("SELECT Id, Id_owner, Name_img FROM $this->tbl_photos ORDER BY Date DESC");  //ORDER BY 'Date' DESC  , 'Date'
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
@@ -384,10 +394,10 @@ Class CSession // ***** Class
                 $tbl[$nb]['Id_owner'] = $lignes->Id_owner;
                 $tbl[$nb]['Name_img'] = $lignes->Name_img;
                 $nb++;
-                }
             }
+        }
         catch(PDOException $e)
-            { echo "Error Database : " . $e->getMessage(); }
+        { echo "Error Database : " . $e->getMessage(); }
         //$conn = null;
         return($tbl);
     }
@@ -401,10 +411,10 @@ Class CSession // ***** Class
             $requete->execute();
             while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
                 $tbl[] = $lignes->Comment;
-                }
             }
+        }
         catch(PDOException $e)
-            { echo "image_comment Error Database : " . $e->getMessage(); }
+        { echo "image_comment Error Database : " . $e->getMessage(); }
         return($tbl);
     }
 
@@ -416,26 +426,26 @@ Class CSession // ***** Class
             $cpt = 0;
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
-                $cpt = $requete->fetch(PDO::FETCH_OBJ);
-                $cpt = $cpt->nb;
-            }
+            $cpt = $requete->fetch(PDO::FETCH_OBJ);
+            $cpt = $cpt->nb;
+        }
         catch(PDOException $e)
-            { echo "image_like Error Database : " . $e->getMessage(); }
+        { echo "image_like Error Database : " . $e->getMessage(); }
         return($cpt[0]);
     }
 
         public function image_nb_liked($id_img) // nb de like d'une image
-    {
-        try {
-            $rq = $this->secure("SELECT Nb_liked FROM $this->tbl_photos WHERE Name_img = '$id_img'");  
-            $cpt = 0;
+        {
+            try {
+                $rq = $this->secure("SELECT Nb_liked FROM $this->tbl_photos WHERE Name_img = '$id_img'");  
+                $cpt = 0;
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
-                $cpt = $requete->fetch(PDO::FETCH_OBJ);
-                $cpt = $cpt->Nb_liked;
-            }
+            $cpt = $requete->fetch(PDO::FETCH_OBJ);
+            $cpt = $cpt->Nb_liked;
+        }
         catch(PDOException $e)
-            { echo "image_nb_liked Error Database : " . $e->getMessage(); }
+        { echo "image_nb_liked Error Database : " . $e->getMessage(); }
         return($cpt);
     }
 
@@ -450,20 +460,20 @@ Class CSession // ***** Class
 
    public function __toString() //print ($Form);
    {
-        return('toString');
-   }
+    return('toString');
+}
 
    public function __invoke() //print ($Form());
    {
-        return('invoke');
-   }
+    return('invoke');
+}
 
-    static function doc()
-    {
-        $info = '';
-       return (file_get_contents('superuser/documentation.txt'));
-    }
-   
+static function doc()
+{
+    $info = '';
+    return (file_get_contents('superuser/documentation.txt'));
+}
+
 
 }
 

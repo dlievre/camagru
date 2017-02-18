@@ -1,6 +1,8 @@
 <?php
 // on recupere le mail pour envoyer un lien de reinitialisation de password
+
 require_once('includes_session.php');
+
 $CPrint = new CPrint();
 $CForm = new CForm;
 $CSession = new CSession();
@@ -21,12 +23,14 @@ print('<div id="main">');
 // on recherche l'utilisateur de cette key, puis on demande la question secrete
 if ($CSession->userkey_exist($_SESSION['key']) == 'no') 
 	{
-		print 'erreur key not exist : '. $_SESSION['key'];
+		print 'Erreur key not exist : '. $_SESSION['key'];
+				// $content = "Erreur key invalide". $_SESSION['key'];
+				// $class_msg = "msg_err";
+				// $aff_formulaire = 'no';
 		exit;
 	}
 else
 {
-
 		if (isset($_POST['Envoyer']) == TRUE) // controle des champs
 		{
 			$TabFormChk["email"] = "Votre Mail";
@@ -36,22 +40,21 @@ else
 
 			$error_field = $CForm->InputTextChk($TabFormChk);
 			if 	($_POST['Password'] != $_POST['Passwordbis']) $error_field .= "Les mots de passe ne sont pas identiques";
-
 		}
 
 		$class_msg = 'content';
 		$content = 'Vous avez demandé la réinitialisation de votre mot de passe<br /> ';
 		$content .= 'Complétez les informations ci-dessous pour valider votre demande<br /> ';
 
-if (isset($_POST['Envoyer']) == TRUE and !$error_field )
-	{
+		if (isset($_POST['Envoyer']) == TRUE and !$error_field )
+		{
 		//print 'controle<br />'; 
 		// on check la key et le mail, la reponse 
 		//print $_POST['email'].'>>>';
-		$tbl_info_user = $CSession->user_info($_POST['email'], 'email');
+			$tbl_info_user = $CSession->user_info($_POST['email'], 'email');
 		// verification que la key est bien associee au mail
 
-		if ($tbl_info_user['email'] == 'no') 
+			if ($tbl_info_user['email'] == 'no') 
 			{
 				$content = "Erreur Email invalide";
 				$class_msg = "msg_err";
@@ -62,7 +65,12 @@ if (isset($_POST['Envoyer']) == TRUE and !$error_field )
 				$content = '';
 				if  ($_POST['email'] != $tbl_info_user['email'] or $_SESSION['key'] != $tbl_info_user['Keyuser']) $content .= 'key non valide pour cet utilisateur<br />';
 				//print '...'.$tbl_info_user['Questionsecrete'] .' '. $_POST['Question'] .' '. $tbl_info_user['Reponsesecrete'] .' '. $_POST['Reponse'];
-				if ( $tbl_info_user['Questionsecrete'] != $_POST['Question'] or $tbl_info_user['Reponsesecrete'] != $_POST['Reponse']) $content .= 'Question secrète non valide<br />';
+				if ( $tbl_info_user['Questionsecrete'] != $_POST['Question'] or $tbl_info_user['Reponsesecrete'] != $_POST['Reponse'])
+				{
+					$content .= 'Question secrète non valide<br />';
+					$class_msg = "msg_err";
+				}
+
 				if (!$content)
 				{
 					//print '<br/>update base<br/>'; 
@@ -94,12 +102,12 @@ if ( $aff_formulaire == 'yes')
 		$TabForm[] = $CForm->Form('pwd_reinit_chk.php', 'Form', 'POST');
 		$TabForm[] = $CForm->InputLabel("Mail", "Votre Mail * ", "Mail");
 		$TabForm[] = $CForm->InputMail("Votre Mail", "email", $_POST['email'], '*');
-// aller recuperer la question secrete de cet user et l'afficher
+		// aller recuperer la question secrete de cet user et l'afficher
 
 
 		//$tbl_info_user = $CSession->user_info($email, 'email');
-        $tbl_info_user = $CSession->user_info($_SESSION['key'], 'key');
-       // ok ici  print_r($tbl_info_user);
+		$tbl_info_user = $CSession->user_info($_SESSION['key'], 'key');
+		// ok ici  print_r($tbl_info_user);
         $Questionsecrete = $tbl_info_user['Questionsecrete'];
         
 		//$Tabquestion[] = "Le nom de votre chien";

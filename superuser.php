@@ -5,32 +5,35 @@ if ( $_SESSION["email"] != 'dominique@lievre.net' ) exit;
 require_once('head.php');
 require_once('header.php');
 
-$CPrint = new CPrint;
+$CView = new CPrint;
 $CSession = new CSession;
+$CInscription = new CInscription;
 print('<div id="main">');
 
-$CPrint->titre('Liste des users');
+$CView->titre('Liste des users');
 $CSession->user_list('content_left', 'content_left');
 
-$CPrint->titre('Liste Questions secrètes');
-$CPrint->content_array($Tabquestion, 'content_left', 'content_left');
+$CView->titre('Liste Questions secrètes');
+$CView->content_array($Tabquestion, 'content_left', 'content_left');
 
-$CPrint->titre('Info systèmes');
-$CPrint->content('<b>Chemin : </b>'. __FILE__ .'<br />', 'content_left');
-$CPrint->content('<b>$_SERVER[\'DOCUMENT_ROOT\' : </b>'.$_SERVER['DOCUMENT_ROOT'].'<br />', 'content_left');
+$CView->titre('Info systèmes');
+$CView->content( '<b>HTTP_HOST : </b>'.$_SERVER['HTTP_HOST'], 'content_left');
+$CView->content('Host : '.$CSession->host(), 'content_left');
+$CView->content('<b>Chemin : </b>'. __FILE__ .'<br />', 'content_left');
+$CView->content('<b>$_SERVER[\'DOCUMENT_ROOT\' : </b>'.$_SERVER['DOCUMENT_ROOT'].'<br />', 'content_left');
 
 
 
-$CPrint->titre('Fichier Log');
-print 'Test Fichier log.txt';
+$CView->titre('Fichier Log');
+$CView->content('Test Fichier log.txt', 'content_left');
 //$test = $CSession->write_log('superuser connected');
-$CPrint->content('Test Fichier log.txt '.$CSession->write_log('superuser connected'), 'content');
-//$CPrint->content($CSession->read_log('content');
+$CView->content('Test Fichier log.txt '.$CSession->write_log('superuser connected'), 'content_left');
+//$CView->content($CSession->read_log('content');
 $CSession->read_log('superuser/log.txt');
 
 
 
-$CPrint->titre('Documentation');
+$CView->titre('Documentation');
 
 $fichiers[] = 'CSession.class.php'; $f[]='CS';
 $fichiers[] = 'CInscription.class.php'; $f[]='CI';
@@ -75,9 +78,9 @@ foreach ($fichiers as $fileNumber => $fileName)
         }
     }
 }
-$CPrint->content_array($tbl, 'content_left', 'content_left');
+$CView->content_array($tbl, 'content_left', 'content_left');
 $ecrire = $CSession->write_doc($tblDoc);
-$CPrint->content ($ecrire, 'content_left');
+$CView->content ($ecrire, 'content_left');
 
 $CSession->read_log('superuser/documentation.txt');
 
@@ -91,8 +94,8 @@ foreach ( $listfile as $key => $file)
 
 }
 
-$CPrint->titre('CHMOD Fichiers');
-$CPrint->content_array($result, 'content_left', 'content_left');
+$CView->titre('CHMOD Fichiers');
+$CView->content_array($result, 'content_left', 'content_left');
 
 
 $indicesServer = array('PHP_SELF', 
@@ -137,7 +140,7 @@ $indicesServer = array('PHP_SELF',
 'PATH_INFO', 
 'ORIG_PATH_INFO') ; 
 
-//$CPrint->content_array($indicesServer, 'content_left', 'content_left');
+//$CView->content_array($indicesServer, 'content_left', 'content_left');
 
 echo '<table cellpadding="10">' ; 
 foreach ($indicesServer as $arg) { 
