@@ -21,32 +21,33 @@ Class CForm
         return('toString');
     }
 
-   public function __invoke() //print ($Form());
-   {
+    public function __invoke() //print ($Form());
+    {
     return('invoke');
-}
+    }
 
-static function doc()
-{
-   return (file_get_contents('Form.doc.txt'));
-}
+    static function doc()
+    {
+        return (file_get_contents('Form.doc.txt'));
+    }
 
-public  function FormTitre($titre)
-{
-    print('<table>');
-    print ('<h2 class="FormTitre">'.$titre.'</h2>');
-    return;
-}
-public  function Form($uri, $class, $method )
-{
-    return('<FORM class="'.$class.'" action="'. $uri.'" method="'.$method.'">');
+    public  function FormTitre($titre)
+    {
+        print('<table>');
+        print ('<h2 class="FormTitre">'.$titre.'</h2>');
+        return;
+    }
+
+    public  function Form($uri, $class, $method )
+    {
+        return('<FORM class="'.$class.'" action="'. $uri.'" method="'.$method.'">');
         // !$uri || !$method
-}
+    }
 
-public  function InputLabel($labelTitre, $id, $labelFor)
-{
-    return('<LABEL for="'.$labelFor.'">'. $labelTitre."</LABEL>");
-}
+    public  function InputLabel($labelTitre, $id, $labelFor)
+    {
+        return('<LABEL for="'.$labelFor.'">'. $labelTitre."</LABEL>");
+    }
 
     public  function InputText($Titre, $id, $post, $required)// , $required a ajouter
     {
@@ -86,45 +87,46 @@ public  function InputLabel($labelTitre, $id, $labelFor)
         // !$id || !$labelFor
     }
 
-public  function InputTextChk($tbl)// 
-{
-    $retour = '';
-    $balise_refused [] = "<";
-    $balise_refused [] = '>';
-    $balise_refused [] = '<?';
-    $balise_refused [] = '?>';
-    $balise_refused [] = 'script';
-    $balise_refused [] = 'php';
-
-    foreach ($tbl as $id => $label)
+    public  function InputTextChk($tbl)// 
     {
-        if (!$_POST[$id]) $retour .= 'champ '.$label.' : à renseigner<br />';
-        foreach ($balise_refused as $key => $value)
-            if (stripos ('x'.$_POST[$id] , $value)) $retour .= 'champ '.$label." : Caractère ( $value ) non conforme<br />";
+        $retour = '';
+        $balise_refused [] = "<";
+        $balise_refused [] = '>';
+        $balise_refused [] = '<?';
+        $balise_refused [] = '?>';
+        $balise_refused [] = 'script';
+        $balise_refused [] = 'php';
+
+        foreach ($tbl as $id => $label)
+        {
+            if (!$_POST[$id]) $retour .= 'champ '.$label.' : à renseigner<br />';
+            foreach ($balise_refused as $key => $value)
+                if (stripos ('x'.$_POST[$id] , $value)) $retour .= 'champ '.$label." : Caractère ( $value ) non conforme<br />";
+        }
+        if ($tbl['email'])
+        {
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
+                $retour .= 'champ '.'email'.' : non conforme<br />';
+        } 
+
+        return ($retour);
     }
-    if ($tbl['email'])
+    
+    public  function Ctrl_Password($tbl)// Form($Titre, $Tab)
     {
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
-            $retour .= 'champ '.'email'.' : non conforme<br />';
-    } 
-
-    return ($retour);
-}
-public  function Ctrl_Password($tbl)// Form($Titre, $Tab)
-{
-    $retour = '';
-    foreach ($tbl as $id => $label)
-    {
-        if (!$_POST[$id]) $retour .= 'champ '.$label.' à renseigner<br />';
+        $retour = '';
+        foreach ($tbl as $id => $label)
+        {
+            if (!$_POST[$id]) $retour .= 'champ '.$label.' à renseigner<br />';
+        }
+        return ($retour);
     }
-    return ($retour);
-}
 
-public function InputEmailChk($email)// non utilisé
-{
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
-        return ('erreur');
-}
+    public function InputEmailChk($email)// non utilisé
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
+            return ('erreur');
+    }
 
 }
 

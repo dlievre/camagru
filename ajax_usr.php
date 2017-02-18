@@ -38,25 +38,25 @@ if( $_GET['action'] == 'delete')
 	$Id_img = $_GET['id_photo'];
 
 	try {
-        $rq = $CSession->secure("DELETE FROM photos WHERE Id_owner = $Id AND Name_img = '$Id_img'");
-       	
+		$rq = $CSession->secure("DELETE FROM photos WHERE Id_owner = $Id AND Name_img = '$Id_img'");
+		
 		//$CSession->write_log($rq."\r\n"); // qwerty enlever quand ok
-        $requete = $CSession->conn->prepare($rq); 
-        $requete->execute();
-        if ($requete)
-        {	
-        	unlink($dir_user.$Id_img.".png");
-        	$retour = 'ok';
-        }
-        else
-            {
-                $retour = 'delete img err';
-                exit;
-            }
-        }
+		$requete = $CSession->conn->prepare($rq); 
+		$requete->execute();
+		if ($requete)
+		{	
+			unlink($dir_user.$Id_img.".png");
+			$retour = 'ok';
+		}
+		else
+		{
+			$retour = 'delete img err';
+			exit;
+		}
+	}
 
-        catch(PDOException $e)
-            { $retour = "delete img, Error Database : " . $e->getMessage();}
+	catch(PDOException $e)
+	{ $retour = "delete img, Error Database : " . $e->getMessage();}
         //$conn = null;
 	echo $retour;
 	$Err = '';

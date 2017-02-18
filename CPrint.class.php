@@ -5,35 +5,34 @@ Class CPrint{
 
     public function __construct()
     {
-        return;
+      return;
     }
 
     public function __destruct()
     {
-         if (self::$verbose == True)
-       return;
+      return;
     }
 
-   public function __toString() //print ($Form);
-   {
-        return('toString');
-   }
+    public function __toString() //print ($Form);
+    {
+      return('toString');
+    }
 
-   public function __invoke() //print ($Form());
-   {
-        return('invoke');
-   }
+    public function __invoke() //print ($Form());
+    {
+      return('invoke');
+    }
 
     static function doc()
     {
-       return (file_get_contents('documentation.txt'));
+      return (file_get_contents('documentation.txt'));
     }
 
-   public  function Form($Titre, $Tab) // affiche le form
+    public  function Form($Titre, $Tab) // affiche le form
     {
       print ('<div id="form">');
-    	print ('<h2 class="Titre">'.$Titre.'</h2>');
-    	print($Tab[0]);
+      print ('<h2 class="Titre">'.$Titre.'</h2>');
+      print($Tab[0]);
       $nb = count($Tab);
       $Tab[] = " "; // evite pb index
       print('<table>');
@@ -42,9 +41,10 @@ Class CPrint{
       print('</table>');
       print('</form>');
       print('</div>');
-        return;
+      return;
     }
-       public  function profil($Titre, $Tab) // affiche les info du user
+
+    public  function profil($Titre, $Tab) // affiche les info du user
     {
       print ('<div id="profile">');
       print ('<h2 class="Titre">'.$Titre.'</h2>');
@@ -55,11 +55,13 @@ Class CPrint{
       print('</div>');
       return;
     }
+
      public  function content($Info, $class) // affiche avec p et class
     {
       print ('<p class="'.$class.'">'.$Info.'</p>');
       return;
     }
+
     public function content_array($Tab, $class1, $class2) // affiche un tableau à 2 Dimensions titre et contenu avec class css
     {
       print ('<p><table>');
