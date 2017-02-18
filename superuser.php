@@ -28,7 +28,53 @@ $CPrint->content('Test Fichier log.txt '.$CSession->write_log('superuser connect
 //$CPrint->content($CSession->read_log('content');
 $CSession->read_log('superuser/log.txt');
 
+
+
 $CPrint->titre('Documentation');
+
+$fichiers[] = 'CSession.class.php'; $f[]='CS';
+$fichiers[] = 'CInscription.class.php'; $f[]='CI';
+$fichiers[] = 'CPrint.class.php'; $f[]='CP';
+$fichiers[] = 'CForm.class.php'; $f[]='CF';
+
+/*On parcourt le tableau $lines et on affiche le contenu de chaque ligne précédée de son numéro*/
+$needle[] = strtolower ('Class C');
+$needle[] = strtolower ('function');
+$needle[] = strtolower ('*****');
+//$needle[] = strtolower ("INSERT INTO");
+$tbl = array();
+
+
+foreach ($fichiers as $fileNumber => $fileName)
+{
+    $lines = file($fileName);
+    $tbl[$fileName] = '<b>'.$fileName.'</b';
+
+    foreach ($lines as $lineNumber => $lineContent)
+    {
+        foreach ($needle as $needleNumber => $needleContent)
+        {
+
+        if (strpos ( strtolower ($lineContent) , $needleContent))
+            {
+                $lineContent = str_replace ( 'private' , '*', strtolower ($lineContent));
+                $lineContent = str_replace ( 'public' , '', strtolower ($lineContent));
+                $lineContent = str_replace ( 'function' , '', strtolower ($lineContent));
+                if ( $pos = strpos ($lineContent , '('))
+					$lineContent = '<b>'.substr($lineContent, 0, $pos).'</b>'.substr($lineContent, $pos);
+                $lineContent = str_replace ( '//' , '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//', strtolower ($lineContent));
+                //echo $lineNumber,' ',$lineContent.'<br />';
+                //$lineContent =  str_replace ( 'é' , '&eacute;', $lineContent);
+               // $lineContent =  str_replace ( 'Ã©' , '&eacute;', $lineContent); 
+                //http://mozartsduweb.com/blog/correspondance-encodages-utf8-iso-8859-1/
+                $tbl[$f[$fileNumber].'-'.$lineNumber] = $lineContent;
+
+            }
+        }
+    }
+}
+$CPrint->content_array($tbl, 'content_left', 'content_left');
+
 $CSession->read_log('superuser/documentation.txt');
 
 // afficher les chmod

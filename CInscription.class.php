@@ -1,5 +1,5 @@
 <?php
-Class CInscription
+Class CInscription // ***** class
 {
 
     public static $verbose = False;
@@ -14,14 +14,9 @@ Class CInscription
         return;
     }
 
-//send_validation
-//cle_validation
-//send_email
-//validation_user
-//reset_password
-//remove_user
+// à faire remove_user
 
-    public function send_validation($email, $Prenom, $Nom, $Keyuser)
+    public function send_validation($email, $Prenom, $Nom, $Keyuser) // envoi un email de validation 
     {
 
         $sujet = 'Confirmation d\'inscription Camagru';
@@ -37,7 +32,7 @@ Class CInscription
         return($action);
     }
 
-    public function send_reinitialisation($email)
+    public function send_reinitialisation($email) //    renvoi un mail de réinitialisation
     {
         $CSession = new CSession();
         $tbl_info_user = $CSession->user_info($email, 'email');
@@ -60,7 +55,7 @@ Class CInscription
         return($action);
     }
 
-    public function set_key_validation()
+    public function set_key_validation() // crée la key de validation d'inscription
     {
         //$generatedKey = sha1(mt_rand(10000,99999).time().$email);
         $generatedKey = uniqid();
@@ -69,7 +64,7 @@ Class CInscription
         return($generatedKey);
     }
 
-    public function get_key_validation()
+    public function get_key_validation() // recupère la key de validation d'inscription
     {
         //print ('<p>destruct</p>');
 
@@ -84,7 +79,7 @@ Class CInscription
         return($generatedKey);
     }*/
 
-    public function send_email($email, $sujet, $message, $from)
+    public function send_email($email, $sujet, $message, $from) // envoi un email
     {
         $CPrint = new CPrint();
         $codageiso = 'charset=iso-8859-1';
@@ -93,7 +88,10 @@ Class CInscription
         $to  = $email;
         $to .= ', te42pe@gmail.com';
         $headers = "MIME-Version: 1.0\r\n"; 
-        $headers .= "Content-type: text/html; ".$codageutf."\r\n"; 
+        //$headers .= "Content-type: text/html; ".$codageutf."\r\n"; 
+        $headers .='Content-Type: text/plain; charset="iso-8859-1"'."\r\n";  
+        $headers .='Content-Transfer-Encoding: 8bit' . "\r\n";
+
         $headers .= "From: ".$from."\r\nX-Mailer:PHP/". phpversion();  // 'X-Mailer: PHP/' . phpversion();
 
         if (mail($to, $sujet, $message, $headers))
@@ -106,10 +104,9 @@ Class CInscription
 
   return;
     }
-
+    // ***** structure *****
     public function __destruct()
     {
-        //print ('<p>destruct</p>');
         return;
     }
 
@@ -123,11 +120,11 @@ Class CInscription
         return('invoke');
    }
 
-    static function doc()
+    static function doc() // doc 
     {
         $info = '';
         //INSERT INTO `tbl_camagru` (`id`, `Nom`, `Prenom`, `email`, `password`, `info`) VALUES (NULL, 'LIEVRE', 'Dominique', 'dominique@lievre.net', 'test', 'sans');
-       return (file_get_contents('documentation.txt'));
+       return (file_get_contents('superuser/documentation.txt'));
     }
    
 }

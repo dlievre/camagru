@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION)) {session_start();}
-Class CSession
+Class CSession // ***** Class 
 {
     public static $verbose = False;
     private $servername = "localhost";
@@ -11,10 +11,9 @@ Class CSession
     private $tbl_photos = "photos";
     private $tbl_photos_like = "photos_like";
     //private $conn =''; pas necessaire
-////////
 
-///////
-    public function __construct()
+// **********  gestion de l'utilisateur ***********
+    public function __construct() // initialise les info de la base de donnees
     {
         //print '__construct';
         // a l'initialisation de la class on genere la variable de conenxion a la base
@@ -23,7 +22,7 @@ Class CSession
         return;
     }
 
-    public function user_login()
+    public function user_login() // check si login mot de passe sont valides
     {
         $email = strtolower(strip_tags($_POST['email']));
         $Password = $this->user_pass_hash($_POST['Password']);
@@ -54,7 +53,7 @@ Class CSession
         return($retour);
     }
 
-        public function user_info($email_key, $origin)
+        public function user_info($email_key, $origin) // lit les informations de l'user
     {
         // tester si origin = email ou key
         //print $email_key.' ' . $origin;
@@ -88,7 +87,7 @@ Class CSession
         return($tbl);
     }
 
-    public function maj_key($email)
+    public function maj_key($email) // met a jour la key de reinit
     {
         $generatedKey = uniqid();
         try {
@@ -112,7 +111,7 @@ Class CSession
         return($retour);
     }
 
-    public function user_exist($email)
+    public function user_exist($email) // check si user existe
     {
         if (!$email) $email = strtolower(strip_tags($_POST['email']));
        ///   securisation : https://openclassrooms.com/courses/securite-php-securiser-les-flux-de-donnees
@@ -132,7 +131,7 @@ Class CSession
         return($exist);
     }
 
-        public function userkey_exist($key)
+    public function userkey_exist($key) // check si la key existe pour traitement
     {
         if (!$key) {print 'erreur in userkey_exist'; exit; }
        ///   securisation : https://openclassrooms.com/courses/securite-php-securiser-les-flux-de-donnees
@@ -149,17 +148,9 @@ Class CSession
         return($retour);
     }
 
-    private function quotesep($val)// securise le passage des variables dans la requete sql, avec separateur
-    {
-        return("'".$val."', ");
-    }
 
-    private function quote($val)// securise le passage des variables dans la requete sql, sans separateur
-    {
-        return("'".$val."'");
-    }
 
-        public function user_add()
+        public function user_add() // ajoute un user 
     {
         $email = strtolower(strip_tags($_POST['email']));
         $Nom = strip_tags($_POST['Nom']);
@@ -187,7 +178,7 @@ Class CSession
         return('user_add');
     }
 
-    function user_pass_modify($email, $pass)
+    function user_pass_modify($email, $pass) // modifie le password de l'user
     {
         $hashkey = $this->user_pass_hash($pass);
         try {
@@ -208,12 +199,7 @@ Class CSession
         return($retour);
     }
 
-    function user_pass_hash($pass)
-    { 
-        return (hash('whirlpool',$pass));
-    }
-
-    public function user_list($class1, $class2) // reservé superuser
+    public function user_list($class1, $class2) // reserved superuser
     {
         try {
             //$conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
@@ -254,7 +240,7 @@ Class CSession
         return;
     }
 
-    public function set_session($email, $nom, $prenom, $confirm, $Id)
+    public function set_session($email, $nom, $prenom, $confirm, $Id) // set les variables de session
    {
         $_SESSION['Id'] = $Id;
         $_SESSION['email'] = $email;
@@ -266,7 +252,7 @@ Class CSession
         return('ok');
    }
 
-    public function get_profile()
+    public function get_profile() // récupere les infos de l'utilisateur
     {
         if ($_SESSION['valide'] == 'ok') {
             $tab = array();
@@ -278,7 +264,13 @@ Class CSession
             return('erreur');
     }
 
-    function secure($var)
+// **********  divers ***********
+    function user_pass_hash($pass) // codage whirlpool du password
+    { 
+        return (hash('whirlpool',$pass));
+    }
+
+    function secure($var) // supprime les tag html
     {
         $var = strip_tags($var);
         return($var); // pour l'instant on ne fait que le strip_tags car protege par 'value'
@@ -286,7 +278,7 @@ Class CSession
         //return($var);
     }
 
-    function ismajuscule($var)// permet de verifier si il y a une majuscule dans la chaine pour les mauvais password
+    function ismajuscule($var)// verifie si presence majuscule pour les mauvais password
     {
         $nb = strlen($var);
         $retour = 'minuscule';
@@ -295,6 +287,47 @@ Class CSession
                 $retour = 'majuscule';
         }
         return($retour);
+    }
+
+    private function quotesep($val)// securise les variables dans sql, avec separateur
+    {
+        return("'".$val."', ");
+    }
+
+    private function quote($val)// securise le passage des variables dans la requete sql, sans separateur
+    {
+        return("'".$val."'");
+    }
+
+    public function kill_session() // on tue la session et les variables
+   {
+        $_SESSION = array(); session_destroy(); 
+        return('ok');
+   }
+
+    public function write_log($err_txt) // ecriture dans le fichier Log
+    {
+        $fp = fopen('superuser/log.txt','a+'); // ouvrir le fichier ou le créer
+        fseek($fp,SEEK_END); // poser le point de lecture à la fin du fichier
+        $err = date("F j, Y, g:i a").' | '.$err_txt."\r\n"; // ajouter un retour à la ligne au fichier
+        fputs($fp,$err); // ecrire ce texte
+        fclose($fp); //fermer le fichier
+        return 'write_log ok';
+    }
+
+    public function read_log($file) // lecture d'un fichier
+    {
+        $fp = fopen($file,'r') or die("Unable to open file!".$file); ; // ouvrir le fichier 
+        print '<p class="content_left">';
+        //echo fread($fp,filesize("log.txt"));
+        //$CView = new $CPrint();
+        while(!feof($fp))
+        {
+            echo fgets($fp) . "<br>";
+        }
+        print '</p>';
+        fclose($fp); //fermer le fichier
+        return 'read_log '.$file.' ok';
     }
 
 //*********   gestion des images dans la base *********
@@ -316,7 +349,7 @@ Class CSession
         return('image_add'); 
     }
     
-        public function images_galerie()
+        public function images_galerie() // lit toutes les images pour la galerie
     {
 
         try {
@@ -337,7 +370,7 @@ Class CSession
         return($tbl);
     }
 
-    public function image_comment($id_img)
+    public function image_comment($id_img) // lit les commentaires d'une image
     {
         try {
             $rq = $this->secure("SELECT Id, Comment FROM $this->tbl_photos_like WHERE Id_img = '$id_img'");  //ORDER BY 'Date' DESC  , 'Date'
@@ -353,7 +386,7 @@ Class CSession
         return($tbl);
     }
 
-    public function image_like_count($id_img)
+    public function image_like_count($id_img) // compte le nb de like des comment
     {
         try {
             $rq = $this->secure("SELECT COUNT(*) AS nb FROM $this->tbl_photos_like WHERE Id_img = '$id_img' AND Grave_bien = 1");  
@@ -369,7 +402,7 @@ Class CSession
         return($cpt[0]);
     }
 
-        public function image_nb_liked($id_img)
+        public function image_nb_liked($id_img) // nb de like d'une image
     {
         try {
             $rq = $this->secure("SELECT Nb_liked FROM $this->tbl_photos WHERE Name_img = '$id_img'");  
@@ -384,10 +417,12 @@ Class CSession
         return($cpt);
     }
 
-    public function __destruct()
+    //***** structure *****
+
+    public function __destruct() // on efface la connexion a la base
     {
         //print ('<p>destruct</p>');
-        $this->conn = null; // on efface la connexion a la base
+        $this->conn = null; 
         return;
     }
 
@@ -404,40 +439,10 @@ Class CSession
     static function doc()
     {
         $info = '';
-        //INSERT INTO `tbl_camagru` (`id`, `Nom`, `Prenom`, `email`, `password`, `info`) VALUES (NULL, 'LIEVRE', 'Dominique', 'dominique@lievre.net', 'test', 'sans');
-       return (file_get_contents('documentation.txt'));
+       return (file_get_contents('superuser/documentation.txt'));
     }
    
-    public function kill_session()
-   {
-        $_SESSION = array(); session_destroy(); 
-        return('ok');
-   }
 
-    public function write_log($err_txt)
-    {
-        $fp = fopen('superuser/log.txt','a+'); // ouvrir le fichier ou le créer
-        fseek($fp,SEEK_END); // poser le point de lecture à la fin du fichier
-        $err = date("F j, Y, g:i a").' | '.$err_txt."\r\n"; // ajouter un retour à la ligne au fichier
-        fputs($fp,$err); // ecrire ce texte
-        fclose($fp); //fermer le fichier
-        return 'write_log ok';
-    }
-
-    public function read_log($file)
-    {
-        $fp = fopen($file,'r') or die("Unable to open file!".$file); ; // ouvrir le fichier 
-        print '<p class="content_left">';
-        //echo fread($fp,filesize("log.txt"));
-        //$CView = new $CPrint();
-        while(!feof($fp))
-        {
-            echo fgets($fp) . "<br>";
-        }
-        print '</p>';
-        fclose($fp); //fermer le fichier
-        return 'read_log '.$file.' ok';
-    }
 }
 
 

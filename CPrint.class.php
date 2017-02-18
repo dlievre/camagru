@@ -29,7 +29,7 @@ Class CPrint{
        return (file_get_contents('documentation.txt'));
     }
 
-   public  function Form($Titre, $Tab)
+   public  function Form($Titre, $Tab) // affiche le form
     {
       print ('<div id="form">');
     	print ('<h2 class="Titre">'.$Titre.'</h2>');
@@ -44,7 +44,7 @@ Class CPrint{
       print('</div>');
         return;
     }
-       public  function profil($Titre, $Tab)
+       public  function profil($Titre, $Tab) // affiche les info du user
     {
       print ('<div id="profile">');
       print ('<h2 class="Titre">'.$Titre.'</h2>');
@@ -55,14 +55,13 @@ Class CPrint{
       print('</div>');
       return;
     }
-     public  function content($Info, $class)
+     public  function content($Info, $class) // affiche avec p et class
     {
       print ('<p class="'.$class.'">'.$Info.'</p>');
       return;
     }
-    public function content_array($Tab, $class1, $class2)
+    public function content_array($Tab, $class1, $class2) // affiche un tableau à 2 Dimensions titre et contenu avec class css
     {
-      // affiche un tableau à 2 Dimensions titre et contenu avec class css
       print ('<p><table>');
       foreach ($Tab as $key => $value)
         print ('<tr><td> <p class="'.$class1.'">'.$key.'</p></td><td><p class="'.$class2.'">'.$value.'</p></td></tr>');
@@ -71,7 +70,7 @@ Class CPrint{
       return;
     }
 
-    public  function link($href, $text, $class, $target, $sep)
+    public  function link($href, $text, $class, $target, $sep) // affiche un lien avec balise <a>
     {
       // affiche un lien avec un séparateur
       print ("<a href=\"$href\" class=\"$class\" target=\"$target\">$text</a>");
@@ -79,19 +78,19 @@ Class CPrint{
       return;
     }
 
-    public  function div($id, $class)
+    public  function div($id, $class) // affiche un div avec id et class
     {
       if ($id) $id = "id=\"$id\"";
       if ($class) $class = "class=\"$class\"";
       print "<div $id $class>";
     }
 
-    public  function div_end()
+    public  function div_end() // ferme la balise du div
     {
       print "</div>";
     }
 
-    public  function titre($Info)
+    public  function titre($Info) // affiche un titre H2
     {
       print ('<h2>'.$Info.'</h2>');
       return;
