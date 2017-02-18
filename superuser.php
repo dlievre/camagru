@@ -42,7 +42,8 @@ $needle[] = strtolower ('Class C');
 $needle[] = strtolower ('function');
 $needle[] = strtolower ('*****');
 //$needle[] = strtolower ("INSERT INTO");
-$tbl = array();
+$tbl = array(); // pour afficher
+$tblDoc = array(); // pour creer le fichier doc
 
 
 foreach ($fichiers as $fileNumber => $fileName)
@@ -60,6 +61,7 @@ foreach ($fichiers as $fileNumber => $fileName)
                 $lineContent = str_replace ( 'private' , '*', strtolower ($lineContent));
                 $lineContent = str_replace ( 'public' , '', strtolower ($lineContent));
                 $lineContent = str_replace ( 'function' , '', strtolower ($lineContent));
+                $tblDoc[$f[$fileNumber].'-'.$lineNumber] = $lineContent; // avant mise en form
                 if ( $pos = strpos ($lineContent , '('))
 					$lineContent = '<b>'.substr($lineContent, 0, $pos).'</b>'.substr($lineContent, $pos);
                 $lineContent = str_replace ( '//' , '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//', strtolower ($lineContent));
@@ -74,6 +76,8 @@ foreach ($fichiers as $fileNumber => $fileName)
     }
 }
 $CPrint->content_array($tbl, 'content_left', 'content_left');
+$ecrire = $CSession->write_doc($tblDoc);
+$CPrint->content ($ecrire, 'content_left');
 
 $CSession->read_log('superuser/documentation.txt');
 

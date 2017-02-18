@@ -315,6 +315,18 @@ Class CSession // ***** Class
         return 'write_log ok';
     }
 
+        public function write_doc($tbl) // cree le fichier superuser/doc.txt
+    {
+        $fp = fopen('superuser/doc.txt','w+'); // ouvrir le fichier ou le créer
+        //fseek($fp,SEEK_END); // poser le point de lecture à la fin du fichier
+        foreach ($tbl as $line => $code) {
+            fputs($fp, $line.'   '.$code); // ecrire ce texte
+        }
+        
+        fclose($fp); //fermer le fichier
+        return 'write_log ok';
+    }
+
     public function read_log($file) // lecture d'un fichier
     {
         $fp = fopen($file,'r') or die("Unable to open file!".$file); ; // ouvrir le fichier 
