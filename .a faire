@@ -1,10 +1,10 @@
-dlievre		remettre vélo dans la base et resauvegarder		
-		
-		validation confirmation d'un nouvel user
-		fonction delete les images
-            envoyer mail , voir projet pdf
-(Tpasqual)  envoyer fichier par simple transfert 
-		nettoyer le code
+bug entête envoi mail
+création liste fonctions
+bug formulaire post vide
+finalisation code double domaine
+
+a faire envoyer fichier par simple transfert 
+
 
 
 bugs constatés (dlievre)ok
