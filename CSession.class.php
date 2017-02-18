@@ -10,6 +10,12 @@ Class CSession // ***** Class
     private $tbl = "tbl_camagru";
     private $tbl_photos = "photos";
     private $tbl_photos_like = "photos_like";
+
+    private $servername1 = "db665127288.db.1and1.com";
+    private $username1 = "dbo665127288";
+    private $password1 = "42piscinedltp";
+    private $dbname1 = "db665127288";
+
     //private $conn =''; pas necessaire
 
 // **********  gestion de l'utilisateur ***********
@@ -17,7 +23,11 @@ Class CSession // ***** Class
     {
         //print '__construct';
         // a l'initialisation de la class on genere la variable de conenxion a la base
-        $this->conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
+        $Domaine_Serveur = $_SERVER['HTTP_HOST'];
+        if ($Domaine_Serveur == 'camagru.photeam.com')
+            $this->conn = new PDO('mysql:host='.$this->servername1.';dbname='.$this->dbname1, $this->username1, $this->password1);
+            else
+                $this->conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return;
     }
