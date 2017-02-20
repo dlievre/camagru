@@ -29,7 +29,7 @@ $CForm = new CForm;
 		print "<img class=\"galerie_img\" onclick=\"traitement.view_comment($name_img, 'div_cmt');\" $taille_img id=\"$id_img\" src=\"$dir_user$value\">";
 		$CView->div_end(); // div_img
 		print "<div class=\"div_like\" ><p class=\"like\">$info_images_like</p></div>"; 
-		print "<div class=\"div_comment\" ><p class=\"comment\"><a onclick=\"traitement.add_like($name_img);\">+</a></p></div>";
+		print "<div class=\"div_comment\" ><p class=\"comment\"><a onclick=\"traitement.add_like($name_img, 'div_cmt');\">+</a></p></div>";
 		$CView->div_end(); // div_img_like_cmt
 		$nb++;
 	}
@@ -37,13 +37,15 @@ $CForm = new CForm;
 	print("<div style=\"display:none\"  id=\"div_video\"><video id=\"video\" width=\"100px\" height=\"50px\"></video></div>");
 	print('</div>'); // div  galerie
 
-	print('<div  id="div_galerie_cmt">');
+	print('<div id="div_galerie_cmt">');
 
 	//$CView->div('form_cmt','');
-	print("<div id=\"div_form_cmt\">");// style=\"display:none\" >");
+	//print("<div id=\"div_form_cmt\">");// style=\"display:none\" >");
+	$CView->div('div_form_cmt','');
 	$CView->titre('Votre Commentaire');
+
 	print "<textarea rows=\"4\" cols=\"35\" placeholder=\"Saisissez votre commentaire\"></textarea>";
-	print('<div id="div_send_cmt"><button id="btn_send_cmt" onclick="traitement.send_comment($name_img);">Validez</button></div>');
+	print("<div id=\"div_send_cmt\"><button id=\"btn_send_cmt\" onclick=\"traitement.send_comment($Id, 'div_cmt');\">Envoyer</button></div>");
 	$CView->div_end(); // form_cmt
 
 	//$CView->div('div_cmt','');

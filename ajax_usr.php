@@ -6,14 +6,13 @@ $CSession = new CSession();
 header('content-type : text/plain');
 header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1';
 
-$Err = 'Erreur';
+$Err = 'Erreur '.$_GET['action'];
 $Id = $_SESSION['Id'];
 $dir_user = "upload/user_".$Id.'/';
 
 if( $_GET['action'] == 'refresh')
 {
 	// afficher les images crees sur le serveur
-	
 	if (!is_dir($dir_user)) mkdir($dir_user, 0700);
 	$list_img = scandir ($dir_user, SCANDIR_SORT_DESCENDING);
 	$taille_img = ' width="100px" ';
@@ -68,13 +67,29 @@ if( $_GET['action'] == 'view_comment' && $_GET['image'])
 	// afficher les comment images 
 	$id_img = $_GET['image'];
 	//print('<div id="div_galerie_cmt">');
-	//$images_like = $CSession->image_nb_liked($id_img);
-	//$CView->content('&bull; Nb Like '.$images_like, 'content');
 	$CView->Titre('Commentaires des users');
 	$images_comment = $CSession->image_comment($id_img);
-	if (!$images_comment) $images_comment[] = 'Aucun commentaire';
+	if (!$images_comment) $images_comment['Aucun commentaire'] = ' ';
 	foreach ($images_comment as $key => $value)
-		$CView->content('&bull; '.$value, 'content');
+		$CView->content('&bull; '.ucfirst($key).'<br />'.$value, 'content');
+	$Err = '';
+}
+
+//*************  action=send_comment ************
+if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'])
+{
+	// mettre a jour les comment images 
+	$id_img = $_GET['image'];
+	$user_comment = $_GET['user_comment'];
+	if ( $user_comment == 'not selected') { echo 'ajax : image not selected'; exit; }
+
+	echo 'ajax '.$id_img.' ' .$user_comment;
+	//print('<div id="div_galerie_cmt">');
+	$CView->Titre('Commentaires des users');
+	$images_comment = $CSession->image_comment($id_img);
+	if (!$images_comment) $images_comment['Aucun commentaire'] = ' ';
+	foreach ($images_comment as $key => $value)
+		$CView->content('&bull; '.ucfirst($key).'<br />'.$value, 'content');
 	$Err = '';
 }
 

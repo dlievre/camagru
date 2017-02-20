@@ -4,8 +4,9 @@ class Cfusion
 
   constructor(fond)
   {
-    //alert(document.querySelector('#activer_camera'));
-
+    this.image_selected = 'not selected';
+    var page = document.location.href;
+    if ( page.substring(page.length -8) != 'home.php') { return;} // on ne charge pas la video
     this.fond_select = fond; // this est important pour une variable de la classe et non de fonction 
     this.previous_imgt_id = ''; // gestion du bord de l'imagette fond 
     var video = document.querySelector('#video');
@@ -132,10 +133,11 @@ class Cfusion
         {
             if(XHR.status === 200)
                 {
-                   alert('>'+caller+' 200, reponse : '+XHR.responseText); // qwerty
+                //   alert('>'+caller+' 200, reponse : '+XHR.responseText); // qwerty
                 if ( caller == 'refresh_usr') traitement.refresh_usr_chk (XHR.responseText, id_div);
                 if ( caller == 'delete_img_usr') traitement.delete_img_usr_chk (XHR.responseText, id_div);
                 if ( caller == 'view_comment') traitement.view_comment_chk (XHR.responseText, id_div);
+                if ( caller == 'send_comment') traitement.send_comment_chk (XHR.responseText, id_div);
                 }
             else
                 {
@@ -159,7 +161,7 @@ delete_img_usr(id_photo, id_div)
 
     var image = document.getElementById(id_photo); // div du fond souhaité
     image.style.border='1px solid #E8272C';
-            if (confirm('supprimer cette image ')) {
+            if (confirm('supprimer cette image : '+id_photo)) {
     			var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'delete_img_usr');
         		} 
         		else 
@@ -174,6 +176,21 @@ view_comment(id_img, id_div)
     document.getElementById('div_form_cmt').visibility = "visible";
     var action = '?action=view_comment'+'&image='+id_img; // ajouter Id_img
     var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'view_comment'); // 
+    this.image_selected = id_img; // important pour l'envoi du comment de savoir l'image view
+    document.getElementById('div_form_cmt').visibility = "visible";
+    document.getElementById('div_form_cmt').style.display = "inline"; // fonctionne 
+
+}
+
+send_comment(user_comment, id_div)// qwerty a finir
+{
+    // id_img,  ne peut etre passe car le form est global sans connaite l'image concernee, on a image_selected a la place
+    //document.getElementById('div_form_cmt').visibility = "visible";
+    var action = '?action=send_comment'+'&image='+this.image_selected+'&user_comment='+user_comment; // ajouter Id_img
+    var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'send_comment'); // 
+    document.getElementById('div_form_cmt').visibility = "hidden";
+    document.getElementById('div_form_cmt').style.display = "none"; // fonctionne 
+    /////////////////// ou pas necessaire car chk le recupere  a faire quand dessus est bon pour maj div comment : this.view_comment(id_img, id_div);
 
 }
 
@@ -198,10 +215,16 @@ view_comment_chk(reponse, id_div)
     document.getElementById(id_div).innerHTML = reponse;
     
     //document.getElementById('div_form_cmt').visibility = "hidden"; // bizare , ne marche pas
-    //document.getElementById('div_form_cmt').style.display = "none"; // fonctionne 
-
-    
+    //document.getElementById('div_form_cmt').style.display = "none"; // fonctionne     
   }
+
+send_comment_chk(reponse, id_div)
+{
+    alert('send_comment_chk '+id_div+reponse);
+    document.getElementById(id_div).innerHTML = reponse;
+    document.getElementById(id_div).visibility = "visible";
+}
+
 
 } // fin de classe
 

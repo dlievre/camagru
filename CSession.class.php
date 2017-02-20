@@ -405,17 +405,35 @@ Class CSession // ***** Class
     public function image_comment($id_img) // lit les commentaires d'une image
     {
         try {
-            $rq = $this->secure("SELECT Id, Comment FROM $this->tbl_photos_like WHERE Id_img = '$id_img'");  //ORDER BY 'Date' DESC  , 'Date'
+            $tab_users = $this->tbl_users_name();
+            $rq = $this->secure("SELECT Id, Comment, Id_user_comment FROM $this->tbl_photos_like WHERE Id_img = '$id_img'");  //ORDER BY 'Date' DESC  , 'Date'
             $this->write_log($rq);
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
             while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
-                $tbl[] = $lignes->Comment;
+                $tbl[$tab_users[$lignes->Id_user_comment]] = $lignes->Comment;
             }
         }
         catch(PDOException $e)
         { echo "image_comment Error Database : " . $e->getMessage(); }
         return($tbl);
+    }
+
+        public function tbl_users_name() // lit les commentaires d'une image
+    {
+        try {
+            $rq = $this->secure("SELECT Id, Prenom FROM $this->tbl");  //ORDER BY 'Date' DESC  , 'Date'
+            $this->write_log($rq);
+            $requete = $this->conn->prepare($rq); //
+            $requete->execute();
+            $tab_users = array();
+            while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
+                $tab_users[$lignes->Id] = $lignes->Prenom;
+            }
+        }
+        catch(PDOException $e)
+        { echo "tbl_users_name Error Database : " . $e->getMessage(); }
+        return($tab_users);
     }
 
     public function image_like_count($id_img) // compte le nb de like des comment
