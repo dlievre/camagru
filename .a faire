@@ -1,3 +1,7 @@
+20 02
+javascript ne charge pas la video si page autre que home.php
+ajout des prenom aux commentaires
+
 bug entête envoi mail
 bug accent utf8 et contenu mail, conversion faite
 création liste fonctions
