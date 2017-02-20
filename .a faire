@@ -6,10 +6,6 @@ finalisation code double domaine
 
 a faire envoyer fichier par simple transfert 
 
-
-
-bugs constatés (dlievre)ok
-
 htaccess
 RedirectMatch 404 /config/.*$
 RedirectMatch 404 /includes/$
