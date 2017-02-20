@@ -105,21 +105,6 @@ class Cfusion
     div_fond_text.style.display = "none";   
   }
 
-   img_delete(id)
-  {
-    var image = document.getElementById(id); // div du fond souhaité
-    image.style.border='1px solid #E8272C';
-    //alert('supprimer cette image');
-    if (confirm('supprimer cette image ?'+ id)) {
-    // Save it!
-        } 
-        else 
-        {
-    // Do nothing!
-        }
-
-  } 
-
 
     camera()
   {
@@ -221,5 +206,3 @@ view_comment_chk(reponse, id_div)
 } // fin de classe
 
 const traitement = new Cfusion('fond02');
-
-//const ICAjax = new CAjax('');
