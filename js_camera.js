@@ -221,6 +221,7 @@ view_comment_chk(reponse, id_div)
 
 send_comment_chk(reponse, id_div)
 {
+    if (reponse == 'interdit') {alert('Erreur vous ne pouvez commenter vos photos'); return;}
     alert('send_comment_chk '+id_div+reponse);
     document.getElementById(id_div).innerHTML = reponse;
     document.getElementById(id_div).visibility = "visible";

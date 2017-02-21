@@ -8,7 +8,7 @@ require_once('header.php');
 $CView = new CPrint;
 $CSession = new CSession;
 $CInscription = new CInscription;
-print('<div id="main">');
+//print('<div id="main">');
 
 $CView->titre('Liste des users');
 $CSession->user_list('content_left', 'content_left');
@@ -155,6 +155,6 @@ foreach ($indicesServer as $arg) {
     } 
 } 
 echo '</table>' ; 
-print('</div>');	
+//print('</div>');	// div main
 include ('footer.php');
 ?>

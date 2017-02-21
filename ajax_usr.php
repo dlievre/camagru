@@ -85,10 +85,11 @@ if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'
 	if (!$comment) $comment = '';
 	if ( $user_comment == 'not selected') { echo 'ajax : image not selected'; exit; }
 	$image_addcomment = $CSession->comment_add($id_img, $user_comment, $comment);
-	echo '==== '.$image_addcomment;
+	if ( $image_addcomment == 'interdit') echo 'interdit'; exit;
+	//echo '==== '.$image_addcomment;
 	//comment_add
 
-	echo 'ajax '.$id_img.' ' .$user_comment;
+	//echo 'ajax '.$id_img.' ' .$user_comment;
 	//print('<div id="div_galerie_cmt">');
 	$CView->Titre('Commentaires des users');
 	$images_comment = $CSession->image_comment($id_img);

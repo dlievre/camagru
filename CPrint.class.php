@@ -64,7 +64,7 @@ Class CPrint{
 
     public function content_array($Tab, $class1, $class2) // affiche un tableau à 2 Dimensions titre et contenu avec class css
     {
-      print ('<p><table>');
+      print ("<p><table width=\"80%\">");
       foreach ($Tab as $key => $value)
         print ('<tr><td> <p class="'.$class1.'">'.$key.'</p></td><td><p class="'.$class2.'">'.$value.'</p></td></tr>');
       print ('</table></p>');

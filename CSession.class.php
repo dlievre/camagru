@@ -390,7 +390,7 @@ Class CSession // ***** Class
 
             $lignes = $requete->fetch(PDO::FETCH_OBJ);
                 $retour = $lignes->Id;
-            echo '******'.$retour.'***';            
+            // qwertyecho '******'.$retour.'***';            
 
         }
         catch(PDOException $e)
@@ -404,26 +404,80 @@ Class CSession // ***** Class
 
      function comment_add($name_photo, $IdUser_comment, $comment)// ajoute un commentaire a une image dans la base
     {
-        $Id_tblphotos = $this->image_getid($name_photo);
-        echo '$$$ '.$Id_tblphotos.' $$$';
-        $Id_tblphotos = intval ($Id_tblphotos);
-        echo '$$$ '.$Id_tblphotos.' $$$'; 
-        ///  faire le check si l'user a deja commente ou like
+        // a faire controle de ne pas se commenter sois meme
+        $Id_tblphotos = intval ($this->image_getid($name_photo)); // id de la photo
+        // check si user a deja pour cette image mis un comment ou like 
         // et donc on fera soit insert soit update
-        // plus controle de ne pas se commenter sois meme
-        try
+        $retour = $this->is_user_cmtlike($name_photo, $IdUser_comment);
+        if ($retour == 'interdit') {return ($retour);}
+        if ($retour == 'no')
+        {       
+            // plus controle de ne pas se commenter sois meme
+            try
+            {
+                $rq = $this->secure("INSERT INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, comment) VALUES ('$Id_tblphotos', '$name_photo', '$IdUser_comment', '$comment')"); 
+                $requete = $this->conn->prepare($rq);
+                $requete->execute();
+            }
+            catch(PDOException $e)
+            { 
+                return "comment_add Error Database : " . $e->getMessage();
+            }
+
+            return('comment_add'); 
+        }
+        if ($retour == 'yes')
         {
-            $rq = $this->secure("INSERT INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, comment) VALUES ('$Id_tblphotos', '$name_photo', '$IdUser_comment', '$comment')"); 
+            // on fait update du comment
+            try
+            {
+                $rq = $this->secure("UPDATE INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, comment) VALUES ('$Id_tblphotos', '$name_photo', '$IdUser_comment', '$comment')"); 
+                $requete = $this->conn->prepare($rq);
+                $requete->execute();
+                $this->write_log($rq.' update ');
+            }
+            catch(PDOException $e)
+            { 
+                return "comment_add Error Database : " . $e->getMessage();
+            }
+
+            return('comment_add'); 
+        }
+    }   
+
+    function is_user_cmtlike($name_photo, $IdUser_comment)// check si l'user a deja commente ou like
+    {
+        try // test si owner = user_comment : interdit
+        {
+            $rq = $this->secure("SELECT Id_owner FROM $this->tbl_photos WHERE Name_img = $name_photo"); 
             $requete = $this->conn->prepare($rq);
             $requete->execute();
+            $result = $requete->fetch(PDO::FETCH_OBJ);
+            $owner = $result->Id_owner;
+            $this->write_log($rq.' '.$owner .' vs '.$IdUser_comment );
+            if ($owner == $IdUser_comment) return ('interdit');
+           
+            ///if ($ligne->Id_owner) return ('interdit');
         }
         catch(PDOException $e)
         { 
-            return "comment_add Error Database : " . $e->getMessage();
+            return "is_user_cmtlike Error Database : " . $e->getMessage(); exit;
         }
 
-        return('comment_add'); 
-    }   
+        try
+        {
+            $rq = $this->secure("SELECT Id_img, Id_user_comment FROM $this->tbl_photos_like WHERE Id_img = $name_photo AND Id_user_comment = $IdUser_comment"); 
+            $requete = $this->conn->prepare($rq);
+            $requete->execute();
+            $ligne = $requete->fetch(PDO::FETCH_OBJ);
+            if ($ligne->Id_img) return ('yes');
+        }
+        catch(PDOException $e)
+        { 
+            return "is_user_cmtlike Error Database : " . $e->getMessage(); exit;
+        }
+        return ('no');
+    }
     
         public function images_galerie() // lit toutes les images pour la galerie
         {
