@@ -409,6 +409,7 @@ Class CSession // ***** Class
         // check si user a deja pour cette image mis un comment ou like 
         // et donc on fera soit insert soit update
         $retour = $this->is_user_cmtlike($name_photo, $IdUser_comment);
+        $this->write_log($retour.' retour is ');
         if ($retour == 'interdit') {return ($retour);}
         if ($retour == 'no')
         {       
@@ -418,6 +419,7 @@ Class CSession // ***** Class
                 $rq = $this->secure("INSERT INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, comment) VALUES ('$Id_tblphotos', '$name_photo', '$IdUser_comment', '$comment')"); 
                 $requete = $this->conn->prepare($rq);
                 $requete->execute();
+                $this->write_log($rq.' create '); //qwerty
             }
             catch(PDOException $e)
             { 
@@ -431,10 +433,11 @@ Class CSession // ***** Class
             // on fait update du comment
             try
             {
-                $rq = $this->secure("UPDATE INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, comment) VALUES ('$Id_tblphotos', '$name_photo', '$IdUser_comment', '$comment')"); 
+                $rq = $this->secure("UPDATE $this->tbl_photos_like SET Comment = '$comment' WHERE Id_img = '$name_photo' AND Id_user_comment = '$IdUser_comment'"); 
+                $this->write_log($rq.' update ');// qwerty
                 $requete = $this->conn->prepare($rq);
                 $requete->execute();
-                $this->write_log($rq.' update ');
+                
             }
             catch(PDOException $e)
             { 
@@ -454,7 +457,7 @@ Class CSession // ***** Class
             $requete->execute();
             $result = $requete->fetch(PDO::FETCH_OBJ);
             $owner = $result->Id_owner;
-            $this->write_log($rq.' '.$owner .' vs '.$IdUser_comment );
+            $this->write_log($rq.'is_user_cmtlike '.$owner .' vs '.$IdUser_comment );
             if ($owner == $IdUser_comment) return ('interdit');
            
             ///if ($ligne->Id_owner) return ('interdit');
@@ -470,7 +473,7 @@ Class CSession // ***** Class
             $requete = $this->conn->prepare($rq);
             $requete->execute();
             $ligne = $requete->fetch(PDO::FETCH_OBJ);
-            if ($ligne->Id_img) return ('yes');
+            if ($ligne->Id_img) return ('yes'); // deja like
         }
         catch(PDOException $e)
         { 
