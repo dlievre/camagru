@@ -76,13 +76,15 @@ if( $_GET['action'] == 'view_comment' && $_GET['image'])
 }
 
 //*************  action=send_comment ************
-if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'])
+if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'] )
 {
 	// mettre a jour les comment images 
 	$id_img = $_GET['image'];
 	$user_comment = $_GET['user_comment'];
+	$comment = $_GET['comment'];
+	if (!$comment) $comment = '';
 	if ( $user_comment == 'not selected') { echo 'ajax : image not selected'; exit; }
-	$image_addcomment = $CSession->comment_add($id_img, $user_comment);
+	$image_addcomment = $CSession->comment_add($id_img, $user_comment, $comment);
 	echo '==== '.$image_addcomment;
 	//comment_add
 

@@ -186,7 +186,8 @@ send_comment(user_comment, id_div)// qwerty a finir
 {
     // id_img,  ne peut etre passe car le form est global sans connaite l'image concernee, on a image_selected a la place
     //document.getElementById('div_form_cmt').visibility = "visible";
-    var action = '?action=send_comment'+'&image='+this.image_selected+'&user_comment='+user_comment; // ajouter Id_img
+    var comment = document.getElementById('send_comment').value
+    var action = '?action=send_comment'+'&image='+this.image_selected+'&user_comment='+user_comment+'&comment='+comment;
     var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'send_comment'); // 
     document.getElementById('div_form_cmt').visibility = "hidden";
     document.getElementById('div_form_cmt').style.display = "none"; // fonctionne 

@@ -71,7 +71,7 @@ Class CSession // ***** Class
         { echo "Error Database : " . $e->getMessage(); }
         //$conn = null;
         $this->write_log('Login : '.$email.' '.$retour);
-        return($retour);
+        return ($retour);
     }
 
         public function user_info($email_key, $origin) // lit les informations de l'user

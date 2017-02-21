@@ -44,7 +44,7 @@ $CForm = new CForm;
 	$CView->div('div_form_cmt','');
 	$CView->titre('Votre Commentaire');
 
-	print "<textarea rows=\"4\" cols=\"35\" placeholder=\"Saisissez votre commentaire\"></textarea>";
+	print "<textarea id=\"comment_user\" rows=\"4\" cols=\"35\" placeholder=\"Saisissez votre commentaire\"></textarea>";
 	print("<div id=\"div_send_cmt\"><button id=\"btn_send_cmt\" onclick=\"traitement.send_comment($Id, 'div_cmt');\">Envoyer</button></div>");
 	$CView->div_end(); // form_cmt
 
