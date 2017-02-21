@@ -1,16 +1,5 @@
 
-function myFunction() {
-    var x = document.createElement("FORM");
-    x.setAttribute("id", "myForm");
-    document.body.appendChild(x);
-
-    var y = document.createElement("INPUT");
-    y.setAttribute("type", "text");
-    y.setAttribute("value", "Donald");
-    document.getElementById("myForm").appendChild(y);
-}
-
-var syntax = 
+var dom = 
 {
 
 	msg1: 'msg1',
@@ -38,15 +27,16 @@ var syntax =
 
 		params = this.splitParams(params);
 
-		form = this.splitValue(params[0])[1];
+		window[this.splitValue(params[0])[0]] = this.splitValue(params[0])[1];
 		id = this.splitValue(params[1])[1];
 		value = this.splitValue(params[2])[1];
+		placeholder = this.splitValue(params[3])[1];
 
 		var y = document.createElement("INPUT");
 		y.setAttribute("id", id);
 		y.setAttribute("name", id);
 	    y.setAttribute("type", "text");
-	    y.setAttribute("value", value);
+	    if (!value) {y.setAttribute("placeholder", placeholder);} else {y.setAttribute("value", value);}
 
 	    para = document.createElement("P");
 	    var txt = document.createTextNode(value);

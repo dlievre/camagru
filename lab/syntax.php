@@ -19,11 +19,11 @@ print "<div id=\"div1\" style=\"display:inline; margin:10px;\">";
 ?>
 <script>
 
-	syntax.form("id:myForm, action:page.php, method:POST"); // id:[], action:[action.php], method:[(GET || POST)]
-	syntax.inputText("form:myForm, id:Votre Nom, value:votre nom"); // form:[],id:[], value:[]
-	syntax.inputText("form:myForm, id:Votre Prenom, value:votre prenom"); // form:[],id:[], value:[]
-	syntax.p("id:p, content:envoyez le formulaire, classe:content");
-	syntax.submit("form:myForm, id:submit, value:Envoyer"); // form:[],id:[], value:[]
+	dom.form("id:myForm, action:page.php, method:POST"); // id:[], action:[action.php], method:[(GET || POST)]
+	dom.inputText("form:myForm, id:Votre Nom, value:votre nom, placeholder:tapez votre nom"); // form:[],id:[], value:[]
+	dom.inputText("form:myForm, id:Votre Prenom, value:, placeholder:tapezvotre prenom"); // form:[],id:[], value:[]
+	dom.p("id:p, content:envoyez le formulaire, classe:content");
+	dom.submit("form:myForm, id:submit, value:Envoyer"); // form:[],id:[], value:[]
 
 	</script>
 </div>

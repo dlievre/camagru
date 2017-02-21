@@ -82,6 +82,9 @@ if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'
 	$id_img = $_GET['image'];
 	$user_comment = $_GET['user_comment'];
 	if ( $user_comment == 'not selected') { echo 'ajax : image not selected'; exit; }
+	$image_addcomment = $CSession->comment_add($id_img, $user_comment);
+	echo '==== '.$image_addcomment;
+	//comment_add
 
 	echo 'ajax '.$id_img.' ' .$user_comment;
 	//print('<div id="div_galerie_cmt">');

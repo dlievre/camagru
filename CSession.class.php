@@ -70,6 +70,7 @@ Class CSession // ***** Class
         catch(PDOException $e)
         { echo "Error Database : " . $e->getMessage(); }
         //$conn = null;
+        $this->write_log('Login : '.$email.' '.$retour);
         return($retour);
     }
 
@@ -167,8 +168,6 @@ Class CSession // ***** Class
         { echo "Error Database : " . $e->getMessage(); $exist = 'Erreur'; return($exist);}
         return($retour);
     }
-
-
 
         public function user_add() // ajoute un user 
         {
@@ -268,7 +267,7 @@ Class CSession // ***** Class
         $_SESSION['Prenom'] = $prenom;
         $_SESSION['Confirme'] = $confirm;
         $_SESSION['valide'] = 'ok';
-        if ($_SESSION["email"] == 'dominique@lievre.net' or $_SESSION["email"] == 'tpasqual@student.42.fr') $_SESSION['Superuser'] = 'yes';
+        if ($_SESSION["email"] == 'dominique@lievre.net' or $_SESSION["email"] == 'te42pe@gmail.com') $_SESSION['Superuser'] = 'yes';
         return('ok');
     }
 
@@ -380,6 +379,50 @@ Class CSession // ***** Class
 
         return('image_add'); 
     }
+
+    function image_getid($name_photo)// ajoute une image dans la base
+    {
+        //$this->write_log('var '.$id_photo. ' '. $Id);
+        try
+        {
+            $rq = $this->secure("SELECT Id  FROM $this->tbl_photos WHERE Name_img = $name_photo"); 
+            $requete = $this->conn->prepare($rq);
+            $requete->execute();
+
+            $lignes = $requete->fetch(PDO::FETCH_OBJ);
+                $retour = $lignes->Id;
+            echo '****** '.$retour.'***';            
+
+        }
+        catch(PDOException $e)
+        { 
+            return "image_getid Error Database : " . $e->getMessage();
+        }
+
+        return('Id_tblphotos'); 
+    }
+
+
+     function comment_add($name_photo, $IdUser_comment)// ajoute un commentaire a une image dans la base
+    {
+        $Id_tblphotos = $this->image_getid($name_photo);
+        echo '$$$ '.$Id_tblphotos.'$$$'; 
+        ///  faire le check si l'user a deja commente ou like
+        // et donc on fera soit insert soit update
+        // plus controle de ne pas se commenter sois meme
+        try
+        {
+            $rq = $this->secure("INSERT INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, comment) VALUES ('$Id_tblphotos', '$name_photo', '$IdUser_comment')"); // ne pas mettre 
+            $requete = $this->conn->prepare($rq);
+            $requete->execute();
+        }
+        catch(PDOException $e)
+        { 
+            return "comment_add Error Database : " . $e->getMessage();
+        }
+
+        return('comment_add'); 
+    }   
     
         public function images_galerie() // lit toutes les images pour la galerie
         {
