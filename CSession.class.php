@@ -382,7 +382,6 @@ Class CSession // ***** Class
 
     function image_getid($name_photo)// ajoute une image dans la base
     {
-        //$this->write_log('var '.$id_photo. ' '. $Id);
         try
         {
             $rq = $this->secure("SELECT Id  FROM $this->tbl_photos WHERE Name_img = $name_photo"); 
@@ -391,7 +390,7 @@ Class CSession // ***** Class
 
             $lignes = $requete->fetch(PDO::FETCH_OBJ);
                 $retour = $lignes->Id;
-            echo '****** '.$retour.'***';            
+            echo '******'.$retour.'***';            
 
         }
         catch(PDOException $e)
@@ -399,20 +398,22 @@ Class CSession // ***** Class
             return "image_getid Error Database : " . $e->getMessage();
         }
 
-        return('Id_tblphotos'); 
+        return($retour); 
     }
 
 
-     function comment_add($name_photo, $IdUser_comment)// ajoute un commentaire a une image dans la base
+     function comment_add($name_photo, $IdUser_comment, $comment)// ajoute un commentaire a une image dans la base
     {
         $Id_tblphotos = $this->image_getid($name_photo);
-        echo '$$$ '.$Id_tblphotos.'$$$'; 
+        echo '$$$ '.$Id_tblphotos.' $$$';
+        $Id_tblphotos = intval ($Id_tblphotos);
+        echo '$$$ '.$Id_tblphotos.' $$$'; 
         ///  faire le check si l'user a deja commente ou like
         // et donc on fera soit insert soit update
         // plus controle de ne pas se commenter sois meme
         try
         {
-            $rq = $this->secure("INSERT INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, comment) VALUES ('$Id_tblphotos', '$name_photo', '$IdUser_comment')"); // ne pas mettre 
+            $rq = $this->secure("INSERT INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, comment) VALUES ('$Id_tblphotos', '$name_photo', '$IdUser_comment', '$comment')"); 
             $requete = $this->conn->prepare($rq);
             $requete->execute();
         }

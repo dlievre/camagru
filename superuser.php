@@ -1,7 +1,7 @@
 <?php
 require_once('includes_session.php');
 if ($_SESSION['valide'] != 'ok') {header('Location: login.php');}
-if ( $_SESSION["email"] != 'dominique@lievre.net' ) exit;
+if ( $_SESSION["email"] != 'dominique@lievre.net' && $_SESSION["email"] == 'tpasqual@student.42.fr' ) exit;
 require_once('head.php');
 require_once('header.php');
 
@@ -69,6 +69,8 @@ foreach ($fichiers as $fileNumber => $fileName)
 }
 $CView->content_array($tbl, 'content_left', 'content_left');
 $ecrire = $CSession->write_doc($tblDoc);
+
+print "<p><img src=\"superuser/database.png\"></p>";
 $CView->content ($ecrire, 'content_left');
 $CSession->read_log('superuser/documentation.txt');
 
