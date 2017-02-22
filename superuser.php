@@ -76,6 +76,7 @@ $ecrire = $CSession->write_doc($tblDoc);
 $CView->content ($ecrire, 'content_left');
 //$CSession->read_log('superuser/doc_suite.txt');
 print "<p>Database<br /><img src=\"superuser/database.png\"></p>";
+print "<p>Database<br /><img src=\"superuser/concept.png\"></p>";
 $CView->titre('Documentation - complément');
 if (file_exists('superuser/doc_suite.txt')) $CSession->read_log('superuser/doc_suite.txt');
 

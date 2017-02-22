@@ -85,22 +85,30 @@ if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'
 	if ( $user_comment == 'not selected') { echo 'ajax : image not selected'; exit; }
 	$image_addcomment = $CSession->comment_add($id_img, $user_comment, $comment);
 	if ( $image_addcomment == 'interdit') echo 'interdit'; exit;
-	//echo '==== '.$image_addcomment;
-	//comment_add
-
-	//echo 'ajax '.$id_img.' ' .$user_comment;
-	//print('<div id="div_galerie_cmt">');
-	$CView->Titre('Commentaires des users');
-	$images_comment = $CSession->image_comment($id_img);
-	if (!$images_comment) $images_comment['Aucun commentaire'] = ' ';
-	foreach ($images_comment as $key => $value)
-		$CView->content('&bull; '.ucfirst($key).'<br />'.$value, 'content');
-	$Err = '';
+	if ( $image_addcomment == 'comment_add' )
+	{
+		//print('<div id="div_galerie_cmt">');
+		$CView->Titre('Commentaires des users');
+		$images_comment = $CSession->image_comment($id_img);
+		if (!$images_comment) $images_comment['Aucun commentaire'] = ' ';
+		foreach ($images_comment as $key => $value)
+			$CView->content('&bull; '.ucfirst($key).'<br />'.$value, 'content');
+		$Err = '';
+	}
 }
 
-if( $_GET['action'] == 'send_like' && $_GET['image']  && $_GET['user_comment'] ) // action=send_comment 
+if( $_GET['action'] == 'send_like' && $_GET['image']  && $_GET['user_like'] ) // action=send_like 
 {
-		$Err = '';
+	$id_img = $_GET['image'];
+	$user_like = $_GET['user_like'];
+
+	$image_addlike = $CSession->like_add($id_img, $user_like);
+	if ( $image_addlike == 'interdit') echo 'interdit'; exit;
+if ( $image_addcomment == 'like_add' )
+	{
+		// refresh galerie
+	}
+	$Err = '';
 }
 
 echo $Err;

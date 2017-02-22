@@ -196,17 +196,16 @@ send_comment(user_comment, id_div)// ***** envoi le commentaire d'une image
 
 }
 
-send_like(user_comment, id_div)// ***** envoi le like d'une image
+send_like($name_img, user_like, id_div)// ***** envoi le like d'une image
 {
     // id_img,  ne peut etre passe car le form est global sans connaite l'image concernee, on a image_selected a la place
     //document.getElementById('div_form_cmt').visibility = "visible";
-    var comment = document.getElementById('send_comment').value
-    var action = '?action=send_like'+'&image='+this.image_selected+'&user_comment='+user_comment+'&comment='+comment;
+    var action = '?action=send_like'+'&image='+$name_img+'&user_like='+user_like;
     var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'send_like'); // 
-    document.getElementById('div_form_cmt').visibility = "hidden";
-    document.getElementById('div_form_cmt').style.display = "none"; // fonctionne 
+    //document.getElementById('div_form_cmt').visibility = "hidden";
+    //document.getElementById('div_form_cmt').style.display = "none"; // fonctionne 
     /////////////////// ou pas necessaire car chk le recupere  a faire quand dessus est bon pour maj div comment : this.view_comment(id_img, id_div);
-
+//$name_img, $Id, 'div_galerie'
 }
 
 refresh_usr_chk(reponse, id_div) // *****
@@ -245,8 +244,8 @@ send_like_chk(reponse, id_div) // *****
 {
     if (reponse == 'interdit') {alert('Erreur vous ne pouvez liker vos photos'); return;}
     alert('send_like_chk '+id_div+reponse);
-    document.getElementById(id_div).innerHTML = reponse;
-    document.getElementById(id_div).visibility = "visible";
+    //document.getElementById(id_div).innerHTML = reponse;
+    //document.getElementById(id_div).visibility = "visible";
 }
 
 } // fin de classe
