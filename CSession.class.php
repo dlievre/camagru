@@ -409,17 +409,17 @@ Class CSession // ***** Class
         // check si user a deja pour cette image mis un comment ou like 
         // et donc on fera soit insert soit update
         $retour = $this->is_user_cmtlike($name_photo, $IdUser_comment);
-        $this->write_log($retour.' retour is ');
-        if ($retour == 'interdit') {return ($retour);}
-        if ($retour == 'no')
+        //$this->write_log($retour.' retour is ');
+        if ($retour['interdit'] == 'yes') {return ('interdit');}
+        if ($retour['commentorlike'] == 'no')
         {       
-            // plus controle de ne pas se commenter sois meme
+            // on cree l'enregistrement comment/like
             try
             {
                 $rq = $this->secure("INSERT INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, comment) VALUES ('$Id_tblphotos', '$name_photo', '$IdUser_comment', '$comment')"); 
                 $requete = $this->conn->prepare($rq);
                 $requete->execute();
-                $this->write_log($rq.' create '); //qwerty
+                //$this->write_log($rq.' create '); //qwerty
             }
             catch(PDOException $e)
             { 
@@ -428,13 +428,13 @@ Class CSession // ***** Class
 
             return('comment_add'); 
         }
-        if ($retour == 'yes')
+        if ($retour['commentorlike'] == 'yes')
         {
             // on fait update du comment
             try
             {
                 $rq = $this->secure("UPDATE $this->tbl_photos_like SET Comment = '$comment' WHERE Id_img = '$name_photo' AND Id_user_comment = '$IdUser_comment'"); 
-                $this->write_log($rq.' update ');// qwerty
+                //$this->write_log($rq.' update ');// qwerty
                 $requete = $this->conn->prepare($rq);
                 $requete->execute();
                 
@@ -446,10 +446,62 @@ Class CSession // ***** Class
 
             return('comment_add'); 
         }
-    }   
+    } 
+
+//$CSession->like_add($id_img, $user_like);
+     function like_add($name_photo, $IdUser_like)// ajoute un commentaire a une image dans la base
+    {
+        // a faire controle de ne pas se commenter sois meme
+        $Id_tblphotos = intval ($this->image_getid($name_photo)); // id de la photo
+        // check si user a deja pour cette image mis un comment ou like 
+        // et donc on fera soit insert soit update
+        $retour = $this->is_user_cmtlike($name_photo, $IdUser_like);
+        if ($retour['interdit'] == 'yes') {return ('interdit');}
+        if ($retour['commentorlike']='no')
+        {       
+            // on cree l'enregistrement comment/like
+            try
+            {
+
+                $rq = $this->secure("INSERT INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, Comment, Grave_bien) VALUES ($Id_tblphotos, $name_photo, $IdUser_like, NULL, 1)"); 
+                $requete = $this->conn->prepare($rq);
+                $requete->execute();
+            }
+            catch(PDOException $e)
+            { 
+                return "comment_add Error Database : " . $e->getMessage();
+            }
+            $this->image_like_count_set($name_photo); // on met a jour le nb de like de l'image
+
+            return('like_add'); 
+        }
+        if ($retour['commentorlike'] == 'yes')
+        {
+            // on fait update du like
+            try
+            {
+                $rq = $this->secure("UPDATE $this->tbl_photos_like SET Grave_bien = 1 WHERE Id_img = '$name_photo' AND Id_user_comment = '$IdUser_comment'"); 
+                $requete = $this->conn->prepare($rq);
+                $requete->execute();
+                
+            }
+            catch(PDOException $e)
+            { 
+                return "like_add Error Database : " . $e->getMessage();
+            }
+            $this->image_like_count_set($name_photo); // on met a jour le nb de like de l'image
+
+            return('like_add'); 
+        }
+    } 
+
+
 
     function is_user_cmtlike($name_photo, $IdUser_comment)// check si l'user a deja commente ou like
     {
+        $tbl = array();
+        $tbl['interdit']='no';
+
         try // test si owner = user_comment : interdit
         {
             $rq = $this->secure("SELECT Id_owner FROM $this->tbl_photos WHERE Name_img = $name_photo"); 
@@ -457,10 +509,7 @@ Class CSession // ***** Class
             $requete->execute();
             $result = $requete->fetch(PDO::FETCH_OBJ);
             $owner = $result->Id_owner;
-            $this->write_log($rq.'is_user_cmtlike '.$owner .' vs '.$IdUser_comment );
-            if ($owner == $IdUser_comment) return ('interdit');
-           
-            ///if ($ligne->Id_owner) return ('interdit');
+            if ($owner == $IdUser_comment) {$tbl['interdit'] = 'yes'; return ($tbl);}
         }
         catch(PDOException $e)
         { 
@@ -473,13 +522,14 @@ Class CSession // ***** Class
             $requete = $this->conn->prepare($rq);
             $requete->execute();
             $ligne = $requete->fetch(PDO::FETCH_OBJ);
-            if ($ligne->Id_img) return ('yes'); // deja like
+            if ($ligne->Id_img) {$tbl['commentorlike']='yes'; return ($tbl);}// deja like
         }
         catch(PDOException $e)
         { 
             return "is_user_cmtlike Error Database : " . $e->getMessage(); exit;
         }
-        return ('no');
+        $tbl['commentorlike']='no';
+        return ($tbl);
     }
     
         public function images_galerie() // lit toutes les images pour la galerie
@@ -503,12 +553,11 @@ Class CSession // ***** Class
         return($tbl);
     }
 
-    public function image_comment($id_img) // lit les commentaires d'une image
+    public function image_comment($name_photo) // lit les commentaires d'une image
     {
         try {
             $tab_users = $this->tbl_users_name();
-            $rq = $this->secure("SELECT Id, Comment, Id_user_comment FROM $this->tbl_photos_like WHERE Id_img = '$id_img'");  //ORDER BY 'Date' DESC  , 'Date'
-            $this->write_log($rq);
+            $rq = $this->secure("SELECT Id, Comment, Id_user_comment FROM $this->tbl_photos_like WHERE Id_img = '$name_photo'");  //ORDER BY 'Date' DESC  , 'Date'
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
             while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
@@ -524,7 +573,6 @@ Class CSession // ***** Class
     {
         try {
             $rq = $this->secure("SELECT Id, Prenom FROM $this->tbl");  //ORDER BY 'Date' DESC  , 'Date'
-            $this->write_log($rq);
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
             $tab_users = array();
@@ -537,11 +585,10 @@ Class CSession // ***** Class
         return($tab_users);
     }
 
-    public function image_like_count($id_img) // compte le nb de like des comment
+    public function image_like_count($name_photo) // compte le nb de like des comment
     {
         try {
-            $rq = $this->secure("SELECT COUNT(*) AS nb FROM $this->tbl_photos_like WHERE Id_img = '$id_img' AND Grave_bien = 1");  
-            //$this->write_log($rq);
+            $rq = $this->secure("SELECT COUNT(*) AS nb FROM $this->tbl_photos_like WHERE Id_img = '$name_photo' AND Grave_bien = 1");  
             $cpt = 0;
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
@@ -551,6 +598,33 @@ Class CSession // ***** Class
         catch(PDOException $e)
         { echo "image_like Error Database : " . $e->getMessage(); }
         return($cpt[0]);
+    }
+
+     public function image_like_count_set($name_photo) // met a jour le nb de like d'une image
+    {
+        try {
+            $rq = $this->secure("SELECT COUNT(*) AS nb FROM $this->tbl_photos_like WHERE Id_img = $name_photo AND Grave_bien = 1");  
+            $cpt = 0;
+            $requete = $this->conn->prepare($rq); //
+            $requete->execute();
+            $cpt = $requete->fetch(PDO::FETCH_OBJ);
+            $cpt = $cpt->nb;
+        }
+        catch(PDOException $e)
+        { echo "image_like_count_set Error Database : " . $e->getMessage(); }
+
+// set count image like
+            try
+            {
+                $rq = $this->secure("UPDATE $this->tbl_photos SET Nb_liked = $cpt WHERE Name_img = $name_photo"); 
+                $requete = $this->conn->prepare($rq);
+                $requete->execute();
+                
+            }
+            catch(PDOException $e)
+            { 
+                return "image_like_count_set Error Database : " . $e->getMessage();
+            }
     }
 
         public function image_nb_liked($id_img) // nb de like d'une image
