@@ -98,5 +98,10 @@ if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'
 	$Err = '';
 }
 
+if( $_GET['action'] == 'send_like' && $_GET['image']  && $_GET['user_comment'] ) // action=send_comment 
+{
+		$Err = '';
+}
+
 echo $Err;
 ?>

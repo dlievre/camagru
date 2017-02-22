@@ -138,6 +138,7 @@ class Cfusion
                 if ( caller == 'delete_img_usr') traitement.delete_img_usr_chk (XHR.responseText, id_div);
                 if ( caller == 'view_comment') traitement.view_comment_chk (XHR.responseText, id_div);
                 if ( caller == 'send_comment') traitement.send_comment_chk (XHR.responseText, id_div);
+                if ( caller == 'send_like') traitement.send_like_chk (XHR.responseText, id_div);
                 }
             else
                 {
@@ -182,13 +183,26 @@ view_comment(id_img, id_div) // ***** demande les commentaires d'une image
 
 }
 
-send_comment(user_comment, id_div)// envoi le commentaire d'une image
+send_comment(user_comment, id_div)// ***** envoi le commentaire d'une image
 {
     // id_img,  ne peut etre passe car le form est global sans connaite l'image concernee, on a image_selected a la place
     //document.getElementById('div_form_cmt').visibility = "visible";
     var comment = document.getElementById('send_comment').value
     var action = '?action=send_comment'+'&image='+this.image_selected+'&user_comment='+user_comment+'&comment='+comment;
     var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'send_comment'); // 
+    document.getElementById('div_form_cmt').visibility = "hidden";
+    document.getElementById('div_form_cmt').style.display = "none"; // fonctionne 
+    /////////////////// ou pas necessaire car chk le recupere  a faire quand dessus est bon pour maj div comment : this.view_comment(id_img, id_div);
+
+}
+
+send_like(user_comment, id_div)// ***** envoi le like d'une image
+{
+    // id_img,  ne peut etre passe car le form est global sans connaite l'image concernee, on a image_selected a la place
+    //document.getElementById('div_form_cmt').visibility = "visible";
+    var comment = document.getElementById('send_comment').value
+    var action = '?action=send_like'+'&image='+this.image_selected+'&user_comment='+user_comment+'&comment='+comment;
+    var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'send_like'); // 
     document.getElementById('div_form_cmt').visibility = "hidden";
     document.getElementById('div_form_cmt').style.display = "none"; // fonctionne 
     /////////////////// ou pas necessaire car chk le recupere  a faire quand dessus est bon pour maj div comment : this.view_comment(id_img, id_div);
@@ -227,6 +241,13 @@ send_comment_chk(reponse, id_div) // *****
     document.getElementById(id_div).visibility = "visible";
 }
 
+send_like_chk(reponse, id_div) // *****
+{
+    if (reponse == 'interdit') {alert('Erreur vous ne pouvez liker vos photos'); return;}
+    alert('send_like_chk '+id_div+reponse);
+    document.getElementById(id_div).innerHTML = reponse;
+    document.getElementById(id_div).visibility = "visible";
+}
 
 } // fin de classe
 
