@@ -457,7 +457,7 @@ Class CSession // ***** Class
         // et donc on fera soit insert soit update
         $retour = $this->is_user_cmtlike($name_photo, $IdUser_like);
         if ($retour['interdit'] == 'yes') {return ('interdit');}
-        if ($retour['commentorlike']='no')
+        if ($retour['commentorlike'] == 'no')
         {       
             // on cree l'enregistrement comment/like
             try

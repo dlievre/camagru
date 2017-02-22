@@ -243,7 +243,7 @@ send_comment_chk(reponse, id_div) // *****
 send_like_chk(reponse, id_div) // *****
 {
     if (reponse == 'interdit') {alert('Erreur vous ne pouvez liker vos photos'); return;}
-    alert('send_like_chk '+id_div+reponse);
+    //alert('send_like_chk '+id_div+reponse);
     document.getElementById(id_div).innerHTML = reponse;
     //document.getElementById(id_div).visibility = "visible";
 }
