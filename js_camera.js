@@ -2,7 +2,7 @@
 class Cfusion
 {
 
-  constructor(fond)
+  constructor(fond) // ***** charge la vidéo 
   {
     this.image_selected = 'not selected';
     var page = document.location.href;
@@ -30,7 +30,7 @@ class Cfusion
     })
   }
 
-  uploadEx()
+  uploadEx() // ***** transfert le fichier de la vidéo figé
   {
     var dataURL = canvas.toDataURL("image/png"); // format sera image en png
     document.getElementById('hidden_data').value = dataURL; // input du form qui contiendra l'image pour envoi
@@ -52,7 +52,7 @@ class Cfusion
     xhr.send(fd);
   }
 
-  draw(Id, id_div)
+  draw(Id, id_div) // ***** fige la vidéo à l'écran
   {
    ////var canvas = document.querySelector('#canvas');
     var inputfond = document.querySelector('#hidden_fond');
@@ -88,7 +88,7 @@ class Cfusion
     //traitement.refresh_usr('1', 'user_imgs');
   }
 
-  changefond(id)
+  changefond(id) // ***** sélectionne le fond
   {
     this.fond_select = id;
     if (activer_camera.style.display == "none" ) draw.style.display = "inline";
@@ -107,7 +107,7 @@ class Cfusion
   }
 
 
-    camera()
+    camera() // ***** réactive la caméra 
   {
 
     draw.style.display = "inline";
@@ -120,7 +120,7 @@ class Cfusion
     activer_camera.style.display = "none";
   }
 
-    Fajax( page_php, to_send, id_div, caller)// 'ajax_usr.php', action, id_div, 'refresh_usr' 
+    Fajax( page_php, to_send, id_div, caller) // ***** échange les demandes avec le serveur 'ajax_usr.php' 
   {
     if (window.XMLHttpRequest) var XHR = new XMLHttpRequest(); // Mozilla, Safari, ...
     if (window.ActiveXObject) var XHR = new ActiveXObject("Microsoft.XMLHTTP"); // IE
@@ -149,13 +149,13 @@ class Cfusion
     XHR.send();
   }
 
-refresh_usr(id, id_div)
+refresh_usr(id, id_div) // ***** récupère le contenu des images
 {
     var action = '?action=refresh';
     var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'refresh_usr'); // 
 }
 
-delete_img_usr(id_photo, id_div)
+delete_img_usr(id_photo, id_div)  // *****  demande la suppression d'une image
 {
     var action = '?action=delete&id_photo='+id_photo;
 
@@ -170,7 +170,7 @@ delete_img_usr(id_photo, id_div)
         		}
 }
 
-view_comment(id_img, id_div)
+view_comment(id_img, id_div) // ***** demande les commentaires d'une image
 {
     //alert('galerie_view_comment'+id_img+' '+id_div);
     document.getElementById('div_form_cmt').visibility = "visible";
@@ -182,7 +182,7 @@ view_comment(id_img, id_div)
 
 }
 
-send_comment(user_comment, id_div)// qwerty a finir
+send_comment(user_comment, id_div)// envoi le commentaire d'une image
 {
     // id_img,  ne peut etre passe car le form est global sans connaite l'image concernee, on a image_selected a la place
     //document.getElementById('div_form_cmt').visibility = "visible";
@@ -195,21 +195,21 @@ send_comment(user_comment, id_div)// qwerty a finir
 
 }
 
-refresh_usr_chk(reponse, id_div)
+refresh_usr_chk(reponse, id_div) // *****
 {
     //alert('refresh_usr_chk '+id_div+reponse);
     document.getElementById(id_div).innerHTML = reponse;
     document.getElementById(id_div).visibility = "visible";
 }
 
-delete_img_usr_chk(reponse, id_div)
+delete_img_usr_chk(reponse, id_div) // *****
 {
     document.getElementById(id_div).visibility = "hidden"; // bizare , ne marche pas
     document.getElementById(id_div).style.display = "none"; // fonctionne 
 //suppression dans base fait par ajax_usr.php
 }
 
-view_comment_chk(reponse, id_div)
+view_comment_chk(reponse, id_div) // *****
   {
     //alert('view_comment_chk '+id_div+' '+reponse);
     //document.getElementById(id_div).visibility = "visible";
@@ -219,7 +219,7 @@ view_comment_chk(reponse, id_div)
     //document.getElementById('div_form_cmt').style.display = "none"; // fonctionne     
   }
 
-send_comment_chk(reponse, id_div)
+send_comment_chk(reponse, id_div) // *****
 {
     if (reponse == 'interdit') {alert('Erreur vous ne pouvez commenter vos photos'); return;}
     alert('send_comment_chk '+id_div+reponse);

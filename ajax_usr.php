@@ -10,9 +10,9 @@ $Err = 'Erreur '.$_GET['action'];
 $Id = $_SESSION['Id'];
 $dir_user = "upload/user_".$Id.'/';
 
-if( $_GET['action'] == 'refresh')
+if( $_GET['action'] == 'refresh') // afficher les images crees sur le serveur
 {
-	// afficher les images crees sur le serveur
+	
 	if (!is_dir($dir_user)) mkdir($dir_user, 0700);
 	$list_img = scandir ($dir_user, SCANDIR_SORT_DESCENDING);
 	$taille_img = ' width="100px" ';
@@ -31,8 +31,8 @@ if( $_GET['action'] == 'refresh')
 	$Err = '';
 }
 
-//*************  action=delete image ************
-if( $_GET['action'] == 'delete')
+
+if( $_GET['action'] == 'delete') //  action=delete image
 {
 	$Id_img = $_GET['id_photo'];
 
@@ -61,8 +61,8 @@ if( $_GET['action'] == 'delete')
 	$Err = '';
 }
 
-//*************  action=view_comment ************
-if( $_GET['action'] == 'view_comment' && $_GET['image'])
+
+if( $_GET['action'] == 'view_comment' && $_GET['image']) // action=view_comment 
 {
 	// afficher les comment images 
 	$id_img = $_GET['image'];
@@ -75,8 +75,7 @@ if( $_GET['action'] == 'view_comment' && $_GET['image'])
 	$Err = '';
 }
 
-//*************  action=send_comment ************
-if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'] )
+if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'] ) // action=send_comment 
 {
 	// mettre a jour les comment images 
 	$id_img = $_GET['image'];

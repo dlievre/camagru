@@ -1,7 +1,7 @@
 <?php
 require_once('includes_session.php');
 if ($_SESSION['valide'] != 'ok') {header('Location: login.php');}
-if ( $_SESSION["email"] != 'dominique@lievre.net' && $_SESSION["email"] == 'tpasqual@student.42.fr' ) exit;
+if ( $_SESSION["email"] != 'dominique@lievre.net' ) exit;
 require_once('head.php');
 require_once('header.php');
 
@@ -28,11 +28,14 @@ $fichiers[] = 'CSession.class.php'; $f[]='CS';
 $fichiers[] = 'CInscription.class.php'; $f[]='CI';
 $fichiers[] = 'CPrint.class.php'; $f[]='CP';
 $fichiers[] = 'CForm.class.php'; $f[]='CF';
+$fichiers[] = 'ajax_usr.php'; $f[]='AJ';
+$fichiers[] = 'js_camera.js'; $f[]='JS';
 
 /*On parcourt le tableau $lines et on affiche le contenu de chaque ligne précédée de son numéro*/
 $needle[] = strtolower ('Class C');
 $needle[] = strtolower ('function');
 $needle[] = strtolower ('*****');
+$needle[] = strtolower ("_GET['action']");
 //$needle[] = strtolower ("INSERT INTO");
 $tbl = array(); // pour afficher
 $tblDoc = array(); // pour creer le fichier doc
@@ -42,6 +45,7 @@ foreach ($fichiers as $fileNumber => $fileName)
 {
     $lines = file($fileName);
     $tbl[$fileName] = '<b>'.$fileName.'</b';
+    $tblDoc[$fileName] = '<b>'.$fileName.'</b';
 
     foreach ($lines as $lineNumber => $lineContent)
     {
@@ -69,10 +73,10 @@ foreach ($fichiers as $fileNumber => $fileName)
 }
 $CView->content_array($tbl, 'content_left', 'content_left');
 $ecrire = $CSession->write_doc($tblDoc);
-
-print "<p><img src=\"superuser/database.png\"></p>";
 $CView->content ($ecrire, 'content_left');
-$CSession->read_log('superuser/documentation.txt');
+//$CSession->read_log('superuser/doc_suite.txt');
+$CView->titre('Documentation - complément');
+if (file_exists('superuser/doc_suite.txt')) $CSession->read_log('superuser/doc_suite.txt');
 
 $CView->titre('Fichier Log');
 $CView->content('Test Fichier log.txt', 'content_left');
