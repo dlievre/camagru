@@ -68,10 +68,11 @@ if( $_GET['action'] == 'view_comment' && $_GET['image']) // action=view_comment
 	$id_img = $_GET['image'];
 	//print('<div id="div_galerie_cmt">');
 	$CView->Titre('Commentaires des users');
+	$CView->content('Image : '.$id_img, 'content');
 	$images_comment = $CSession->image_comment($id_img);
 	if (!$images_comment) $images_comment['Aucun commentaire'] = ' ';
 	foreach ($images_comment as $key => $value)
-		$CView->content('&bull; '.ucfirst($key).'<br />'.$value, 'content');
+		if ($value) $CView->content('&bull; '.ucfirst($key).'<br />'.$value, 'content');
 	$Err = '';
 }
 
@@ -103,11 +104,33 @@ if( $_GET['action'] == 'send_like' && $_GET['image']  && $_GET['user_like'] ) //
 	$user_like = $_GET['user_like'];
 
 	$image_addlike = $CSession->like_add($id_img, $user_like);
-	if ( $image_addlike == 'interdit') echo 'interdit'; exit;
-if ( $image_addcomment == 'like_add' )
-	{
-		// refresh galerie
-	}
+	if ( $image_addlike == 'interdit') {echo 'interdit'; exit;}
+
+	if ( $image_addlike == 'like_add') // qwerty bug a resoudre
+		{
+			// refresh galerie faite dans le php en amont
+			$taille_img = ' width="150px" height="auto" ';
+			$images_galerie = $CSession->images_galerie();
+
+			$nb = 0;
+			foreach ($images_galerie as $key => $value) 
+			{
+				$CView->div('','div_img_like_cmt');
+				$CView->div('','div_img');
+				$id_img = $images_galerie[$nb]['Id'];
+				$name_img = $images_galerie[$nb]['Name_img'];
+				$images_like = $CSession->image_nb_liked($name_img);
+				if ($images_like > 0) $info_images_like = 'Like '.$images_like; else $info_images_like = '';
+				$dir_user = 'upload/user_'.$images_galerie[$nb]['Id_owner'].'/';
+				$value = $name_img.'.png';
+				print "<img class=\"galerie_img\" onclick=\"traitement.view_comment($name_img, 'div_cmt');\" $taille_img id=\"$id_img\" src=\"$dir_user$value\">";
+				$CView->div_end(); // div_img
+				print "<div class=\"div_like\" ><p class=\"like\">$info_images_like</p></div>"; 
+				print "<div class=\"div_comment\" ><p class=\"comment\"><a onclick=\"traitement.send_like($name_img, $Id, 'div_galerie');\">+</a></p></div>";
+				$CView->div_end(); // div_img_like_cmt
+				$nb++;
+			}
+		}
 	$Err = '';
 }
 
