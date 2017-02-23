@@ -185,8 +185,9 @@ h2	{
 	#div_galerie_cmt, #div_form_cmt, #div_cmt {width: 20%; } 
 
 	h2.Titre{ font-size: 14px; }  /* Maximum font size */
-	p, td.form { font-size: 12px; } 
-	p.content, p.content_left, p.content_right, p.content_center { font-size: 12px; margin: 0px 0px;}
+	p, td.form{ font-size: 12px; } 
+	p.content, p.content_left, p.content_right, p.content_center, p.nav_galerie  { font-size: 12px; margin: 0px 0px;}
+	p.nav_galerie span   { font-size: 12px; font-weight: bold; }
 	p.notice, p.like { font-size: 10px; }
 
 	
@@ -204,7 +205,8 @@ h2	{
 
 	h2.Titre{ font-size: 14px; }  /* Maximum font size */
 	p, td.form { font-size: 12px; } 
-	p.content, p.content_left, p.content_right, p.content_center  { font-size: 12px; }
+	p.content, p.content_left, p.content_right, p.content_center, p.nav_galerie   { font-size: 12px; }
+	p.nav_galerie span   { font-size: 12px; font-weight: bold; }
 	p.notice, p.like { font-size: 10px; }
 	
 	}

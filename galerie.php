@@ -13,9 +13,11 @@ $CForm = new CForm;
 	$taille_img = ' width="150px" height="auto" ';
 	print('<div id="div_galerie">');
 
-	$images_galerie = $CSession->images_galerie();
+	/*$images_galerie = $CSession->images_galerie();
 
 	$nb = 0;
+	$nb_img = count($images_galerie);
+
 	foreach ($images_galerie as $key => $value) 
 	{
 		$CView->div('','div_img_like_cmt');
@@ -32,7 +34,7 @@ $CForm = new CForm;
 		print "<div class=\"div_likesend\" ><p class=\"likesend\"><a onclick=\"traitement.send_like($name_img, $Id, 'div_galerie');\" onmouseover=\"traitement.show_like()\">+</a></p></div>";
 		$CView->div_end(); // div_img_like_cmt
 		$nb++;
-	}
+	}*/
 	// important sinon erreur javascript sur le constructor
 	print("<div style=\"display:none\"  id=\"div_video\"><video id=\"video\" width=\"100px\" height=\"50px\"></video></div>");
 	print('</div>'); // div  galerie
@@ -61,5 +63,6 @@ $CForm = new CForm;
 print '<script src="js_camera.js" type="text/javascript"></script>';
 //print '<script src="js_galerie.js" type="text/javascript"></script>';
 //print '<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>';
+print "<script>traitement.display_galerie(1, 'div_galerie');</script>";
 include ('footer.php');
 ?>

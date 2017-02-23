@@ -139,6 +139,7 @@ class Cfusion
                 if ( caller == 'view_comment') traitement.view_comment_chk (XHR.responseText, id_div);
                 if ( caller == 'send_comment') traitement.send_comment_chk (XHR.responseText, id_div);
                 if ( caller == 'send_like') traitement.send_like_chk (XHR.responseText, id_div);
+                if ( caller == 'display_galerie') traitement.display_galerie_chk (XHR.responseText, id_div);
                 }
             else
                 {
@@ -154,6 +155,12 @@ refresh_usr(id, id_div) // ***** récupère le contenu des images
 {
     var action = '?action=refresh';
     var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'refresh_usr'); // 
+}
+
+display_galerie(no_page, id_div) // ***** récupère le contenu des images
+{
+    var action = '?action=display_galerie&no_page='+no_page;
+    var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'display_galerie'); // 
 }
 
 delete_img_usr(id_photo, id_div)  // *****  demande la suppression d'une image
@@ -208,7 +215,16 @@ send_like($name_img, user_like, id_div)// ***** envoi le like d'une image
 //$name_img, $Id, 'div_galerie'
 }
 
+show_like()
+{}
+
 refresh_usr_chk(reponse, id_div) // *****
+{
+    //alert('refresh_usr_chk '+id_div+reponse);
+    document.getElementById(id_div).innerHTML = reponse;
+    document.getElementById(id_div).visibility = "visible";
+}
+display_galerie_chk(reponse, id_div) // *****
 {
     //alert('refresh_usr_chk '+id_div+reponse);
     document.getElementById(id_div).innerHTML = reponse;

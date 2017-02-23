@@ -589,7 +589,7 @@ Class CSession // ***** Class
             }
         }
         catch(PDOException $e)
-        { echo "Error Database : " . $e->getMessage(); }
+        { echo "images_galerie Error Database : " . $e->getMessage(); }
         //$conn = null;
         return($tbl);
     }
