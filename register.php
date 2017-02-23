@@ -10,6 +10,8 @@ $error_field = '';
 
 $aff_formulaire = 'yes';
 
+
+
 if (isset($_POST['Envoyer']) == TRUE) // controle des champs
 	{
 		$TabFormChk["Nom"] = "Votre Nom";
@@ -19,6 +21,7 @@ if (isset($_POST['Envoyer']) == TRUE) // controle des champs
 		$TabFormChk["Reponse"] = "Réponse";
 
 		$error_field = $CForm->InputTextChk($TabFormChk);
+		if 	($_POST['Password'] != $_POST['Passwordbis']) $error_field .= "Les mots de passe ne sont pas identiques";
 		
 	}
 

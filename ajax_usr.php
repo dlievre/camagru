@@ -82,10 +82,11 @@ if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'
 	$id_img = $_GET['image'];
 	$user_comment = $_GET['user_comment'];
 	$comment = $_GET['comment'];
+	// fait dans $cession $comment = addslashes ($comment);
 	if (!$comment) $comment = '';
 	if ( $user_comment == 'not selected') { echo 'ajax : image not selected'; exit; }
 	$image_addcomment = $CSession->comment_add($id_img, $user_comment, $comment);
-	if ( $image_addcomment == 'interdit') echo 'interdit'; exit;
+	if ( $image_addcomment == 'interdit') {echo 'interdit'; exit;}
 	if ( $image_addcomment == 'comment_add' )
 	{
 		//print('<div id="div_galerie_cmt">');
@@ -126,7 +127,7 @@ if( $_GET['action'] == 'send_like' && $_GET['image']  && $_GET['user_like'] ) //
 				print "<img class=\"galerie_img\" onclick=\"traitement.view_comment($name_img, 'div_cmt');\" $taille_img id=\"$id_img\" src=\"$dir_user$value\">";
 				$CView->div_end(); // div_img
 				print "<div class=\"div_like\" ><p class=\"like\">$info_images_like</p></div>"; 
-				print "<div class=\"div_comment\" ><p class=\"comment\"><a onclick=\"traitement.send_like($name_img, $Id, 'div_galerie');\">+</a></p></div>";
+				print "<div class=\"div_likesend\" ><p class=\"likesend\"><a onclick=\"traitement.send_like($name_img, $Id, 'div_galerie');\" onmouseover=\"traitement.show_like()\">+</a></p></div>";
 				$CView->div_end(); // div_img_like_cmt
 				$nb++;
 			}

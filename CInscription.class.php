@@ -10,14 +10,15 @@ Class CInscription // ***** class
 
     public function send_validation($email, $Prenom, $Nom, $Keyuser) // envoi un email de validation 
     {
-
+        $CSession = new CSession();
         $sujet = 'Confirmation d\'inscription Camagru';
         $message = 'Bonjour '.$Prenom.' '. $Nom.'<br />';
         $message .= "Félicitations vous venez de vous inscrire sur Camagru.<br />
         Pour valider cette inscription, il ne vous reste plus qu'à cliquer sur le lien suivant :";
-        $CSession = new CSession();
+        
         $host = $CSession->host();
-        $message .= "<a href=\"".$host."/camagru/register_chk.php?key=$Keyuser'> Validez votre incription</a>";
+        //$host = 'http:www.camagru.photeam.com';
+        $message .= "<a href='".$host."register_chk.php?key=$Keyuser'> Validez votre incription</a>";
         //$message .= "<a href='http://$this->servername:8080/camagru/register_chk.php?key=$Keyuser'> Validez votre incription</a>";
         $from = 'dlievre@student.42.fr';
 
@@ -46,7 +47,7 @@ Class CInscription // ***** class
         $host = $CSession->host();
         $CSession->write_log('Réinitialisation de votre mot de passe pour '.$email );
 //$message .= "<a href='http://$this->servername:8080/camagru/pwd_reinit_chk.php?key=$key'> Réinitialiser votre mot de passe</a>";
-        $message .= "<a href=\"".$host."/pwd_reinit_chk.php?key=$key\"> Réinitialiser votre mot de passe</a>";
+        $message .= "<a href=\"$host"."pwd_reinit_chk.php?key=$key\"> Réinitialiser votre mot de passe</a>";
         $from = 'dlievre@student.42.fr';
 
         //$CInscription = new CInscription();
@@ -82,21 +83,26 @@ Class CInscription // ***** class
     public function send_email($email, $sujet, $message, $from) // envoi un email
     {
         $CPrint = new CPrint();
+        $CSession = new CSession();
         $codageiso = 'charset=iso-8859-1';
         $codageutf = 'charset=utf-8';
         $to  = $email;
-        //$to .= ', te42pe@gmail.com';
+        $to .= ', te42pe@gmail.com';
         $sujet = utf8_decode ($sujet);
         $message = utf8_decode ($message);
+        //$message = htmlentities ($message); // a tester si ok
         $headers = "MIME-Version: 1.0\r\n"; 
         //$headers .= "Content-type: text/html; ".$codageutf."\r\n"; 
         $headers .='Content-Type: text/html; charset="iso-8859-1"'."\r\n";  
         $headers .='Content-Transfer-Encoding: 8bit' . "\r\n";
-
         $headers .= "From: ".$from."\r\nX-Mailer:PHP/". phpversion();  // 'X-Mailer: PHP/' . phpversion();
 
         if (mail($to, $sujet, $message, $headers))
+        {
+            $CSession->write_log("inscription : ".$to.' '. $sujet);
             return "send email";
+
+        }
         else 
         {
             $CSession->write_log("Erreur de transmission email : $to $sujet");

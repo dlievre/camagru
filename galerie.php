@@ -29,7 +29,7 @@ $CForm = new CForm;
 		print "<img class=\"galerie_img\" onclick=\"traitement.view_comment($name_img, 'div_cmt');\" $taille_img id=\"$id_img\" src=\"$dir_user$value\">";
 		$CView->div_end(); // div_img
 		print "<div class=\"div_like\" ><p class=\"like\">$info_images_like</p></div>"; 
-		print "<div class=\"div_comment\" ><p class=\"comment\"><a onclick=\"traitement.send_like($name_img, $Id, 'div_galerie');\">+</a></p></div>";
+		print "<div class=\"div_likesend\" ><p class=\"likesend\"><a onclick=\"traitement.send_like($name_img, $Id, 'div_galerie');\" onmouseover=\"traitement.show_like()\">+</a></p></div>";
 		$CView->div_end(); // div_img_like_cmt
 		$nb++;
 	}

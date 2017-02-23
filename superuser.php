@@ -36,6 +36,7 @@ $needle[] = strtolower ('Class C');
 $needle[] = strtolower ('function');
 $needle[] = strtolower ('*****');
 $needle[] = strtolower ("_GET['action']");
+
 //$needle[] = strtolower ("INSERT INTO");
 $tbl = array(); // pour afficher
 $tblDoc = array(); // pour creer le fichier doc
@@ -58,7 +59,7 @@ foreach ($fichiers as $fileNumber => $fileName)
                 $lineContent = str_replace ( 'public' , '', strtolower ($lineContent));
                 $lineContent = str_replace ( 'function' , '', strtolower ($lineContent));
                 $tblDoc[$f[$fileNumber].'-'.$lineNumber] = $lineContent; // avant mise en form
-                if ( $pos = strpos ($lineContent , '('))
+                if ( $pos = strpos ($lineContent , '(')) //ne fonctionne pas si function est au debut de la ligne car strpos = 0
 					$lineContent = '<b>'.substr($lineContent, 0, $pos).'</b>'.substr($lineContent, $pos);
                 $lineContent = str_replace ( '//' , '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//', strtolower ($lineContent));
                 //echo $lineNumber,' ',$lineContent.'<br />';

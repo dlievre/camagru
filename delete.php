@@ -26,7 +26,7 @@ $retour .= "<p>begin $Id</p>";
 				$retour .= "<img class=\"galerie_img\" onclick=\"galerie.view_comment($id);\" $taille_img id=\"$id\" src=\"$dir_user$value\">";
 				$retour .= '</div>'; // div_img
 				$retour .= "<div class=\"div_like\" ><p class=\"like\">Like $key</p></div>"; 
-				$retour .= "<div class=\"div_comment\" ><p class=\"comment\"><a onclick=\"galerie.view_comment($id);\">+</a></p></div>";
+				$retour .= "<div class=\"div_likesend\" ><p class=\"likesend\"><a onclick=\"galerie.view_comment($id);\">+</a></p></div>";
 				$retour .= '</div>'; // div_img_like_cmt
 				//print '<br />';
 

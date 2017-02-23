@@ -38,7 +38,8 @@ Class CSession // ***** Class
         if ($Domaine_Serveur == 'camagru.photeam.com') 
             $host = 'http://www.camagru.photeam.com';
         else
-            $host = $this->servername.':8080/camagru/';
+            $host = 'http://'.$this->servername.':8080/camagru/';
+        //$host = $this->servername.':8080/';
         return ($host);
     }
 
@@ -171,6 +172,7 @@ Class CSession // ***** Class
 
         public function user_add() // ajoute un user 
         {
+            $_POST = $this->quote_addslashes($_POST);
             $email = strtolower(strip_tags($_POST['email']));
             $Nom = strip_tags($_POST['Nom']);
             $Prenom = strip_tags($_POST['Prenom']);
@@ -195,6 +197,29 @@ Class CSession // ***** Class
         { echo "Error Database : " . $e->getMessage(); print 'Erreur user_add'; exit;}
         $this->write_log('user_add : '.$email.' '. $Nom);
         return('user_add');
+    }
+
+    public function user_add_confirm($key) // confirmation de l'inscription par l'user
+    {
+        try
+        {
+            $rq = $this->secure("UPDATE $this->tbl SET Confirm = 1 WHERE Keyuser = '$key'");
+            
+            $requete = $this->conn->prepare($rq); 
+            $requete->execute();
+            if ($requete)
+            {
+                $retour = 'user_add_confirm';
+                $this->write_log('user confirmed : '.$key);
+            }
+            else
+                $retour = 'no';
+        }
+
+        catch(PDOException $e)
+        { echo "Error Database : " . $e->getMessage(); $retour = 'no';}
+
+        return($retour); 
     }
 
     function user_pass_modify($email, $pass) // modifie le password de l'user
@@ -292,6 +317,7 @@ Class CSession // ***** Class
     function secure($var) // supprime les tag html
     {
         $var = strip_tags($var);
+        //$var = addslashes ($var); // ajoute \ au string avec ' " exemple (c'est)
         return($var); // pour l'instant on ne fait que le strip_tags car protege par 'value'
         //return (mysql_real_escape_string($var)); // ne fonctionne pas
         //return($var);
@@ -316,6 +342,21 @@ Class CSession // ***** Class
     private function quote($val)// securise le passage des variables dans la requete sql, sans separateur
     {
         return("'".$val."'");
+    }
+
+    function quote_addslashes($tbl) // ajoute / aux chaines vers sql
+    {
+        if (is_array($tbl))
+        {
+            foreach ($tbl as $key => $value)
+            {
+                $tbl[$key] = addslashes($value);
+            }
+        }
+        else
+            $tbl = addslashes($tbl);
+        return $tbl;
+
     }
 
     public function kill_session() // on tue la session et les variables
@@ -401,9 +442,9 @@ Class CSession // ***** Class
         return($retour); 
     }
 
-
      function comment_add($name_photo, $IdUser_comment, $comment)// ajoute un commentaire a une image dans la base
     {
+        $comment = $this->quote_addslashes($comment);
         // a faire controle de ne pas se commenter sois meme
         $Id_tblphotos = intval ($this->image_getid($name_photo)); // id de la photo
         // check si user a deja pour cette image mis un comment ou like 
