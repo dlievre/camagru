@@ -598,7 +598,9 @@ Class CSession // ***** Class
     {
         try {
             $tab_users = $this->tbl_users_name();
-            $rq = $this->secure("SELECT Id, Comment, Id_user_comment FROM $this->tbl_photos_like WHERE Id_img = '$name_photo'");  //ORDER BY 'Date' DESC  , 'Date'
+            $rq = $this->secure("SELECT Comment, Id_user_comment FROM $this->tbl_photos_like WHERE Id_img = '$name_photo'");  //ORDER BY 'Date' DESC  , 'Date'
+            //$rq = $this->secure("SELECT Comment, Id_user_comment, $this->tbl_photos.Id_owner, $this->tbl.Prenom FROM $this->tbl_photos_like, $this->tbl_photos, $this->tbl WHERE Id_img = $name_photo AND $this->tbl_photos_like.Id_tblphotos=$this->tbl_photos.Id AND Id_user_comment=$_SESSION[Id] AND $this->tbl_photos.Id_owner = $this->tbl.Id");
+            $this->write_log($rq);
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
             while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
@@ -610,7 +612,25 @@ Class CSession // ***** Class
         return($tbl);
     }
 
-        public function tbl_users_name() // lit les commentaires d'une image
+    public function get_owner_image($name_photo) // identifie owner d'une image
+    {
+        try {
+            //$tbl_user = array();
+            $rq = $this->secure("SELECT Id_owner FROM $this->tbl_photos WHERE Name_img = $name_photo");  //ORDER BY 'Date' DESC  , 'Date'
+            $requete = $this->conn->prepare($rq); //
+            $requete->execute();
+            $lignes = $requete->fetch(PDO::FETCH_OBJ);
+            $tbl_user = $this->tbl_users_name();
+            $retour = $tbl_user[$lignes->Id_owner];
+            
+        }
+        catch(PDOException $e)
+        { echo "get_owner_image Error Database : " . $e->getMessage(); }
+
+        return($retour);
+    }    
+
+    public function tbl_users_name() // lit les commentaires d'une image
     {
         try {
             $rq = $this->secure("SELECT Id, Prenom FROM $this->tbl");  //ORDER BY 'Date' DESC  , 'Date'

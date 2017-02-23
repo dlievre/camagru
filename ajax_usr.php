@@ -68,7 +68,9 @@ if( $_GET['action'] == 'view_comment' && $_GET['image']) // action=view_comment
 	$id_img = $_GET['image'];
 	//print('<div id="div_galerie_cmt">');
 	$CView->Titre('Commentaires des users');
-	$CView->content('Image : '.$id_img, 'content');
+	$prenom = $CSession->get_owner_image($id_img);
+
+	$CView->content(' Image : '.$id_img.' de '.ucfirst($prenom).'<br />'.'<br />', 'content');
 	$images_comment = $CSession->image_comment($id_img);
 	if (!$images_comment) $images_comment['Aucun commentaire'] = ' ';
 	foreach ($images_comment as $key => $value)
