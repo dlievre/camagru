@@ -8,6 +8,8 @@ require_once('header.php');
 $CView = new CPrint;
 $CSession = new CSession;
 $CInscription = new CInscription;
+$db = new CDatabase();
+
 //print('<div id="main">');
 
 $CView->titre('Liste des users');

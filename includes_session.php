@@ -9,7 +9,7 @@ if(!isset($_SESSION)) {session_start();}
 	define('ROOT_UPLD', ROOT.'/upload/');
 	define('ROOT_FOND', ROOT.'/fonds/');*/
 //	$Domaine_Serveur = str_replace ( 'www.' , '', $_SERVER['HTTP_HOST']);
-
+require_once('config/database.php');
 require_once('CSession.class.php');
 require_once('CInscription.class.php');
 include_once ('CForm.class.php');

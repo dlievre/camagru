@@ -22,7 +22,7 @@ body {
 h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); background-repeat: no-repeat;}
 
 #header_user {  position: relative; text-align: right; vertical-align: top; margin : 10px 10px 0px 0px;}
-#header_menu { position: relative;  bottom: 0px; right: 5px; text-align: center;  margin : 20px; }
+#header_menu { position: relative;  right: 5px; text-align: center;  margin : 20px; }
 
 #div_video_fond { position: relative; top:0px; left:0px; width: 482px; height: 362px; text-align: center; z-index:4; }/*margin : 2px;*/
 #div_fond { position: absolute; top:0px; left:0px; width: 480px; height: 360px; text-align: center; z-index:2; margin : 0px;}
@@ -150,10 +150,10 @@ p.content_left 		{text-align: left;}
 p.content_right 	{text-align: right;}
 p.content_center	{text-align: center;}
 
-p.like, .comment, .likesend						{color: #FFFFFF; margin: 0px;} /* comment not used yet*/
-p.like a:link, p.likesend a:link 		{color: #777; text-decoration: none;}
-p.like a:visited, p.likesend a:visited  	{color: #777; text-decoration: none;}
-p.like a:hover, p.likesend a:hover  		{color: #ff6600; text-decoration: blink;}
+p.like, .comment, .likesend										{color: #FFFFFF; margin: 0px;} /* comment not used yet*/
+p.like a:link, p.likesend a:link, p.nav_galerie a:link, 		{color: #777; text-decoration: none;}
+p.like a:visited, p.likesend a:visited, p.nav_galerie a:visited	{color: #777; text-decoration: none;}
+p.like a:hover, p.likesend a:hover, p.nav_galerie a:hover  		{color: #ff6600; text-decoration: blink;}
 
 p.notice span, p.notice b { font-weight: bold; color:#39329B;}
 

@@ -84,7 +84,7 @@ class Cfusion
 
   test(var1)
   {
-    var1 = 2;
+    alert(var1);
     //traitement.refresh_usr('1', 'user_imgs');
   }
 
@@ -140,6 +140,7 @@ class Cfusion
                 if ( caller == 'send_comment') traitement.send_comment_chk (XHR.responseText, id_div);
                 if ( caller == 'send_like') traitement.send_like_chk (XHR.responseText, id_div);
                 if ( caller == 'display_galerie') traitement.display_galerie_chk (XHR.responseText, id_div);
+                //if ( caller == 'nb_img_page') traitement.nb_img_page_chk (XHR.responseText, id_div); 
                 }
             else
                 {
@@ -217,6 +218,24 @@ send_like($name_img, user_like, id_div)// ***** envoi le like d'une image
 
 show_like()
 {}
+
+// select = document.getElementById("Liste2");
+// choice = select.selectedIndex;
+// valeur = select.options[choice].value;
+// texte = select.options[choice].text;
+// document.getElementById('id_ville').value = valeur;
+// document.getElementById('ville').value = texte;
+
+nb_img_page(id_div)
+{
+    //alert (id_div);
+    alert (document.getElementsByTagName('select_nb_img_page'));
+    var result = document.getElementsByTagName('select_nb_img_page').value;
+    //var valeur = id.value;
+    //alert ('vv'+result);
+    var action = '?action=nb_img_page'+'&value='+result;
+    var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'nb_img_page'); //    
+}
 
 refresh_usr_chk(reponse, id_div) // *****
 {

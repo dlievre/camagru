@@ -1,34 +1,39 @@
 <?php
 if(!isset($_SESSION)) {session_start();}
+
 Class CSession // ***** Class 
 {
     public static $verbose = False;
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "camagru";
+    // private $servername = "localhost";
+    // private $username = "root";
+    // private $password = "";
+    // private $dbname = "camagru";
     private $tbl = "tbl_camagru";
     private $tbl_photos = "photos";
     private $tbl_photos_like = "photos_like";
 
-    private $servername1 = "db665127288.db.1and1.com";
-    private $username1 = "dbo665127288";
-    private $password1 = "42piscinedltp";
-    private $dbname1 = "db665127288";
+    // private $servername1 = "db665127288.db.1and1.com";
+    // private $username1 = "dbo665127288";
+    // private $password1 = "42piscinedltp";
+    // private $dbname1 = "db665127288";
+    //private $db = new CDatabase();
 
     //private $conn =''; pas necessaire
 
 // **********  gestion de l'utilisateur ***********
     public function __construct() // initialise les info de la base de donnees
     {
-        //print '__construct';
-        // a l'initialisation de la class on genere la variable de conenxion a la base
-        $Domaine_Serveur = str_replace ( 'www.' , '', $_SERVER['HTTP_HOST']);
-        if ($Domaine_Serveur == 'camagru.photeam.com')
-            $this->conn = new PDO('mysql:host='.$this->servername1.';dbname='.$this->dbname1, $this->username1, $this->password1);
-        else
-            $this->conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
-        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db = new CDatabase();
+        $this->conn = $db->database();
+        //print $db->database();// $this->conn ;
+        // //print '__construct';
+        // // a l'initialisation de la class on genere la variable de conenxion a la base
+        // $Domaine_Serveur = str_replace ( 'www.' , '', $_SERVER['HTTP_HOST']);
+        // if ($Domaine_Serveur == 'camagru.photeam.com')
+        //     $this->conn = new PDO('mysql:host='.$this->servername1.';dbname='.$this->dbname1, $this->username1, $this->password1);
+        // else
+        //     $this->conn = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname, $this->username, $this->password);
+        // $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return;
     }
 
@@ -318,6 +323,7 @@ Class CSession // ***** Class
     {
         $var = strip_tags($var);
         //$var = addslashes ($var); // ajoute \ au string avec ' " exemple (c'est)
+        $var = str_replace ( '$' , '', $var);
         return($var); // pour l'instant on ne fait que le strip_tags car protege par 'value'
         //return (mysql_real_escape_string($var)); // ne fonctionne pas
         //return($var);
@@ -452,6 +458,7 @@ Class CSession // ***** Class
         $retour = $this->is_user_cmtlike($name_photo, $IdUser_comment);
         //$this->write_log($retour.' retour is ');
         if ($retour['interdit'] == 'yes') {return ('interdit');}
+
         if ($retour['commentorlike'] == 'no')
         {       
             // on cree l'enregistrement comment/like
@@ -460,6 +467,15 @@ Class CSession // ***** Class
                 $rq = $this->secure("INSERT INTO $this->tbl_photos_like (Id_tblphotos, Id_img, Id_user_comment, comment) VALUES ('$Id_tblphotos', '$name_photo', '$IdUser_comment', '$comment')"); 
                 $requete = $this->conn->prepare($rq);
                 $requete->execute();
+                // envoi mail d'info comment
+                $CInscription = new $CInscription;
+                $email = get_email_owner_image($name_photo);
+                $sujet = "Camagru - commentaire de vos photos ";
+                $message = "un utilisateur de Camagru vient de poster le commentaire suivant pour une de vos photos";
+                $message .= $comment;
+                $from = "dlievre@student.42.fr";
+                $CInscription->send_email($email, $sujet, $message, $from);
+
                 //$this->write_log($rq.' create '); //qwerty
             }
             catch(PDOException $e)
@@ -643,6 +659,40 @@ Class CSession // ***** Class
         }
         catch(PDOException $e)
         { echo "tbl_users_name Error Database : " . $e->getMessage(); }
+        return($tab_users);
+    }
+
+        public function get_email_owner_image($name_photo) // identifie owner d'une image
+    {
+        try {
+            //$tbl_user = array();
+            $rq = $this->secure("SELECT Id_owner FROM $this->tbl_photos WHERE Name_img = $name_photo");  //ORDER BY 'Date' DESC  , 'Date'
+            $requete = $this->conn->prepare($rq); //
+            $requete->execute();
+            $lignes = $requete->fetch(PDO::FETCH_OBJ);
+            $tbl_user = $this->tbl_users_mail();
+            $retour = $tbl_user[$lignes->Id_owner];
+            
+        }
+        catch(PDOException $e)
+        { echo "get_owner_image Error Database : " . $e->getMessage(); }
+
+        return($retour);
+    } 
+
+        public function tbl_users_mail() // lit les commentaires d'une image
+    {
+        try {
+            $rq = $this->secure("SELECT Id, email FROM $this->tbl");  //ORDER BY 'Date' DESC  , 'Date'
+            $requete = $this->conn->prepare($rq); //
+            $requete->execute();
+            $tab_users = array();
+            while($lignes = $requete->fetch(PDO::FETCH_OBJ)){
+                $tab_users[$lignes->Id] = $lignes->email;
+            }
+        }
+        catch(PDOException $e)
+        { echo "tbl_users_email Error Database : " . $e->getMessage(); }
         return($tab_users);
     }
 

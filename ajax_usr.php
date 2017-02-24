@@ -36,51 +36,6 @@ if( $_GET['action'] == 'display_galerie' && $_GET['no_page']) // afficher les im
 	$actual_page = $_GET['no_page'];
 	$_SESSION['actual_page'] = $actual_page;
 	$Err = display_galerie($actual_page, $Id);
-	//$Err = '';
-	
-// 	$images_galerie = $CSession->images_galerie();
-// 	$taille_img = ' width="150px" height="auto" ';
-
-	
-// 	$nb_imgparpage = 8;
-// 	$nb_img_base = count($images_galerie);
-// 	$nb_pages = ceil ($nb_img_base / $nb_imgparpage);
-// 	$actual_page = strval($_GET['no_page']);
-// 	$tranche_basse = strval($actual_page - 1 ) * $nb_imgparpage;
-// 	$tranche_haute = ($actual_page * $nb_imgparpage) - 1;
-// 	$page_previous = ( $actual_page >1 ? $actual_page -1 : '');
-// 	$page_previousbis = ( $page_previous >1 ? $page_previous -1 : '');
-// 	$page_next = ( $actual_page < $nb_pages ? $actual_page+1 : '');
-// 	$page_nextbis = ( $page_next < $nb_pages and $page_next  ? $page_next+1 : '');
-
-// 	foreach ($images_galerie as $key => $value) 
-// 	{
-// 		if ($key >= $tranche_basse and $key <= $tranche_haute)
-// 		{
-// 		$CView->div('','div_img_like_cmt');
-// 		$CView->div('','div_img');
-// 		$id_img = $images_galerie[$key]['Id'];
-// 		$name_img = $images_galerie[$key]['Name_img'];
-// 		$images_like = $CSession->image_nb_liked($name_img);
-// 		if ($images_like > 0) $info_images_like = 'Like '.$images_like; else $info_images_like = '';
-// 		$dir_user = 'upload/user_'.$images_galerie[$key]['Id_owner'].'/';
-// 		$value = $name_img.'.png';
-// 		print "<img class=\"galerie_img\" onclick=\"traitement.view_comment($name_img, 'div_cmt');\" $taille_img id=\"$id_img\" src=\"$dir_user$value\">";
-// 		$CView->div_end(); // div_img
-// 		print "<div class=\"div_like\" ><p class=\"like\">$info_images_like</p></div>"; 
-// 		print "<div class=\"div_likesend\" ><p class=\"likesend\"><a onclick=\"traitement.send_like($name_img, $Id, 'div_galerie');\" onmouseover=\"traitement.show_like($key)\">+</a></p></div>";
-// 		$CView->div_end(); // div_img_like_cmt
-// 		}
-
-// 	}
-// 	print '<p>&nbsp;</p>';
-// 	print "<p class=\"nav_galerie\"><a href=\"#\" onclick=\"traitement.display_galerie($page_previousbis, 'div_galerie');\"> $page_previousbis&nbsp;</a> ";
-// 	print " <a href=\"#\" onclick=\"traitement.display_galerie($page_previous, 'div_galerie');\"> $page_previous </a> ";
-// print '&nbsp; <span>( ' . $actual_page . ' )</span>  &nbsp;';
-// 	print " <a href=\"#\" onclick=\"traitement.display_galerie($page_next, 'div_galerie');\"> $page_next </a> &nbsp;";
-// 	print " <a href=\"#\" onclick=\"traitement.display_galerie($page_nextbis, 'div_galerie');\"> $page_nextbis </a></p>";
-// 	//print '<p>'.$page_previous   .'  ' . $actual_page . '  ' .$page_next   .'</p>';
-// 	$Err = '';
 }
 
 
@@ -130,6 +85,16 @@ if( $_GET['action'] == 'view_comment' && $_GET['image']) // action=view_comment
 	$Err = '';
 }
 
+if( $_GET['action'] == 'nb_img_page' && $_GET['value']) // action=view_comment // ?action=nb_img_page'+'&value='+valeur;
+{
+	// changer le nb d'image par images 
+	//if (isset($_GET['value']) $_SESSION['nb_img_page'] = $_GET['value'];
+	$no_page = $_SESSION['actual_page'];
+	display_galerie($no_page, $Id);
+
+	$Err = '';
+}
+
 if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'] ) // action=send_comment 
 {
 	// mettre a jour les comment images 
@@ -140,6 +105,7 @@ if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'
 	if (!$comment) $comment = '';
 	if ( $user_comment == 'not selected') { echo 'ajax : image not selected'; exit; }
 	$image_addcomment = $CSession->comment_add($id_img, $user_comment, $comment);
+
 	if ( $image_addcomment == 'interdit') {echo 'interdit'; exit;}
 	if ( $image_addcomment == 'comment_add' )
 	{
@@ -148,7 +114,7 @@ if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'
 		$images_comment = $CSession->image_comment($id_img);
 		if (!$images_comment) $images_comment['Aucun commentaire'] = ' ';
 		foreach ($images_comment as $key => $value)
-			$CView->content('&bull; '.ucfirst($key).'<br />'.$value, 'content');
+			if ($value) $CView->content('&bull; '.ucfirst($key).'<br />'.$value, 'content');
 		$Err = '';
 	}
 }
@@ -205,13 +171,14 @@ function display_galerie($no_page, $Id) // $_GET['action'] == 'display_galerie' 
 	$taille_img = ' width="150px" height="auto" ';
 
 	
-	$nb_imgparpage = 4;
+	$nb_img_page = 8;
+	//if ($_SESSION['nb_img_page']) $nb_img_page = $_SESSION['nb_img_page']; // passage par la session du nb d'image/page
 	$nb_img_base = count($images_galerie);
-	$nb_pages = ceil ($nb_img_base / $nb_imgparpage);
+	$nb_pages = ceil ($nb_img_base / $nb_img_page);
 	//$actual_page = strval($_GET['no_page']);
 	$actual_page = $no_page;
-	$tranche_basse = strval($actual_page - 1 ) * $nb_imgparpage;
-	$tranche_haute = ($actual_page * $nb_imgparpage) - 1;
+	$tranche_basse = strval($actual_page - 1 ) * $nb_img_page;
+	$tranche_haute = ($actual_page * $nb_img_page) - 1;
 	$page_previous = ( $actual_page >1 ? $actual_page -1 : '');
 	$page_previousbis = ( $page_previous >1 ? $page_previous -1 : '');
 	$page_next = ( $actual_page < $nb_pages ? $actual_page+1 : '');
@@ -243,6 +210,16 @@ function display_galerie($no_page, $Id) // $_GET['action'] == 'display_galerie' 
 print '&nbsp; <span>( ' . $actual_page . ' )</span>  &nbsp;';
 	print " <a href=\"#\" onclick=\"traitement.display_galerie($page_next, 'div_galerie');\"> $page_next </a> &nbsp;";
 	print " <a href=\"#\" onclick=\"traitement.display_galerie($page_nextbis, 'div_galerie');\"> $page_nextbis </a></p>";
+
+// 	if ($nb_img_page == 4 ) $sel4 = 'selected';
+// 	if ($nb_img_page == 8 ) $sel8 = 'selected';
+// 	if ($nb_img_page == 16 ) $sel16 = 'selected';
+// 	print "<select id=\"select_nb_img_page\" onclick=\"traitement.nb_img_page('select_nb_img_page');\" name=\"select_nb_img_page\">
+// 	<option value=\"4\" $sel4>4 / page</option>
+//   <option value=\"8\" $sel8 >8 / page</option>
+//   <option value=\"16\" $sel16>16 / page</option>
+// </select></p>";
+// <a href=\"#\" onclick=\"traitement.nb_img_page(+10);\"> + / pages</a>
 	//print '<p>'.$page_previous   .'  ' . $actual_page . '  ' .$page_next   .'</p>';
 	return ($Err = '');
 }
