@@ -468,15 +468,16 @@ Class CSession // ***** Class
                 $requete = $this->conn->prepare($rq);
                 $requete->execute();
                 // envoi mail d'info comment
-                $CInscription = new $CInscription;
-                $email = get_email_owner_image($name_photo);
+                
+                $email = $this->get_email_owner_image($name_photo);
                 $sujet = "Camagru - commentaire de vos photos ";
                 $message = "un utilisateur de Camagru vient de poster le commentaire suivant pour une de vos photos";
-                $message .= $comment;
+                $message .= '<br>'.$comment;
                 $from = "dlievre@student.42.fr";
+                $CInscription = new CInscription();
                 $CInscription->send_email($email, $sujet, $message, $from);
 
-                //$this->write_log($rq.' create '); //qwerty
+                $this->write_log('comment : email send '.$email.' '.$sujet.' '.$message.' '.$from);
             }
             catch(PDOException $e)
             { 
@@ -494,6 +495,18 @@ Class CSession // ***** Class
                 //$this->write_log($rq.' update ');// qwerty
                 $requete = $this->conn->prepare($rq);
                 $requete->execute();
+
+                // envoi mail d'info comment
+                
+                $email = $this->get_email_owner_image($name_photo);
+                $sujet = "Camagru - commentaire de vos photos ";
+                $message = "un utilisateur de Camagru vient de poster le commentaire suivant pour une de vos photos";
+                $message .= '<br>'.$comment;
+                $from = "dlievre@student.42.fr";
+                $CInscription = new CInscription();
+                $CInscription->send_email($email, $sujet, $message, $from);
+
+                $this->write_log('comment : email send '.$email.' '.$sujet.' '.$message.' '.$from);
                 
             }
             catch(PDOException $e)
