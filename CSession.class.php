@@ -514,14 +514,14 @@ Class CSession // ***** Class
             }
             $this->image_like_count_set($name_photo); // on met a jour le nb de like de l'image
 
-            return('like_add'); 
+            return('like_add insert'); 
         }
         if ($retour['commentorlike'] == 'yes')
         {
             // on fait update du like
             try
             {
-                $rq = $this->secure("UPDATE $this->tbl_photos_like SET Grave_bien = 1 WHERE Id_img = '$name_photo' AND Id_user_comment = '$IdUser_comment'"); 
+                $rq = $this->secure("UPDATE $this->tbl_photos_like SET Grave_bien = 1 WHERE Id_img = '$name_photo' AND Id_user_comment = '$IdUser_like'"); 
                 $requete = $this->conn->prepare($rq);
                 $requete->execute();
                 
@@ -532,7 +532,7 @@ Class CSession // ***** Class
             }
             $this->image_like_count_set($name_photo); // on met a jour le nb de like de l'image
 
-            return('like_add'); 
+            return('like_add update'); 
         }
     } 
 

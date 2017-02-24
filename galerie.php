@@ -13,28 +13,6 @@ $CForm = new CForm;
 	$taille_img = ' width="150px" height="auto" ';
 	print('<div id="div_galerie">');
 
-	/*$images_galerie = $CSession->images_galerie();
-
-	$nb = 0;
-	$nb_img = count($images_galerie);
-
-	foreach ($images_galerie as $key => $value) 
-	{
-		$CView->div('','div_img_like_cmt');
-		$CView->div('','div_img');
-		$id_img = $images_galerie[$nb]['Id'];
-		$name_img = $images_galerie[$nb]['Name_img'];
-		$images_like = $CSession->image_nb_liked($name_img);
-		if ($images_like > 0) $info_images_like = 'Like '.$images_like; else $info_images_like = '';
-		$dir_user = 'upload/user_'.$images_galerie[$nb]['Id_owner'].'/';
-		$value = $name_img.'.png';
-		print "<img class=\"galerie_img\" onclick=\"traitement.view_comment($name_img, 'div_cmt');\" $taille_img id=\"$id_img\" src=\"$dir_user$value\">";
-		$CView->div_end(); // div_img
-		print "<div class=\"div_like\" ><p class=\"like\">$info_images_like</p></div>"; 
-		print "<div class=\"div_likesend\" ><p class=\"likesend\"><a onclick=\"traitement.send_like($name_img, $Id, 'div_galerie');\" onmouseover=\"traitement.show_like()\">+</a></p></div>";
-		$CView->div_end(); // div_img_like_cmt
-		$nb++;
-	}*/
 	// important sinon erreur javascript sur le constructor
 	print("<div style=\"display:none\"  id=\"div_video\"><video id=\"video\" width=\"100px\" height=\"50px\"></video></div>");
 	print('</div>'); // div  galerie
