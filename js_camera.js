@@ -159,7 +159,7 @@ class Cfusion
 
    camera(Id) // ***** réactive la caméra 
   {
-
+//alert('quand imag grande la fusion ne marche pas');
     var canvas = document.getElementById("canvas");
 
     draw.style.display = "inline";
