@@ -21,6 +21,8 @@ $H = "360px";
 print "<form method='post' accept-charset='utf-8' name='form1'>";
 print "<input name='hidden_data' id='hidden_data' type='hidden'/>";
 print "<input name='hidden_fond' id='hidden_fond' type='hidden'/>";
+//print "<input name='hidden_file' id='hidden_file' type='hidden'/>";
+print "<img id=\"img_file\" src=\"\"  style=\"display:none\" width=\"480px\" height=\"360px\"></img>";
 //print "<input name='hidden_id' id='hidden_id' type='hidden' value='$Id'/>";
 print "</form>";
 
@@ -33,8 +35,12 @@ print '</div>'; // fin div div_video_fond
 //print('<div id="draw" style="display:none"><button id="btn_draw" onclick="traitement.draw(\'fond01\');">Prendre une photo</button></div>');
 print("<div id=\"draw\" style=\"display:none\"><button id=\"btn_draw\" onclick=\"traitement.draw($Id);\">Prendre une photo</button></div>");
 print('<div id="activer_camera" style="display:none"><button id="btn_cam" onclick="traitement.camera();">Revenir à la caméra</button></div>');
-print '<div id="transfert" style="display:none"><input type="button" onclick="traitement.uploadEx()" value="Transférer un Fichier..." /></div>';
-print('<div style="display:none" id="test"><button id="btn_test" onclick="traitement.test(\'fond01\');">test</button></div>');
+print '<div id="div_transfert" style="display:none">';
+print "<input type=\"file\" id=\"inputfile\" value=\"Transfert\" class=\"hidden\" onchange=\"traitement.draw_file($Id);\"  value=\"Transférer un Fichier...\" />";
+print '</div>';
+//draw_file(Id, id_div) 
+//print '<div id="transfert" style="display:none"><input id="imageloader" type="file" name="imageLoader" /></div>';
+//print('<div style="display:none" id="test"><button id="btn_test" onclick="traitement.test(\'fond01\');">test</button></div>');
 
 $dir_fonds = "fonds";
 $listfond = scandir ('fonds');

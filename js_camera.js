@@ -82,6 +82,57 @@ class Cfusion
     
   }
 
+
+    draw_file(Id, id_div) // ***** affiche le fichier à l'écran
+  {
+    //https://developer.mozilla.org/fr/docs/Web/API/FileReader#readAsDataURL()
+
+    var fichier = document.getElementById('inputfile').files;
+
+    var charge = new FileReader();
+    charge.readAsDataURL(fichier[0]);
+
+        charge.onloadend = function(e)
+        {
+            //var elmage = document.getElementById('hidden_file');
+           //elmage.src = e.target.result;
+            img_file.src = e.target.result;
+            var id_img_file = document.getElementById('img_file');
+
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext('2d');
+        var canvaswidth = canvas.width;
+        var canvasheight = canvas.height;
+
+        ctx.drawImage(id_img_file, 0, 0, canvaswidth, canvasheight);
+
+        var inputfond = document.querySelector('#hidden_fond');
+        inputfond.value = this.fond_select;
+        traitement.uploadEx();
+ }// charge.onloadend = function(e){   
+
+    // Draw background
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext('2d');
+    var canvaswidth = canvas.width;
+    var canvasheight = canvas.height;
+    ctx.drawImage(document.getElementById(this.fond_select), 0, 0, canvaswidth, canvasheight);
+
+   // effacer video et afficher fusion
+    video.style.display = "none";
+    div_video.style.visibility = "hidden";
+    div_fond.style.visibility = "hidden";
+    div_canvas.style.visibility = "visible";
+    canvas.style.display = "inline";
+    draw.style.display = "none";
+    activer_camera.style.display = "inline";
+    msg_fonds.style.display = "none";
+    // ajout de l'image dans la liste
+    alert('Transfert réussi');
+    traitement.refresh_usr(Id, 'user_imgs');
+   
+  }
+
   test(var1)
   {
     alert(var1);
@@ -92,7 +143,7 @@ class Cfusion
   {
     this.fond_select = id;
     if (activer_camera.style.display == "none" ) draw.style.display = "inline";
-    transfert.style.display = "inline";
+    div_transfert.style.display = "inline";
     msg_fonds.style.display = "none";
     var imagette_fond = document.getElementById(id); // div du fond souhaité
     imagette_fond.style.border='1px solid #E8272C';
@@ -103,7 +154,8 @@ class Cfusion
     this.previous_imgt_id = id;
     // mise a jour text div fond et hidden
     div_fond_text.innerHTML = id;
-    div_fond_text.style.display = "none";   
+    div_fond_text.style.display = "none";  
+    //div_transfert.style.display = "none";  
   }
 
 
@@ -118,6 +170,7 @@ class Cfusion
     div_canvas.style.visibility = "hidden";
     transfert.style.display = "inline";
     activer_camera.style.display = "none";
+    div_transfert.style.display = "none"; 
   }
 
     Fajax( page_php, to_send, id_div, caller) // ***** échange les demandes avec le serveur 'ajax_usr.php' 
@@ -282,6 +335,32 @@ send_like_chk(reponse, id_div) // *****
     document.getElementById(id_div).innerHTML = reponse;
     //document.getElementById(id_div).visibility = "visible";
 }
+//print '<div id="transfert" style="display:none"><input id="imageloader" type="file" name="imageLoader" /></div>';
+
+
+/*var imageLoader = document.getElementById('imageLoader');
+imageLoader.addEventListener('change', handleImage, false);
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');*/
+
+
+handleImage(e)
+{
+    var reader = new FileReader();
+    reader.onload = function(event){
+        var img = new Image();
+        img.onload = function(){
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img,0,0);
+        }
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(e.target.files[0]);
+}
+
+
+
 
 } // fin de classe
 
