@@ -157,8 +157,10 @@ class Cfusion
   }
 
 
-    camera() // ***** réactive la caméra 
+   camera(Id) // ***** réactive la caméra 
   {
+
+    var canvas = document.getElementById("canvas");
 
     draw.style.display = "inline";
     video.style.display = "inline";
@@ -166,9 +168,14 @@ class Cfusion
     div_video.style.visibility = "visible";
     div_fond.style.visibility = "visible";
     div_canvas.style.visibility = "hidden";
-    transfert.style.display = "inline";
+    div_transfert.style.display = "inline";
     activer_camera.style.display = "none";
-    div_transfert.style.display = "none"; 
+    traitement.refresh_usr(Id, 'user_imgs');
+
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
   }
 
     Fajax( page_php, to_send, id_div, caller) // ***** échange les demandes avec le serveur 'ajax_usr.php' 

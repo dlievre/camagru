@@ -1,7 +1,8 @@
 <?php
-require_once('includes.php');
+require_once('includes_session.php');
 if ($_SESSION['valide'] != 'ok') {header('Location: login.php');}
 require_once('head.php');
+$Id = $_SESSION['Id'];
 require_once('header.php');
 $CPrint = new CPrint;
 //$CPrint = new CPrint();
@@ -13,7 +14,7 @@ print('<div id="main">');
 .btn { padding: 5px; margin: 10px;}
 </style>
 <?php
-$Id = $_SESSION['Id'];
+
 //////////////////////
 $W = "480px";
 $H = "360px";
@@ -34,7 +35,7 @@ print("<div  id=\"div_canvas\"><canvas style=\"display:none\" width=\"480px\" he
 print '</div>'; // fin div div_video_fond
 //print('<div id="draw" style="display:none"><button id="btn_draw" onclick="traitement.draw(\'fond01\');">Prendre une photo</button></div>');
 print("<div id=\"draw\" style=\"display:none\"><button id=\"btn_draw\" onclick=\"traitement.draw($Id);\">Prendre une photo</button></div>");
-print('<div id="activer_camera" style="display:none"><button id="btn_cam" onclick="traitement.camera();">Revenir à la caméra</button></div>');
+print("<div id=\"activer_camera\" style=\"display:none\"><button id=\"btn_cam\" onclick=\"traitement.camera($Id);\">Revenir à la caméra</button></div>");
 print '<div id="div_transfert" style="display:none">';
 print "<input type=\"file\" id=\"inputfile\" value=\"Transfert\" class=\"hidden\" onchange=\"traitement.draw_file($Id);\"  value=\"Transférer un Fichier...\" />";
 print '</div>';

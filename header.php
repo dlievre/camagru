@@ -15,9 +15,9 @@ if ($_SESSION['valide'] == 'ok') {
 
 	$CView->div('header_user', 'header_user');
 	print'<p class="header_user">';
-	print $status.'<br />'.$_SESSION["email"].'<br />';
+	print $status. ' Id '.$_SESSION['Id'].'<br />'.$_SESSION["email"].'<br />';
 	if ($_SESSION['Superuser'] == 'yes')
-		$CView->link('superuser.php', 'SuperUser', '', '', '');
+		$CView->link('superuser.php', 'SuperUser', '', '', ''); 
 	print '</p>';
 	$CView->div_end();
 
