@@ -52,7 +52,7 @@ class Cfusion
     xhr.send(fd);
   }
 
-  draw(Id, id_div) // ***** fige la vidéo à l'écran
+  draw(Id) // ***** fige la vidéo à l'écran
   {
    ////var canvas = document.querySelector('#canvas');
     var inputfond = document.querySelector('#hidden_fond');
@@ -83,7 +83,7 @@ class Cfusion
   }
 
 
-    draw_file(Id, id_div) // ***** affiche le fichier à l'écran
+    draw_file(Id) // ***** affiche le fichier à l'écran
   {
     //https://developer.mozilla.org/fr/docs/Web/API/FileReader#readAsDataURL()
 
@@ -92,12 +92,10 @@ class Cfusion
     var charge = new FileReader();
     charge.readAsDataURL(fichier[0]);
 
-        charge.onloadend = function(e)
-        {
-            //var elmage = document.getElementById('hidden_file');
-           //elmage.src = e.target.result;
-            img_file.src = e.target.result;
-            var id_img_file = document.getElementById('img_file');
+    charge.onloadend = function(e)
+    {
+        img_file.src = e.target.result;
+        var id_img_file = document.getElementById('img_file');
 
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext('2d');
@@ -109,7 +107,7 @@ class Cfusion
         var inputfond = document.querySelector('#hidden_fond');
         inputfond.value = this.fond_select;
         traitement.uploadEx();
- }// charge.onloadend = function(e){   
+    }// charge.onloadend = function(e){   
 
     // Draw background
     var canvas = document.getElementById("canvas");
