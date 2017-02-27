@@ -24,6 +24,11 @@ $CView->content('Host : '.$CSession->host(), 'content_left');
 $CView->content('<b>Chemin : </b>'. __FILE__ .'<br />', 'content_left');
 $CView->content('<b>$_SERVER[\'DOCUMENT_ROOT\' : </b>'.$_SERVER['DOCUMENT_ROOT'].'<br />', 'content_left');
 
+ $CView->content_array($_SESSION, 'content_left', 'content_left');
+// $CView->content_array($GLOBALS, 'content_left', 'content_left');
+$CView->content( 'Connecté depuis '.round((time() - $_SESSION['Logstart'])/60 ). ' minutes', 'content_left', 'content_left'); // 
+
+
 $CView->titre('Documentation');
 
 $fichiers[] = 'CSession.class.php'; $f[]='CS';

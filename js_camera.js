@@ -10,6 +10,7 @@ class Cfusion
     this.fond_select = fond; // this est important pour une variable de la classe et non de fonction 
     this.previous_imgt_id = ''; // gestion du bord de l'imagette fond 
     var video = document.querySelector('#video');
+
     //this.btn_activer_camera = document.querySelector('#activer_camera');
     // seul this.btn_activer_camera peut être utiliser dans une methode de la class
     // donc pas nécessaire
@@ -55,14 +56,16 @@ class Cfusion
   draw(Id) // ***** fige la vidéo à l'écran
   {
    ////var canvas = document.querySelector('#canvas');
-    var inputfond = document.querySelector('#hidden_fond');
+    
 
     var ctx = canvas.getContext('2d');
     var canvaswidth = canvas.width;
     var canvasheight = canvas.height;
     // Draw photo
-    ctx.drawImage(video, 1, 1, canvaswidth, canvasheight);
+    ctx.drawImage(video, 0, 0, canvaswidth, canvasheight);
     // on transfère au serveur la photo avant fusion avec le nom du fond 
+    //var inputfond = document.querySelector('#hidden_fond');
+    var inputfond = document.getElementById('hidden_fond');
     inputfond.value = this.fond_select;
     traitement.uploadEx();
     // Draw background
@@ -82,17 +85,20 @@ class Cfusion
     
   }
 
-
     draw_file(Id) // ***** affiche le fichier à l'écran
   {
     //https://developer.mozilla.org/fr/docs/Web/API/FileReader#readAsDataURL()
+    //var Id = 1;
 
     var fichier = document.getElementById('inputfile').files;
 
     var charge = new FileReader();
+    //if (!fichier[0].type.match('*.png') && !fichier[0].type.match('*.jpg')) { alert('Format de fichier interdit'); return;}
     charge.readAsDataURL(fichier[0]);
 
-    charge.onloadend = function(e)
+        var inputfond = document.getElementById('hidden_fond');
+        inputfond.value = this.fond_select;
+        charge.onloadend = function(e)
     {
         img_file.src = e.target.result;
         var id_img_file = document.getElementById('img_file');
@@ -104,19 +110,42 @@ class Cfusion
 
         ctx.drawImage(id_img_file, 0, 0, canvaswidth, canvasheight);
 
-        var inputfond = document.querySelector('#hidden_fond');
-        inputfond.value = this.fond_select;
         traitement.uploadEx();
+        alert('Transfert réussi');
+        traitement.refresh_usr(Id, 'user_imgs');
+        traitement.refresh_canvas();
     }// charge.onloadend = function(e){   
 
     // Draw background
+   //  var canvas = document.getElementById("canvas");
+   //  var ctx = canvas.getContext('2d');
+   //  var canvaswidth = canvas.width;
+   //  var canvasheight = canvas.height;
+   //  ctx.drawImage(document.getElementById(this.fond_select), 0, 0, canvaswidth, canvasheight);
+   // // effacer video et afficher fusion
+   //  video.style.display = "none";
+   //  div_video.style.visibility = "hidden";
+   //  div_fond.style.visibility = "hidden";
+   //  div_canvas.style.visibility = "visible";
+   //  canvas.style.display = "inline";
+   //  draw.style.display = "none";
+   //  activer_camera.style.display = "inline";
+   //  msg_fonds.style.display = "none";
+   
+  }
+
+  refresh_canvas()
+  {
+    var inputfond = document.getElementById('hidden_fond');
+    inputfond.value = this.fond_select;
+
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext('2d');
     var canvaswidth = canvas.width;
     var canvasheight = canvas.height;
+    // Draw background
     ctx.drawImage(document.getElementById(this.fond_select), 0, 0, canvaswidth, canvasheight);
-
-   // effacer video et afficher fusion
+    // effacer video et afficher fusion
     video.style.display = "none";
     div_video.style.visibility = "hidden";
     div_fond.style.visibility = "hidden";
@@ -125,10 +154,6 @@ class Cfusion
     draw.style.display = "none";
     activer_camera.style.display = "inline";
     msg_fonds.style.display = "none";
-    // ajout de l'image dans la liste
-    alert('Transfert réussi');
-    traitement.refresh_usr(Id, 'user_imgs');
-   
   }
 
   test(var1)
@@ -154,6 +179,8 @@ class Cfusion
     div_fond_text.innerHTML = id;
     div_fond_text.style.display = "none";  
     //div_transfert.style.display = "none";  
+    var inputfond = document.getElementById('hidden_fond');
+    alert(inputfond);
   }
 
 

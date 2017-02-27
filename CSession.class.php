@@ -297,6 +297,8 @@ Class CSession // ***** Class
         $_SESSION['Prenom'] = $prenom;
         $_SESSION['Confirme'] = $confirm;
         $_SESSION['valide'] = 'ok';
+        $_SESSION['Logstart'] = time();
+
         if ($_SESSION["email"] == 'dominique@lievre.net' or $_SESSION["email"] == 'te42pe@gmail.com') $_SESSION['Superuser'] = 'yes';
         return('ok');
     }
