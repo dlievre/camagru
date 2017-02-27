@@ -43,8 +43,6 @@ class Cfusion
     xhr.upload.onprogress = function(e) {
         if (e.lengthComputable) {
             var percentComplete = (e.loaded / e.total) * 100;
-            //console.log(percentComplete + '% uploaded');
-            //alert('Succesfully uploaded '+percentComplete+'%');
         }
     };
 
@@ -55,9 +53,6 @@ class Cfusion
 
   draw(Id) // ***** fige la vidéo à l'écran
   {
-   ////var canvas = document.querySelector('#canvas');
-    
-
     var ctx = canvas.getContext('2d');
     var canvaswidth = canvas.width;
     var canvasheight = canvas.height;
@@ -88,12 +83,17 @@ class Cfusion
     draw_file(Id) // ***** affiche le fichier à l'écran
   {
     //https://developer.mozilla.org/fr/docs/Web/API/FileReader#readAsDataURL()
-    //var Id = 1;
+    
+    
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     var fichier = document.getElementById('inputfile').files;
 
+    if (!fichier) {alert('Choisir votre fichier'); return;}
     var charge = new FileReader();
-    //if (!fichier[0].type.match('*.png') && !fichier[0].type.match('*.jpg')) { alert('Format de fichier interdit'); return;}
+    if (!fichier[0].type.match('image.*')) { alert('Format de fichier interdit'); return;}
     charge.readAsDataURL(fichier[0]);
 
         var inputfond = document.getElementById('hidden_fond');
@@ -114,24 +114,12 @@ class Cfusion
         alert('Transfert réussi');
         traitement.refresh_usr(Id, 'user_imgs');
         traitement.refresh_canvas();
+
+    document.getElementById("inputfile").value = ""; // reset inpu file
+
+
     }// charge.onloadend = function(e){   
 
-    // Draw background
-   //  var canvas = document.getElementById("canvas");
-   //  var ctx = canvas.getContext('2d');
-   //  var canvaswidth = canvas.width;
-   //  var canvasheight = canvas.height;
-   //  ctx.drawImage(document.getElementById(this.fond_select), 0, 0, canvaswidth, canvasheight);
-   // // effacer video et afficher fusion
-   //  video.style.display = "none";
-   //  div_video.style.visibility = "hidden";
-   //  div_fond.style.visibility = "hidden";
-   //  div_canvas.style.visibility = "visible";
-   //  canvas.style.display = "inline";
-   //  draw.style.display = "none";
-   //  activer_camera.style.display = "inline";
-   //  msg_fonds.style.display = "none";
-   
   }
 
   refresh_canvas()
@@ -154,6 +142,7 @@ class Cfusion
     draw.style.display = "none";
     activer_camera.style.display = "inline";
     msg_fonds.style.display = "none";
+
   }
 
   test(var1)
@@ -180,13 +169,12 @@ class Cfusion
     div_fond_text.style.display = "none";  
     //div_transfert.style.display = "none";  
     var inputfond = document.getElementById('hidden_fond');
-    alert(inputfond);
+
   }
 
 
    camera(Id) // ***** réactive la caméra 
   {
-//alert('quand imag grande la fusion ne marche pas');
     var canvas = document.getElementById("canvas");
 
     draw.style.display = "inline";
@@ -201,8 +189,6 @@ class Cfusion
 
     var ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-
   }
 
     Fajax( page_php, to_send, id_div, caller) // ***** échange les demandes avec le serveur 'ajax_usr.php' 
@@ -218,14 +204,12 @@ class Cfusion
         {
             if(XHR.status === 200)
                 {
-                //   alert('>'+caller+' 200, reponse : '+XHR.responseText); // qwerty
                 if ( caller == 'refresh_usr') traitement.refresh_usr_chk (XHR.responseText, id_div);
                 if ( caller == 'delete_img_usr') traitement.delete_img_usr_chk (XHR.responseText, id_div);
                 if ( caller == 'view_comment') traitement.view_comment_chk (XHR.responseText, id_div);
                 if ( caller == 'send_comment') traitement.send_comment_chk (XHR.responseText, id_div);
                 if ( caller == 'send_like') traitement.send_like_chk (XHR.responseText, id_div);
                 if ( caller == 'display_galerie') traitement.display_galerie_chk (XHR.responseText, id_div);
-                //if ( caller == 'nb_img_page') traitement.nb_img_page_chk (XHR.responseText, id_div); 
                 }
             else
                 {
@@ -292,45 +276,33 @@ send_comment(user_comment, id_div)// ***** envoi le commentaire d'une image
 send_like($name_img, user_like, id_div)// ***** envoi le like d'une image
 {
     // id_img,  ne peut etre passe car le form est global sans connaite l'image concernee, on a image_selected a la place
-    //document.getElementById('div_form_cmt').visibility = "visible";
     var action = '?action=send_like'+'&image='+$name_img+'&user_like='+user_like;
     var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'send_like'); // 
-    //document.getElementById('div_form_cmt').visibility = "hidden";
-    //document.getElementById('div_form_cmt').style.display = "none"; // fonctionne 
-    /////////////////// ou pas necessaire car chk le recupere  a faire quand dessus est bon pour maj div comment : this.view_comment(id_img, id_div);
-//$name_img, $Id, 'div_galerie'
+
 }
 
 show_like()
 {}
 
-// select = document.getElementById("Liste2");
-// choice = select.selectedIndex;
-// valeur = select.options[choice].value;
-// texte = select.options[choice].text;
-// document.getElementById('id_ville').value = valeur;
-// document.getElementById('ville').value = texte;
 
 nb_img_page(id_div)
 {
-    //alert (id_div);
+
     alert (document.getElementsByTagName('select_nb_img_page'));
     var result = document.getElementsByTagName('select_nb_img_page').value;
-    //var valeur = id.value;
-    //alert ('vv'+result);
     var action = '?action=nb_img_page'+'&value='+result;
     var retour = traitement.Fajax('ajax_usr.php', action, id_div, 'nb_img_page'); //    
 }
 
 refresh_usr_chk(reponse, id_div) // *****
 {
-    //alert('refresh_usr_chk '+id_div+reponse);
+
     document.getElementById(id_div).innerHTML = reponse;
     document.getElementById(id_div).visibility = "visible";
 }
 display_galerie_chk(reponse, id_div) // *****
 {
-    //alert('refresh_usr_chk '+id_div+reponse);
+
     document.getElementById(id_div).innerHTML = reponse;
     document.getElementById(id_div).visibility = "visible";
 }
@@ -344,18 +316,12 @@ delete_img_usr_chk(reponse, id_div) // *****
 
 view_comment_chk(reponse, id_div) // *****
   {
-    //alert('view_comment_chk '+id_div+' '+reponse);
-    //document.getElementById(id_div).visibility = "visible";
-    document.getElementById(id_div).innerHTML = reponse;
-    
-    //document.getElementById('div_form_cmt').visibility = "hidden"; // bizare , ne marche pas
-    //document.getElementById('div_form_cmt').style.display = "none"; // fonctionne     
+    document.getElementById(id_div).innerHTML = reponse;   
   }
 
 send_comment_chk(reponse, id_div) // *****
 {
     if (reponse == 'interdit') {alert('Erreur vous ne pouvez commenter vos photos'); return;}
-    //alert('send_comment_chk '+id_div+reponse);
     document.getElementById(id_div).innerHTML = reponse;
     document.getElementById(id_div).visibility = "visible";
 }
@@ -363,17 +329,9 @@ send_comment_chk(reponse, id_div) // *****
 send_like_chk(reponse, id_div) // *****
 {
     if (reponse == 'interdit') {alert('Erreur vous ne pouvez liker vos photos'); return;}
-    //alert('send_like_chk '+id_div+reponse);
     document.getElementById(id_div).innerHTML = reponse;
     //document.getElementById(id_div).visibility = "visible";
 }
-//print '<div id="transfert" style="display:none"><input id="imageloader" type="file" name="imageLoader" /></div>';
-
-
-/*var imageLoader = document.getElementById('imageLoader');
-imageLoader.addEventListener('change', handleImage, false);
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');*/
 
 
 handleImage(e)

@@ -1,7 +1,8 @@
 <?php
 require_once('includes_session.php');
 if ($_SESSION['valide'] != 'ok') {header('Location: login.php');}
-if ( $_SESSION["email"] != 'dominique@lievre.net' ) exit;
+//if ( $_SESSION["email"] != 'dominique@lievre.net' ) exit;
+if ( $_SESSION['Superuser'] != 'yes' ) exit; ;
 require_once('head.php');
 require_once('header.php');
 

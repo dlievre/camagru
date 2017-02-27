@@ -46,7 +46,6 @@ if( $_GET['action'] == 'delete') //  action=delete image
 	try {
 		$rq = $CSession->secure("DELETE FROM photos WHERE Id_owner = $Id AND Name_img = '$Id_img'");
 		
-		//$CSession->write_log($rq."\r\n"); // qwerty enlever quand ok
 		$requete = $CSession->conn->prepare($rq); 
 		$requete->execute();
 		if ($requete)
@@ -88,7 +87,6 @@ if( $_GET['action'] == 'view_comment' && $_GET['image']) // action=view_comment
 if( $_GET['action'] == 'nb_img_page' && $_GET['value']) // action=view_comment // ?action=nb_img_page'+'&value='+valeur;
 {
 	// changer le nb d'image par images 
-	//if (isset($_GET['value']) $_SESSION['nb_img_page'] = $_GET['value'];
 	$no_page = $_SESSION['actual_page'];
 	display_galerie($no_page, $Id);
 
@@ -127,34 +125,11 @@ if( $_GET['action'] == 'send_like' && $_GET['image']  && $_GET['user_like'] ) //
 	$image_addlike = $CSession->like_add($id_img, $user_like);
 	
 	if ( $image_addlike == 'interdit') {echo 'interdit'; exit;}
-// qwerty $CSession->write_log($image_addlike.' '.$id_img.' ' . $user_like);
-	if ( $image_addlike == 'like_add insert' || $image_addlike == 'like_add update') // qwerty bug a resoudre
+
+	if ( $image_addlike == 'like_add insert' || $image_addlike == 'like_add update')
 		{
-			//$source == 'add_like';
 			$no_page = $_SESSION['actual_page'];
 			display_galerie($no_page, $Id);
-			// refresh galerie faite dans le php en amont
-			// $taille_img = ' width="150px" height="auto" ';
-			// $images_galerie = $CSession->images_galerie();
-
-			// $nb = 0;
-			// foreach ($images_galerie as $key => $value) 
-			// {
-			// 	$CView->div('','div_img_like_cmt');
-			// 	$CView->div('','div_img');
-			// 	$id_img = $images_galerie[$nb]['Id'];
-			// 	$name_img = $images_galerie[$nb]['Name_img'];
-			// 	$images_like = $CSession->image_nb_liked($name_img);
-			// 	if ($images_like > 0) $info_images_like = 'Like '.$images_like; else $info_images_like = '';
-			// 	$dir_user = 'upload/user_'.$images_galerie[$nb]['Id_owner'].'/';
-			// 	$value = $name_img.'.png';
-			// 	print "<img class=\"galerie_img\" onclick=\"traitement.view_comment($name_img, 'div_cmt');\" $taille_img id=\"$id_img\" src=\"$dir_user$value\">";
-			// 	$CView->div_end(); // div_img
-			// 	print "<div class=\"div_like\" ><p class=\"like\">$info_images_like</p></div>"; 
-			// 	print "<div class=\"div_likesend\" ><p class=\"likesend\"><a onclick=\"traitement.send_like($name_img, $Id, 'div_galerie');\" onmouseover=\"traitement.show_like()\">+</a></p></div>";
-			// 	$CView->div_end(); // div_img_like_cmt
-			// 	$nb++;
-			// }
 		}
 	$Err = '';
 }
@@ -164,18 +139,15 @@ echo $Err;
 function display_galerie($no_page, $Id) // $_GET['action'] == 'display_galerie' && $_GET['no_page']) || $source == 'add_like'
 {
 
-	//$actual_page = $_GET['no_page'];
 	$CSession = new CSession();
 	$CView = new CPrint();
 	$images_galerie = $CSession->images_galerie();
 	$taille_img = ' width="150px" height="auto" ';
 
-	
 	$nb_img_page = 8;
-	//if ($_SESSION['nb_img_page']) $nb_img_page = $_SESSION['nb_img_page']; // passage par la session du nb d'image/page
 	$nb_img_base = count($images_galerie);
 	$nb_pages = ceil ($nb_img_base / $nb_img_page);
-	//$actual_page = strval($_GET['no_page']);
+
 	$actual_page = $no_page;
 	$tranche_basse = strval($actual_page - 1 ) * $nb_img_page;
 	$tranche_haute = ($actual_page * $nb_img_page) - 1;
@@ -207,20 +179,10 @@ function display_galerie($no_page, $Id) // $_GET['action'] == 'display_galerie' 
 	print '<p>&nbsp;</p>';
 	print "<p class=\"nav_galerie\"><a href=\"#\" onclick=\"traitement.display_galerie($page_previousbis, 'div_galerie');\"> $page_previousbis&nbsp;</a> ";
 	print " <a href=\"#\" onclick=\"traitement.display_galerie($page_previous, 'div_galerie');\"> $page_previous </a> ";
-print '&nbsp; <span>( ' . $actual_page . ' )</span>  &nbsp;';
+	print '&nbsp; <span>( ' . $actual_page . ' )</span>  &nbsp;';
 	print " <a href=\"#\" onclick=\"traitement.display_galerie($page_next, 'div_galerie');\"> $page_next </a> &nbsp;";
 	print " <a href=\"#\" onclick=\"traitement.display_galerie($page_nextbis, 'div_galerie');\"> $page_nextbis </a></p>";
 
-// 	if ($nb_img_page == 4 ) $sel4 = 'selected';
-// 	if ($nb_img_page == 8 ) $sel8 = 'selected';
-// 	if ($nb_img_page == 16 ) $sel16 = 'selected';
-// 	print "<select id=\"select_nb_img_page\" onclick=\"traitement.nb_img_page('select_nb_img_page');\" name=\"select_nb_img_page\">
-// 	<option value=\"4\" $sel4>4 / page</option>
-//   <option value=\"8\" $sel8 >8 / page</option>
-//   <option value=\"16\" $sel16>16 / page</option>
-// </select></p>";
-// <a href=\"#\" onclick=\"traitement.nb_img_page(+10);\"> + / pages</a>
-	//print '<p>'.$page_previous   .'  ' . $actual_page . '  ' .$page_next   .'</p>';
 	return ($Err = '');
 }
 

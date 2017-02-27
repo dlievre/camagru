@@ -15,7 +15,6 @@ print('<div id="main">');
 </style>
 <?php
 
-//////////////////////
 $W = "480px";
 $H = "360px";
 
@@ -39,9 +38,6 @@ print("<div id=\"activer_camera\" style=\"display:none\"><button id=\"btn_cam\" 
 print '<div id="div_transfert" style="display:none">';
 print "<input type=\"file\" id=\"inputfile\" value=\"Transfert\" class=\"hidden\" onchange=\"traitement.draw_file($Id);\"  value=\"Transférer un Fichier...\" />";
 print '</div>';
-//draw_file(Id, id_div) 
-//print '<div id="transfert" style="display:none"><input id="imageloader" type="file" name="imageLoader" /></div>';
-//print('<div style="display:none" id="test"><button id="btn_test" onclick="traitement.test(\'fond01\');">test</button></div>');
 
 $dir_fonds = "fonds";
 $listfond = scandir ('fonds');
@@ -68,7 +64,6 @@ $CPrint->content(' Choisissez votre fond avant de prendre la photo', 'content');
 print ('</div>');
 print('</div>'); // fin div main
 
-
 // afficher les images crees sur le serveur
 $dir_user = "upload/user_".$Id.'/';
 if (!is_dir($dir_user)) mkdir($dir_user, 0700);
@@ -83,7 +78,6 @@ foreach ( $list_img as $key => $value)
 		$id_div = $id;
 		$id_photo = $id;
 		print "<div id=\"$id_div\"><img class=\"user_img\" onclick=\"traitement.delete_img_usr($id_photo, $id_div)\" $taille_img id=\"img$id_photo\" src=\"$dir_user$value\"></div>"; //delete_img_usr(id_photo, id_div)
-		//print "<div id=\"$id\"><img class=\"user_img\" onclick=\"traitement.delete_img_usr($id, $id)\" $taille_img id=\"img$id\" src=\"$dir_user$value\"></div>";
 	}
 
 }
@@ -94,9 +88,6 @@ $CPrint->content('<b>Supprimer des photos</b><br />Cliquez sur une photo et conf
 $CPrint->content('<b>Sans Caméra</b><br />Si vous n\'avez pas de caméra le transfert de fichier jpg est envisageable, à l\'aide du bouton \'Transférer un Fichier..\' une fois le fond choisi', 'notice');
 
 print('</div>'); // div  user_texte
-
-
-//print '<script src="js_ajax.js" type="text/javascript"></script>';
 print '<script src="js_camera.js" type="text/javascript"></script>';
 
 include ('footer.php');
