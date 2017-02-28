@@ -4,7 +4,7 @@ if(!isset($_SESSION)) {session_start();}
 Class CSession // ***** Class 
 {
     public static $verbose = False;
-
+    public $servername = "localhost";
     private $tbl = "tbl_camagru";
     private $tbl_photos = "photos";
     private $tbl_photos_like = "photos_like";
