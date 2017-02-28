@@ -2,10 +2,6 @@
 if(!isset($_SESSION)) {session_start();}
 
 require_once('database.php');
-//require_once('../CSession.class.php');
-//require_once('../CInscription.class.php');
-//include_once ('../CForm.class.php');
-//include_once ('../CPrint.class.php');
 
 Class CSetup // ***** Class 
 {
@@ -19,7 +15,7 @@ Class CSetup // ***** Class
     public function __construct() // initialise les info de la base de donnees
     {
         $db = new CDatabase();
-        $this->conn = $db->database();
+        $this->conn = $db->database('normal');
 
         return;
     }
@@ -34,7 +30,7 @@ Class CSetup // ***** Class
     {
         //***** create database
         try {
-            $rq = $this->secure("CREATE DATABASE IF NOT EXISTS `camagrutest` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci; USE `camagrutest`;");
+            $rq = $this->secure("CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci; USE `camagru`;");
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
             }

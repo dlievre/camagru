@@ -1,4 +1,4 @@
-RedirectMatch 404 /config/.*$
+RedirectMatch 404 /config/database.php
 Redirect 404 /z$
 Redirect 404 /banner_404.html
 Redirect 404 /head.php 
@@ -12,7 +12,6 @@ Redirect 404 /superuser.php
 Redirect 404 /Cform.php
 Redirect 404 /CInscription.class.php
 Redirect 404 /CSession.class.php
-Redirect 404 /CInscription.class.php
 Redirect 404 /CPrint.class.php
 
 Redirect 404 /includes_session.php

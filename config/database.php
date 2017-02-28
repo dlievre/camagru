@@ -1,9 +1,11 @@
 <?php 
 Class CDatabase // ***** Class 
 {
-	public function database()
+	public function database($source)
 	{
-		$DB_DSN = "mysql:dbname=camagru;host=localhost";
+		
+		$DB_DSN = "mysql:dbname=camagru;host=localhost"; 
+		if ($source == 'setup') {$DB_DSN = "host=localhost"; print '***** Setup *****<br />';}
 		$DB_USER = "root";
 		$DB_PASSWORD = "";
 

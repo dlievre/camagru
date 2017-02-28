@@ -19,7 +19,7 @@ body {
 }
 /*/////////////////*/
 #header_titre {	position: relative; text-align: left; vertical-align: top; margin : 5px;}
-h1 { width: 200px; height: 110px; background-image: url("images/42_logo.png"); background-repeat: no-repeat;}
+h1 { width: 250px; height: 110px; background-image: url("images/42_logocam.png"); background-repeat: no-repeat;}
 
 #header_user {  position: relative; text-align: right; vertical-align: top; margin : 10px 10px 0px 0px;}
 #header_menu { position: relative;  right: 5px; text-align: center;  margin : 20px; }

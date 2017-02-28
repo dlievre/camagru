@@ -10,10 +10,10 @@ Class CSession // ***** Class
     private $tbl_photos_like = "photos_like";
 
 // **********  gestion de l'utilisateur ***********
-    public function __construct() // initialise les info de la base de donnees
+    public function __construct() // initialise les info de la base de donnees 
     {
         $db = new CDatabase();
-        $this->conn = $db->database();
+        $this->conn = $db->database('normal');
 
         return;
     }

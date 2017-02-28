@@ -15,12 +15,8 @@ if ($_SESSION['valide'] == 'ok')
   //$print->profil('Profile Utilisateur', $TabProfil);
 
   $CPrint->titre('Profile Utilisateur');
-  //$CPrint->content_array($TabProfil, 'content_left', 'content_left');
-  //$CPrint->titre('Session Utilisateur');
   $CPrint->content_array($_SESSION, 'content_left', 'content_left');
-  $CPrint->content( 'Connecté depuis '.round((time() - $_SESSION['Logstart'])/60 ). ' minutes', 'content_left', 'content_left'); // -time()
-//$CView->content( strval(time() - intval($_SESSION('Logstart'))), 'content_left', 'content_left'); // -time()
-
+  //$CPrint->content( "Connecté depuis  ".round((time() - $_SESSION['Logstart'])/60 )  ."minutes", 'content_left', 'content_left'); // -time()
 
   print('</div>'); 
   include ('footer.php');
