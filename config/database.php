@@ -5,9 +5,9 @@ Class CDatabase // ***** Class
 	{
 		
 		$DB_DSN = "mysql:dbname=camagru;host=localhost"; 
-		if ($source == 'setup') {$DB_DSN = "host=localhost"; print '***** Setup *****<br />';}
-		$DB_USER = "root";
-		$DB_PASSWORD = "";
+		if ($source == 'setup') {$DB_DSN = "mysql:host=localhost"; print '***** Setup *****<br />';}
+		$DB_USER = "admin";
+		$DB_PASSWORD = "admin";
 
 		$DB_DSN1 = "mysql:dbname=db665127288;host=db665127288.db.1and1.com;";
 		$DB_USER1 = "dbo665127288";

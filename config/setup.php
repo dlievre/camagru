@@ -15,7 +15,7 @@ Class CSetup // ***** Class
     public function __construct() // initialise les info de la base de donnees
     {
         $db = new CDatabase();
-        $this->conn = $db->database('normal');
+        $this->conn = $db->database('setup');
 
         return;
     }
