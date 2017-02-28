@@ -78,8 +78,9 @@ Class CSetup // ***** Class
 (18, 'nom', 'prenom', 'prenom.nom@free.fr', 'fd9d94340dbd72c11b37ebb0d2a19b4d05e00fd78e4e2ce8923b9ea3a54e900df181cfb112a8a73228d1f3551680e2ad9701a4fcfb248fa7fa77b95180628bb2', 0, '58a333f4303d1', 5, 1, 'aucun', 'Info'),
 (19, 'ivan', 'strum', 'ivan.strum@laposte.net', 'fd9d94340dbd72c11b37ebb0d2a19b4d05e00fd78e4e2ce8923b9ea3a54e900df181cfb112a8a73228d1f3551680e2ad9701a4fcfb248fa7fa77b95180628bb2', 0, '58a33533447a0', 5, 1, 'nom', 'Info'),
 (20, 'Kohn-Hue', 'Alain', 'alain.kohn-hue@laposte.net', 'fd9d94340dbd72c11b37ebb0d2a19b4d05e00fd78e4e2ce8923b9ea3a54e900df181cfb112a8a73228d1f3551680e2ad9701a4fcfb248fa7fa77b95180628bb2', 1, '58a464b769c9f', 5, 3, 'Kohn-Hue', 'Info'),
-(21, 'O\'Reilly', 'aurÃ©lie', 'portable@mariage-photo.com', '8aca2602792aec6f11a67206531fb7d7f0dff59413145e6973c45001d0087b42d11bc645413aeff63a42391a39145a591a92200d560195e53b478584fdae231a', 1, '58aedfb482511', 5, 4, 'vÃ©lo', 'Info');
+(21, 'O\'Reilly', 'auralie', 'portable@mariage-photo.com', '8aca2602792aec6f11a67206531fb7d7f0dff59413145e6973c45001d0087b42d11bc645413aeff63a42391a39145a591a92200d560195e53b478584fdae231a', 1, '58aedfb482511', 5, 4, 'vÃ©lo', 'Info');
 ");
+            $rq = utf8_decode ($rq); 
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
             }
@@ -151,11 +152,12 @@ Class CSetup // ***** Class
 (9, 9, 1487692326, 2, 'super ce chat', 0),
 (10, 7, 1487582622, 2, 'trop top', 0),
 (12, 2, 1487261170, 1, 'bonjob 8', 1),
-(13, 11, 1487873367, 1, 'binome d\'enfer', 1),
+(13, 11, 1487873367, 1, 'binÃ´me d\'enfer', 1),
 (14, 2, 1487261170, 21, NULL, 1),
 (15, 4, 1487324144, 21, NULL, 1),
 (16, 3, 1487264490, 21, NULL, 1),
 (17, 11, 1487873367, 21, NULL, 1);");
+            $rq = utf8_decode ($rq); 
             $requete = $this->conn->prepare($rq); //
             $requete->execute();
             }
