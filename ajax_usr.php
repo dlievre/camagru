@@ -1,6 +1,7 @@
 <?php
 if(!isset($_SESSION)) {session_start();}
 require_once('includes_session.php');
+print ' ';
 $CView = new CPrint();
 $CSession = new CSession();
 header('content-type : text/plain');
@@ -98,7 +99,8 @@ if( $_GET['action'] == 'send_comment' && $_GET['image']  && $_GET['user_comment'
 	// mettre a jour les comment images 
 	$id_img = $_GET['image'];
 	$user_comment = $_GET['user_comment'];
-	$comment = $_GET['comment'];
+	//$comment = $_GET['comment'];
+	$comment = strip_tags ( $_GET['comment']);
 	// fait dans $cession $comment = addslashes ($comment);
 	if (!$comment) $comment = '';
 	if ( $user_comment == 'not selected') { echo 'ajax : image not selected'; exit; }
@@ -155,7 +157,6 @@ function display_galerie($no_page, $Id) // $_GET['action'] == 'display_galerie' 
 	$page_previousbis = ( $page_previous >1 ? $page_previous -1 : '');
 	$page_next = ( $actual_page < $nb_pages ? $actual_page+1 : '');
 	$page_nextbis = ( ($page_next < $nb_pages && $page_next ) ? $page_next+1 : '');
-
 	foreach ($images_galerie as $key => $value) 
 	{
 		if ($key >= $tranche_basse and $key <= $tranche_haute)
@@ -185,6 +186,4 @@ function display_galerie($no_page, $Id) // $_GET['action'] == 'display_galerie' 
 
 	return ($Err = '');
 }
-
-
 ?>

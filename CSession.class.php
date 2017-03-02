@@ -4,16 +4,29 @@ if(!isset($_SESSION)) {session_start();}
 Class CSession // ***** Class 
 {
     public static $verbose = False;
-    public $servername = "localhost";
+    public $servername = "localhost";// $_SERVER['HTTP_HOST'];//"localhost";
     private $tbl = "tbl_camagru";
     private $tbl_photos = "photos";
     private $tbl_photos_like = "photos_like";
 
+    private $servername1 = "db665127288.db.1and1.com";
+    private $username1 = "dbo665127288";
+    private $password1 = "42piscinedltp";
+    private $dbname1 = "db665127288";
+
 // **********  gestion de l'utilisateur ***********
     public function __construct() // initialise les info de la base de donnees 
     {
-        $db = new CDatabase();
-        $this->conn = $db->database('normal');
+        $Domaine_Serveur = str_replace ( 'www.' , '', $_SERVER['HTTP_HOST']);
+        if ($Domaine_Serveur == 'camagru.photeam.com')
+        {
+            $this->conn = new PDO('mysql:host='.$this->servername1.';dbname='.$this->dbname1, $this->username1, $this->password1);
+        }
+        else
+        {
+        	$db = new CDatabase();
+        	$this->conn = $db->database('normal');
+        }
 
         return;
     }
@@ -22,7 +35,7 @@ Class CSession // ***** Class
     {
         $Domaine_Serveur = str_replace ( 'www.' , '', $_SERVER['HTTP_HOST']);
         if ($Domaine_Serveur == 'camagru.photeam.com') 
-            $host = 'http://www.camagru.photeam.com';
+            $host = 'http://www.camagru.photeam.com/';
         else
             $host = 'http://'.$this->servername.':8080/camagru/';
         //$host = $this->servername.':8080/';
